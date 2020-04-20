@@ -1,0 +1,28 @@
+﻿<%@ Master Language="VB" AutoEventWireup="false" CodeBehind="Login.master.vb" Inherits="BerthPlan.Login1" %>
+
+<!DOCTYPE html>
+<html lang="en">
+<head id="Head1" runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><%: Page.Title %></title>
+    <webopt:bundlereference ID="Bundlereference1" runat="server" path="~/Styles" />
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+</head>
+<body class="login-page">
+    <div class="login-box ">
+        <div class="login-box-body">
+            <div class="login-logo"><%: Page.Title %></div>
+            <asp:ContentPlaceHolder runat="server" ID="MainContent" />
+        </div>
+    </div>
+
+    <asp:PlaceHolder ID="PlaceHolder1" runat="server">
+        <%: Scripts.Render("~/bundles/ScriptPlugins") %>
+    </asp:PlaceHolder>
+
+    <asp:ContentPlaceHolder runat="server" ID="PageScripts" />
+</body>
+</html>

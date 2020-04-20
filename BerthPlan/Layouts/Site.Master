@@ -1,0 +1,94 @@
+﻿<%@ Master Language="VB" AutoEventWireup="true" CodeBehind="Site.master.vb" Inherits="BerthPlan.SiteMaster" %>
+
+<!DOCTYPE html>
+<html lang="en">
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="refresh" content="2880">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><%: Page.Title %> | バースプラン</title>
+	<webopt:bundlereference runat="server" path="~/Styles" />
+	<asp:ContentPlaceHolder runat="server" ID="PageStyles" />
+    <link runat="server" href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
+	
+</head>
+<body class="hold-transition">
+    <form runat="server">
+        <div class="wrapper">
+            <header class="main-header">
+
+		        <a href="~/Pages/SystemMenu" class="logo" runat="server">
+			        <span class="logo-mini">Menu</span>
+			        <span class="logo-lg"><%: Page.Title %></span>
+		        </a>
+
+		        <nav class="navbar navbar-static-top">
+
+			        <div class="navbar-custom-menu">
+				        <ul class="nav navbar-nav">
+                            <li style="display:none">
+						        <span runat="server" id="lblUserID"></span>
+					        </li>
+					        <li>
+						        <a href="javascript:;"><i class="fa fa-user fa-2x"></i> <span runat="server" id="lblUserName"></span></a>
+					        </li>
+                            <li>
+						        <a href="~/Pages/SystemMenu" runat="server"><i class="fa fa-home fa-2x" runat="server"></i></a>
+					        </li>
+                            <li>
+						        <a href="~/Pages/ChangePassword" runat="server"><i class="fa fa-gears fa-2x"></i></a>
+					        </li>
+                            <li>
+                                <asp:LinkButton ID="btnLogout" runat="server" OnClick="btnLogout_Click"><i class="fa fa-sign-out fa-2x"></i></asp:LinkButton>
+					        </li>
+				        </ul>
+			        </div>
+		        </nav>
+	        </header>
+
+            <div class="content-wrapper" >
+                <div id="loading-overlay">
+                    <h2><i class='fa fa-cog fa-spin custom-loader-color'></i> Loading ... </h2>
+                </div>
+
+                <asp:ContentPlaceHolder runat="server" ID="MainContent" />
+            </div>
+
+            <footer class="main-footer">
+		        <div class="pull-right hidden-xs">
+			        <b></b>
+		        </div>
+		        <strong>Berth Scheduling System</strong>
+	        </footer>
+        </div>
+
+        <div class="modal fade" id="msg_modal" role="dialog" aria-hidden="true" data-backdrop="static">
+	        <div class="modal-dialog modal-sm">
+		        <div class="modal-content">
+			        <div class="modal-header">
+				        <h5 class="modal-title" id="msg_title"></h5>
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					        <span aria-hidden="true" class="zmdi zmdi-close"></span>
+				        </button>
+			        </div>
+			        <div class="modal-body">
+				        <p id="msg_content"></p>
+			        </div>
+			        <div class="modal-footer">
+				        <button type="button" class="btn btn-sm btn-success" data-dismiss="modal">OK</button>
+			        </div>
+		        </div>
+	        </div>
+        </div>
+
+	    <asp:PlaceHolder runat="server">
+            <%: Scripts.Render("~/bundles/ScriptPlugins") %>
+        </asp:PlaceHolder>
+
+        <asp:ContentPlaceHolder runat="server" ID="PageScripts" />
+    </form>
+</body>
+</html>
