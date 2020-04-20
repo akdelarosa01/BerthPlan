@@ -37,7 +37,7 @@ Public Class UserMaster
 
 #Region "## クラス内変数 ## "
     ''' <summary>DBBerth</summary>
-    Public Shared _db As BerthPlanEntities = New BerthPlanEntities
+    Public Shared _db As BerthPlan.BerthPlanEntities = New BerthPlanEntities
 #End Region
 
 #Region "## コントロールイベント定義 ##"
@@ -50,7 +50,7 @@ Public Class UserMaster
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         Try
             If IsNothing(Session("UserID")) Then
-                Response.Redirect("~/Login.aspx?SessionExpire")
+                Response.Redirect("~/Login.aspx")
                 Exit Sub
             End If
 
@@ -107,7 +107,7 @@ Public Class UserMaster
                                       Or u.IsAdmin.ToString().ToLower().Contains(search.ToLower()) _
                                       Or u.Flag.ToString().ToLower().Contains(search.ToLower()) _
                                       Or u.LastLogin.ToString().ToLower().Contains(search.ToLower()) _
-                                      Or u.UpdTime.ToString().ToLower().Contains(search.ToLower()) _
+                                      Or u.UpdTime.ToString().ToLower().Contains(search.ToLower())
                                 ).ToList()
             End If
 
@@ -136,9 +136,27 @@ Public Class UserMaster
     <WebMethod()>
     Public Shared Function fGetData() As Object
         Try
-            fGetData = (From lUser In _db.mUser.AsNoTracking
-                        Order By lUser.UpdTime Descending
-                        Select lUser).ToList
+            fGetData = (From x In _db.mUser.AsNoTracking
+                        Order By x.UpdTime Descending
+                        Select New With {
+                            .ID = If(x.ID = Nothing, Nothing, x.ID),
+                            .UserID = If(x.UserID = Nothing, Nothing, x.UserID),
+                            .UserName = If(x.UserName = Nothing, Nothing, x.UserName),
+                            .Password = If(x.Password = Nothing, Nothing, x.Password),
+                            .EmailAddress = If(x.EmailAddress = Nothing, Nothing, x.EmailAddress),
+                            .ApplicantCD = If(x.ApplicantCD = Nothing, Nothing, x.ApplicantCD),
+                            .ApplicantName = If((From c In _db.mCompany
+                                                 Where c.ApplicantCD = x.ApplicantCD _
+                                                  And c.Flag = False
+                                                 Select c.ApplicantName).FirstOrDefault() = Nothing, Nothing, (From c In _db.mCompany
+                                                                                                               Where c.ApplicantCD = x.ApplicantCD _
+                                                                                                                    And c.Flag = False
+                                                                                                               Select c.ApplicantName).FirstOrDefault()),
+                            .LastLogin = x.LastLogin,
+                            .Flag = If(x.Flag = Nothing, Nothing, x.Flag),
+                            .IsAdmin = If(x.IsAdmin = Nothing, Nothing, x.IsAdmin),
+                            .UpdTime = If(x.UpdTime = Nothing, Nothing, x.UpdTime)
+                            }).ToList
 
         Catch ex As Exception
             Throw
@@ -162,43 +180,43 @@ Public Class UserMaster
             End If
             Select Case order
                 Case "0"
-                    flSortByColumnWithOrder = If(orderDir.Equals("DESC", StringComparison.CurrentCultureIgnoreCase), _
-                                               data.OrderByDescending(Function(u) u.ID).ToList(), _
+                    flSortByColumnWithOrder = If(orderDir.Equals("DESC", StringComparison.CurrentCultureIgnoreCase),
+                                               data.OrderByDescending(Function(u) u.ID).ToList(),
                                                data.OrderBy(Function(u) u.ID).ToList())
                     Exit Function
                 Case "2"
-                    flSortByColumnWithOrder = If(orderDir.Equals("DESC", StringComparison.CurrentCultureIgnoreCase), _
-                                               data.OrderByDescending(Function(u) u.UserID).ToList(), _
+                    flSortByColumnWithOrder = If(orderDir.Equals("DESC", StringComparison.CurrentCultureIgnoreCase),
+                                               data.OrderByDescending(Function(u) u.UserID).ToList(),
                                                data.OrderBy(Function(u) u.UserID).ToList())
                     Exit Function
                 Case "3"
-                    flSortByColumnWithOrder = If(orderDir.Equals("DESC", StringComparison.CurrentCultureIgnoreCase), _
-                                               data.OrderByDescending(Function(u) u.UserName).ToList(), _
+                    flSortByColumnWithOrder = If(orderDir.Equals("DESC", StringComparison.CurrentCultureIgnoreCase),
+                                               data.OrderByDescending(Function(u) u.UserName).ToList(),
                                                data.OrderBy(Function(u) u.UserName).ToList())
                     Exit Function
                 Case "4"
-                    flSortByColumnWithOrder = If(orderDir.Equals("DESC", StringComparison.CurrentCultureIgnoreCase), _
-                                               data.OrderByDescending(Function(u) u.EmailAddress).ToList(), _
+                    flSortByColumnWithOrder = If(orderDir.Equals("DESC", StringComparison.CurrentCultureIgnoreCase),
+                                               data.OrderByDescending(Function(u) u.EmailAddress).ToList(),
                                                data.OrderBy(Function(u) u.EmailAddress).ToList())
                     Exit Function
                 Case "5"
-                    flSortByColumnWithOrder = If(orderDir.Equals("DESC", StringComparison.CurrentCultureIgnoreCase), _
-                                               data.OrderByDescending(Function(u) u.IsAdmin).ToList(), _
+                    flSortByColumnWithOrder = If(orderDir.Equals("DESC", StringComparison.CurrentCultureIgnoreCase),
+                                               data.OrderByDescending(Function(u) u.IsAdmin).ToList(),
                                                data.OrderBy(Function(u) u.IsAdmin).ToList())
                     Exit Function
                 Case "6"
-                    flSortByColumnWithOrder = If(orderDir.Equals("DESC", StringComparison.CurrentCultureIgnoreCase), _
-                                               data.OrderByDescending(Function(u) u.Flag).ToList(), _
+                    flSortByColumnWithOrder = If(orderDir.Equals("DESC", StringComparison.CurrentCultureIgnoreCase),
+                                               data.OrderByDescending(Function(u) u.Flag).ToList(),
                                                data.OrderBy(Function(u) u.Flag).ToList())
                     Exit Function
                 Case "7"
-                    flSortByColumnWithOrder = If(orderDir.Equals("DESC", StringComparison.CurrentCultureIgnoreCase), _
-                                               data.OrderByDescending(Function(u) u.LastLogin).ToList(), _
+                    flSortByColumnWithOrder = If(orderDir.Equals("DESC", StringComparison.CurrentCultureIgnoreCase),
+                                               data.OrderByDescending(Function(u) u.LastLogin).ToList(),
                                                data.OrderBy(Function(u) u.LastLogin).ToList())
                     Exit Function
                 Case "8"
-                    flSortByColumnWithOrder = If(orderDir.Equals("DESC", StringComparison.CurrentCultureIgnoreCase), _
-                                               data.OrderByDescending(Function(u) u.UpdTime).ToList(), _
+                    flSortByColumnWithOrder = If(orderDir.Equals("DESC", StringComparison.CurrentCultureIgnoreCase),
+                                               data.OrderByDescending(Function(u) u.UpdTime).ToList(),
                                                data.OrderBy(Function(u) u.UpdTime).ToList())
                     Exit Function
             End Select
@@ -232,9 +250,9 @@ Public Class UserMaster
 
             'Check UpdTime if the same
             For Each sLine As mUser In lUser
-                If flCheckUpdDate(sLine.UpdTime, (From x In _db.mUser.AsNoTracking _
-                                                    Where x.ID = sLine.ID _
-                                                   Select x.UpdTime).FirstOrDefault) = False Then
+                If flCheckUpdDate(sLine.UpdTime, (From x In _db.mUser.AsNoTracking
+                                                  Where x.ID = sLine.ID
+                                                  Select x.UpdTime).FirstOrDefault) = False Then
                     flDelUser.Msg = fgMsgOut("EXX004", "")
                     Exit Function
                 End If
@@ -317,7 +335,7 @@ Public Class UserMaster
             sSaveFileName = C_Excel_Name & Date.Now.ToString("yyyyMMddHHmmssfff") & ".xlsx"
             objWorkSheet = objWorkBook.Worksheet(1)
 
-            With objWorkSheet.Range("A4", "D" & (lUser.Count + 3).ToString)
+            With objWorkSheet.Range("A4", "E" & (lUser.Count + 3).ToString)
                 .Style.Border.TopBorder = XLBorderStyleValues.Thin
                 .Style.Border.InsideBorder = XLBorderStyleValues.Thin
                 .Style.Border.OutsideBorder = XLBorderStyleValues.Thin
@@ -332,7 +350,8 @@ Public Class UserMaster
                     .Cell(iRow, 1).Value = row.UserID
                     .Cell(iRow, 2).Value = row.UserName
                     .Cell(iRow, 3).Value = row.EmailAddress
-                    .Cell(iRow, 4).Value = If(row.Flag = False, "", "〇")
+                    .Cell(iRow, 4).Value = row.ApplicantCD
+                    .Cell(iRow, 5).Value = If(row.Flag = False, "", "〇")
                     iRow += 1
                 Next
             End With
@@ -445,10 +464,10 @@ Public Class UserMaster
             flCheckCode = False
 
             lUser = (From rData In _db.mUser
-                         Where rData.UserID.ToUpper = sUserID _
-                            And rData.Flag = False _
-                            And rData.ID <> iID
-                         Select rData).ToList()
+                     Where rData.UserID.ToUpper = sUserID _
+                        And rData.Flag = False _
+                        And rData.ID <> iID
+                     Select rData).ToList()
 
             If lUser.Count > 0 Then
                 flCheckCode = False
@@ -479,6 +498,7 @@ Public Class UserMaster
             oUser.UserName = fgNullToStr(pUser.UserName)
             oUser.Password = Auth.Hash(Trim(pUser.Password))
             oUser.EmailAddress = fgNullToStr(pUser.EmailAddress)
+            oUser.ApplicantCD = fgNullToStr(pUser.ApplicantCD)
             oUser.IsAdmin = pUser.IsAdmin
 
             oUser.UpdTime = DateTime.Now
@@ -517,15 +537,16 @@ Public Class UserMaster
             End If
 
             'Check UpdTime
-            If flCheckUpdDate(pUser.UpdTime, (From x In _db.mUser.AsNoTracking _
-                                                Where x.UserID = pUser.UserID _
-                                               Select x.UpdTime).FirstOrDefault) = False Then
+            If flCheckUpdDate(pUser.UpdTime, (From x In _db.mUser.AsNoTracking
+                                              Where x.UserID = pUser.UserID
+                                              Select x.UpdTime).FirstOrDefault) = False Then
                 Exit Function
             End If
 
             sGetRow.UserName = fgNullToStr(pUser.UserName)
             sGetRow.Password = sPassWord
             sGetRow.EmailAddress = fgNullToStr(pUser.EmailAddress)
+            sGetRow.ApplicantCD = fgNullToStr(pUser.ApplicantCD)
             sGetRow.IsAdmin = pUser.IsAdmin
 
             sGetRow.UpdTime = DateTime.Now
@@ -537,7 +558,10 @@ Public Class UserMaster
             _db.Entry(sGetRow).State = EntityState.Modified
             _db.SaveChanges()
 
-            HttpContext.Current.Session("UserName") = sGetRow.UserName
+            'Change Current UserName Session
+            If HttpContext.Current.Session("ID") = sGetRow.ID Then
+                HttpContext.Current.Session("UserName") = sGetRow.UserName
+            End If
 
             flUpdate = True
 

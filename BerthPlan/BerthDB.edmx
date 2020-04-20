@@ -4,94 +4,81 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="BerthPlanModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityContainer Name="BerthPlanModelStoreContainer">
-          <EntitySet Name="mBerth" EntityType="BerthPlanModel.Store.mBerth" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="mCompany" EntityType="BerthPlanModel.Store.mCompany" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="mMessage" EntityType="BerthPlanModel.Store.mMessage" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="mPilot" EntityType="BerthPlanModel.Store.mPilot" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="mUser" EntityType="BerthPlanModel.Store.mUser" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="mVessel" EntityType="BerthPlanModel.Store.mVessel" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="mWharf" EntityType="BerthPlanModel.Store.mWharf" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="sysdiagrams" EntityType="BerthPlanModel.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="tBoard" EntityType="BerthPlanModel.Store.tBoard" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="tBoardFile" EntityType="BerthPlanModel.Store.tBoardFile" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="tBoardView" EntityType="BerthPlanModel.Store.tBoardView" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="tSchedule" EntityType="BerthPlanModel.Store.tSchedule" store:Type="Tables" Schema="dbo" />
-        </EntityContainer>
+    <Schema Namespace="BerthPlanModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="mBerth">
           <Key>
             <PropertyRef Name="BerthID" />
           </Key>
-          <Property Name="BerthID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="WharfCD" Type="varchar" Nullable="false" MaxLength="4" />
-          <Property Name="BerthCD" Type="varchar" Nullable="false" MaxLength="4" />
-          <Property Name="BerthName" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="BerthID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="WharfCD" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="BerthCD" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="BerthName" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="UpdTime" Type="datetime" Nullable="false" />
-          <Property Name="UpdUserID" Type="varchar" Nullable="false" MaxLength="4" />
-          <Property Name="UpdPGID" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="TimeStamp" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+          <Property Name="UpdUserID" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="UpdPGID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TimeStamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
           <Property Name="Flag" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="mCompany">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="ApplicantCD" Type="varchar" Nullable="false" MaxLength="4" />
-          <Property Name="ApplicantName" Type="varchar" Nullable="false" MaxLength="40" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ApplicantCD" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="ApplicantName" Type="varchar" MaxLength="40" Nullable="false" />
           <Property Name="PostCode" Type="varchar" MaxLength="10" />
           <Property Name="Address" Type="varchar" MaxLength="60" />
           <Property Name="Tel" Type="varchar" MaxLength="16" />
           <Property Name="Fax" Type="varchar" MaxLength="18" />
-          <Property Name="Email" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="Color" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Color" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="UpdTime" Type="datetime" Nullable="false" />
-          <Property Name="UpdUserID" Type="varchar" Nullable="false" MaxLength="4" />
-          <Property Name="UpdPGID" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="TimeStamp" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+          <Property Name="UpdUserID" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="UpdPGID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TimeStamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
           <Property Name="Flag" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="mMessage">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="MessageID" Type="varchar" Nullable="false" MaxLength="7" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MessageID" Type="varchar" MaxLength="7" Nullable="false" />
           <Property Name="UpdTime" Type="datetime" Nullable="false" />
-          <Property Name="UpdUserID" Type="varchar" Nullable="false" MaxLength="4" />
-          <Property Name="UpdUPGID" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="TimeStamp" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
-          <Property Name="MessageContent" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="UpdUserID" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="UpdUPGID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TimeStamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="MessageContent" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityType Name="mPilot">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="PilotCD" Type="varchar" Nullable="false" MaxLength="4" />
-          <Property Name="PilotName" Type="varchar" Nullable="false" MaxLength="20" />
-          <Property Name="Email" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="Tel" Type="varchar" Nullable="false" MaxLength="16" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PilotCD" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="PilotName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Tel" Type="varchar" MaxLength="16" Nullable="false" />
           <Property Name="UpdTime" Type="datetime" Nullable="false" />
-          <Property Name="UpdUserID" Type="varchar" Nullable="false" MaxLength="4" />
-          <Property Name="UpdPGID" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="TimeStamp" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+          <Property Name="UpdUserID" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="UpdPGID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TimeStamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
           <Property Name="Flag" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="mUser">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="UserID" Type="varchar" Nullable="false" MaxLength="4" />
-          <Property Name="UserName" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="Password" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="EmailAddress" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="EmailAddress" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ApplicantCD" Type="varchar" MaxLength="4" Nullable="false" />
           <Property Name="UpdTime" Type="datetime" Nullable="false" />
-          <Property Name="UpdUserID" Type="varchar" Nullable="false" MaxLength="4" />
-          <Property Name="UpdPGID" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="TimeStamp" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+          <Property Name="UpdUserID" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="UpdPGID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TimeStamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
           <Property Name="LastLogin" Type="datetime" />
           <Property Name="IsAdmin" Type="bit" Nullable="false" />
           <Property Name="Flag" Type="bit" Nullable="false" />
@@ -100,107 +87,97 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="VesselCD" Type="varchar" Nullable="false" MaxLength="4" />
-          <Property Name="VesselName" Type="varchar" Nullable="false" MaxLength="20" />
-          <Property Name="IMO" Type="varchar" Nullable="false" MaxLength="10" />
-          <Property Name="ApplicantCD" Type="varchar" Nullable="false" MaxLength="4" />
-          <Property Name="GrossTon" Type="decimal" Nullable="false" Precision="15" Scale="4" />
-          <Property Name="Nationality" Type="varchar" Nullable="false" MaxLength="40" />
-          <Property Name="LOA" Type="decimal" Nullable="false" Precision="15" Scale="4" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="VesselCD" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="VesselName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="IMO" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="ApplicantCD" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="GrossTon" Type="decimal" Precision="15" Scale="4" Nullable="false" />
+          <Property Name="Nationality" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="LOA" Type="decimal" Precision="15" Scale="4" Nullable="false" />
           <Property Name="IO" Type="bit" Nullable="false" />
           <Property Name="UpdTime" Type="datetime" Nullable="false" />
-          <Property Name="UpdUserID" Type="varchar" Nullable="false" MaxLength="4" />
-          <Property Name="UpdPGID" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="TimeStamp" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+          <Property Name="UpdUserID" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="UpdPGID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TimeStamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
           <Property Name="Flag" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="mWharf">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="WharfCD" Type="varchar" Nullable="false" MaxLength="4" />
-          <Property Name="WharfName" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="WharfCD" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="WharfName" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="UpdTime" Type="datetime" Nullable="false" />
-          <Property Name="UpdUserID" Type="varchar" Nullable="false" MaxLength="4" />
-          <Property Name="UpdPGID" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="TimeStamp" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+          <Property Name="UpdUserID" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="UpdPGID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TimeStamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
           <Property Name="Flag" Type="bit" Nullable="false" />
-        </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="128" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="tBoard">
           <Key>
             <PropertyRef Name="BoardID" />
           </Key>
-          <Property Name="BoardID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="BoardID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Contents" Type="text" Nullable="false" />
           <Property Name="PostingStartDate" Type="datetime" Nullable="false" />
           <Property Name="PostingEndDate" Type="datetime" Nullable="false" />
           <Property Name="HyperLink" Type="varchar(max)" Nullable="false" />
-          <Property Name="CreateUserID" Type="varchar" Nullable="false" MaxLength="4" />
+          <Property Name="CreateUserID" Type="varchar" MaxLength="4" Nullable="false" />
           <Property Name="CreatedTime" Type="datetime" Nullable="false" />
           <Property Name="UpdTime" Type="datetime" Nullable="false" />
-          <Property Name="UpdUserID" Type="varchar" Nullable="false" MaxLength="4" />
-          <Property Name="UpdPGID" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="TimeStamp" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+          <Property Name="UpdUserID" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="UpdPGID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TimeStamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
           <Property Name="Flag" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="tBoardFile">
           <Key>
             <PropertyRef Name="BoardFileID" />
           </Key>
-          <Property Name="BoardFileID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="BoardFileID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="BoardID" Type="int" Nullable="false" />
-          <Property Name="FileName" Type="varchar" Nullable="false" MaxLength="255" />
-          <Property Name="FileSize" Type="decimal" Nullable="false" Scale="2" />
-          <Property Name="FileType" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="Path" Type="varchar" Nullable="false" MaxLength="255" />
+          <Property Name="FileName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="FileSize" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="FileType" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Path" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="UploadDate" Type="datetime" Nullable="false" />
-          <Property Name="CreateUserID" Type="varchar" Nullable="false" MaxLength="4" />
+          <Property Name="CreateUserID" Type="varchar" MaxLength="4" Nullable="false" />
           <Property Name="CreatedTime" Type="datetime" Nullable="false" />
           <Property Name="UpdTime" Type="datetime" Nullable="false" />
-          <Property Name="UpdUserID" Type="varchar" Nullable="false" MaxLength="4" />
-          <Property Name="UpdPGID" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="TimeStamp" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+          <Property Name="UpdUserID" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="UpdPGID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TimeStamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
           <Property Name="Flag" Type="bit" Nullable="false" />
           <Property Name="Data" Type="varbinary(max)" Nullable="false" />
-          <Property Name="ContentType" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="ContentType" Type="nvarchar" MaxLength="200" Nullable="false" />
         </EntityType>
         <EntityType Name="tBoardView">
           <Key>
             <PropertyRef Name="BoardViewID" />
           </Key>
-          <Property Name="BoardViewID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="BoardViewID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserID" Type="int" Nullable="false" />
           <Property Name="BoardID" Type="int" Nullable="false" />
           <Property Name="IsChecked" Type="bit" Nullable="false" />
           <Property Name="UpdTime" Type="datetime" Nullable="false" />
-          <Property Name="UpdUserID" Type="varchar" Nullable="false" MaxLength="4" />
-          <Property Name="UpdPGID" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="TimeStamp" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+          <Property Name="UpdUserID" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="UpdPGID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TimeStamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
           <Property Name="Flag" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="tSchedule">
           <Key>
             <PropertyRef Name="ScheduleID" />
           </Key>
-          <Property Name="ScheduleID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="VesselCD" Type="varchar" Nullable="false" MaxLength="4" />
-          <Property Name="VoyageNo" Type="varchar" Nullable="false" MaxLength="10" />
+          <Property Name="ScheduleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="VesselCD" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="VoyageNo" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="BerthID" Type="int" Nullable="false" />
-          <Property Name="ApplicantCD" Type="varchar" Nullable="false" MaxLength="4" />
-          <Property Name="PilotCD" Type="varchar" Nullable="false" MaxLength="4" />
+          <Property Name="ApplicantCD" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="PilotCD" Type="varchar" MaxLength="4" Nullable="false" />
           <Property Name="PilotGuide" Type="bit" Nullable="false" />
           <Property Name="Tag" Type="bit" Nullable="false" />
           <Property Name="LineBoat" Type="bit" Nullable="false" />
@@ -209,11 +186,24 @@
           <Property Name="ETD" Type="datetime" Nullable="false" />
           <Property Name="ShipFace" Type="bit" Nullable="false" />
           <Property Name="UpdTime" Type="datetime" Nullable="false" />
-          <Property Name="UpdUserID" Type="varchar" Nullable="false" MaxLength="4" />
-          <Property Name="UpdPGID" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="TimeStamp" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+          <Property Name="UpdUserID" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="UpdPGID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TimeStamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
           <Property Name="Flag" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityContainer Name="BerthPlanModelStoreContainer">
+          <EntitySet Name="mBerth" EntityType="Self.mBerth" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="mCompany" EntityType="Self.mCompany" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="mMessage" EntityType="Self.mMessage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="mPilot" EntityType="Self.mPilot" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="mUser" EntityType="Self.mUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="mVessel" EntityType="Self.mVessel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="mWharf" EntityType="Self.mWharf" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tBoard" EntityType="Self.tBoard" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tBoardFile" EntityType="Self.tBoardFile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tBoardView" EntityType="Self.tBoardView" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tSchedule" EntityType="Self.tSchedule" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -221,211 +211,201 @@
         <EntityContainer Name="BerthPlanEntities" p1:LazyLoadingEnabled="true">
           <EntitySet Name="mBerth" EntityType="BerthPlanModel.mBerth" />
           <EntitySet Name="mCompany" EntityType="BerthPlanModel.mCompany" />
+          <EntitySet Name="mMessage" EntityType="BerthPlanModel.mMessage" />
           <EntitySet Name="mPilot" EntityType="BerthPlanModel.mPilot" />
+          <EntitySet Name="mUser" EntityType="BerthPlanModel.mUser" />
           <EntitySet Name="mVessel" EntityType="BerthPlanModel.mVessel" />
           <EntitySet Name="mWharf" EntityType="BerthPlanModel.mWharf" />
-          <EntitySet Name="sysdiagrams" EntityType="BerthPlanModel.sysdiagrams" />
-          <EntitySet Name="mMessage" EntityType="BerthPlanModel.mMessage" />
-          <EntitySet Name="tSchedule" EntityType="BerthPlanModel.tSchedule" />
-          <EntitySet Name="mUser" EntityType="BerthPlanModel.mUser" />
           <EntitySet Name="tBoard" EntityType="BerthPlanModel.tBoard" />
           <EntitySet Name="tBoardFile" EntityType="BerthPlanModel.tBoardFile" />
           <EntitySet Name="tBoardView" EntityType="BerthPlanModel.tBoardView" />
+          <EntitySet Name="tSchedule" EntityType="BerthPlanModel.tSchedule" />
         </EntityContainer>
         <EntityType Name="mBerth">
           <Key>
             <PropertyRef Name="BerthID" />
           </Key>
-          <Property Type="Int32" Name="BerthID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="WharfCD" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="BerthCD" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="BerthName" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="UpdTime" Nullable="false" Precision="3" />
-          <Property Type="String" Name="UpdUserID" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="UpdPGID" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="Binary" Name="TimeStamp" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
-          <Property Type="Boolean" Name="Flag" Nullable="false" />
+          <Property Name="BerthID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WharfCD" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="BerthCD" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="BerthName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="UpdTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdUserID" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="UpdPGID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TimeStamp" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Flag" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="mCompany">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="ApplicantCD" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="ApplicantName" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="PostCode" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Address" MaxLength="60" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Tel" MaxLength="16" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Fax" MaxLength="18" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Email" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Color" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="UpdTime" Nullable="false" Precision="3" />
-          <Property Type="String" Name="UpdUserID" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="UpdPGID" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="Binary" Name="TimeStamp" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
-          <Property Type="Boolean" Name="Flag" Nullable="false" />
-        </EntityType>
-        <EntityType Name="mPilot">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="PilotCD" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="PilotName" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Email" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Tel" Nullable="false" MaxLength="16" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="UpdTime" Nullable="false" Precision="3" />
-          <Property Type="String" Name="UpdUserID" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="UpdPGID" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="Binary" Name="TimeStamp" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
-          <Property Type="Boolean" Name="Flag" Nullable="false" />
-        </EntityType>
-        <EntityType Name="mVessel">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="VesselCD" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="VesselName" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="IMO" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="ApplicantCD" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
-          <Property Type="Decimal" Name="GrossTon" Nullable="false" Precision="15" Scale="4" />
-          <Property Type="String" Name="Nationality" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
-          <Property Type="Decimal" Name="LOA" Nullable="false" Precision="15" Scale="4" />
-          <Property Type="Boolean" Name="IO" Nullable="false" />
-          <Property Type="DateTime" Name="UpdTime" Nullable="false" Precision="3" />
-          <Property Type="String" Name="UpdUserID" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="UpdPGID" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="Binary" Name="TimeStamp" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
-          <Property Type="Boolean" Name="Flag" Nullable="false" />
-        </EntityType>
-        <EntityType Name="mWharf">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="WharfCD" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="WharfName" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="UpdTime" Nullable="false" Precision="3" />
-          <Property Type="String" Name="UpdUserID" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="UpdPGID" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="Binary" Name="TimeStamp" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
-          <Property Type="Boolean" Name="Flag" Nullable="false" />
-        </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Type="String" Name="name" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="principal_id" Nullable="false" />
-          <Property Type="Int32" Name="diagram_id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Int32" Name="version" />
-          <Property Type="Binary" Name="definition" MaxLength="Max" FixedLength="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ApplicantCD" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="ApplicantName" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="PostCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="Tel" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="Fax" Type="String" MaxLength="18" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Color" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UpdTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdUserID" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="UpdPGID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TimeStamp" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Flag" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="mMessage">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="MessageID" Nullable="false" MaxLength="7" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="UpdTime" Nullable="false" Precision="3" />
-          <Property Type="String" Name="UpdUserID" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="UpdUPGID" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="Binary" Name="TimeStamp" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
-          <Property Type="String" Name="MessageContent" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MessageID" Type="String" Nullable="false" MaxLength="7" FixedLength="false" Unicode="false" />
+          <Property Name="UpdTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdUserID" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="UpdUPGID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TimeStamp" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="MessageContent" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="tSchedule">
+        <EntityType Name="mPilot">
           <Key>
-            <PropertyRef Name="ScheduleID" />
+            <PropertyRef Name="ID" />
           </Key>
-          <Property Type="Int32" Name="ScheduleID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="VesselCD" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="VoyageNo" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Type="Int32" Name="BerthID" Nullable="false" />
-          <Property Type="String" Name="ApplicantCD" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="PilotCD" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
-          <Property Type="Boolean" Name="PilotGuide" Nullable="false" />
-          <Property Type="Boolean" Name="Tag" Nullable="false" />
-          <Property Type="Boolean" Name="LineBoat" Nullable="false" />
-          <Property Type="DateTime" Name="ETA" Nullable="false" Precision="3" />
-          <Property Type="DateTime" Name="ETB" Nullable="false" Precision="3" />
-          <Property Type="DateTime" Name="ETD" Nullable="false" Precision="3" />
-          <Property Type="Boolean" Name="ShipFace" Nullable="false" />
-          <Property Type="DateTime" Name="UpdTime" Nullable="false" Precision="3" />
-          <Property Type="String" Name="UpdUserID" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="UpdPGID" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="Binary" Name="TimeStamp" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
-          <Property Type="Boolean" Name="Flag" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PilotCD" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="PilotName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Tel" Type="String" Nullable="false" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="UpdTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdUserID" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="UpdPGID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TimeStamp" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Flag" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="mUser">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="UserID" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="UserName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Password" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="EmailAddress" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="UpdTime" Nullable="false" Precision="3" />
-          <Property Type="String" Name="UpdUserID" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="UpdPGID" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="Binary" Name="TimeStamp" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
-          <Property Type="DateTime" Name="LastLogin" Precision="3" />
-          <Property Type="Boolean" Name="IsAdmin" Nullable="false" />
-          <Property Type="Boolean" Name="Flag" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EmailAddress" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ApplicantCD" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="UpdTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdUserID" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="UpdPGID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TimeStamp" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="LastLogin" Type="DateTime" Precision="3" />
+          <Property Name="IsAdmin" Type="Boolean" Nullable="false" />
+          <Property Name="Flag" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="mVessel">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VesselCD" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="VesselName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="IMO" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ApplicantCD" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="GrossTon" Type="Decimal" Nullable="false" Precision="15" Scale="4" />
+          <Property Name="Nationality" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="LOA" Type="Decimal" Nullable="false" Precision="15" Scale="4" />
+          <Property Name="IO" Type="Boolean" Nullable="false" />
+          <Property Name="UpdTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdUserID" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="UpdPGID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TimeStamp" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Flag" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="mWharf">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WharfCD" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="WharfName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="UpdTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdUserID" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="UpdPGID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TimeStamp" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Flag" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="tBoard">
           <Key>
             <PropertyRef Name="BoardID" />
           </Key>
-          <Property Type="Int32" Name="BoardID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="Title" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Contents" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="PostingStartDate" Nullable="false" Precision="3" />
-          <Property Type="DateTime" Name="PostingEndDate" Nullable="false" Precision="3" />
-          <Property Type="String" Name="HyperLink" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="CreateUserID" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="CreatedTime" Nullable="false" Precision="3" />
-          <Property Type="DateTime" Name="UpdTime" Nullable="false" Precision="3" />
-          <Property Type="String" Name="UpdUserID" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="UpdPGID" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="Binary" Name="TimeStamp" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
-          <Property Type="Boolean" Name="Flag" Nullable="false" />
+          <Property Name="BoardID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Contents" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="PostingStartDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PostingEndDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="HyperLink" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CreateUserID" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdUserID" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="UpdPGID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TimeStamp" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Flag" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="tBoardFile">
           <Key>
             <PropertyRef Name="BoardFileID" />
           </Key>
-          <Property Type="Int32" Name="BoardFileID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Int32" Name="BoardID" Nullable="false" />
-          <Property Type="String" Name="FileName" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Type="Decimal" Name="FileSize" Nullable="false" Precision="18" Scale="2" />
-          <Property Type="String" Name="FileType" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Path" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="UploadDate" Nullable="false" Precision="3" />
-          <Property Type="String" Name="CreateUserID" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="CreatedTime" Nullable="false" Precision="3" />
-          <Property Type="DateTime" Name="UpdTime" Nullable="false" Precision="3" />
-          <Property Type="String" Name="UpdUserID" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="UpdPGID" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="Binary" Name="TimeStamp" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
-          <Property Type="Boolean" Name="Flag" Nullable="false" />
-          <Property Type="Binary" Name="Data" Nullable="false" MaxLength="Max" FixedLength="false" />
-          <Property Type="String" Name="ContentType" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BoardFileID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BoardID" Type="Int32" Nullable="false" />
+          <Property Name="FileName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="FileSize" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="FileType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Path" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="UploadDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreateUserID" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdUserID" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="UpdPGID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TimeStamp" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Flag" Type="Boolean" Nullable="false" />
+          <Property Name="Data" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Name="ContentType" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="tBoardView">
           <Key>
             <PropertyRef Name="BoardViewID" />
           </Key>
-          <Property Type="Int32" Name="BoardViewID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Int32" Name="UserID" Nullable="false" />
-          <Property Type="Int32" Name="BoardID" Nullable="false" />
-          <Property Type="Boolean" Name="IsChecked" Nullable="false" />
-          <Property Type="DateTime" Name="UpdTime" Nullable="false" Precision="3" />
-          <Property Type="String" Name="UpdUserID" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="UpdPGID" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="Binary" Name="TimeStamp" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
-          <Property Type="Boolean" Name="Flag" Nullable="false" />
+          <Property Name="BoardViewID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="BoardID" Type="Int32" Nullable="false" />
+          <Property Name="IsChecked" Type="Boolean" Nullable="false" />
+          <Property Name="UpdTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdUserID" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="UpdPGID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TimeStamp" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Flag" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tSchedule">
+          <Key>
+            <PropertyRef Name="ScheduleID" />
+          </Key>
+          <Property Name="ScheduleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VesselCD" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="VoyageNo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="BerthID" Type="Int32" Nullable="false" />
+          <Property Name="ApplicantCD" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="PilotCD" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="PilotGuide" Type="Boolean" Nullable="false" />
+          <Property Name="Tag" Type="Boolean" Nullable="false" />
+          <Property Name="LineBoat" Type="Boolean" Nullable="false" />
+          <Property Name="ETA" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ETB" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ETD" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ShipFace" Type="Boolean" Nullable="false" />
+          <Property Name="UpdTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdUserID" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="UpdPGID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TimeStamp" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Flag" Type="Boolean" Nullable="false" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -468,6 +448,19 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="mMessage">
+            <EntityTypeMapping TypeName="BerthPlanModel.mMessage">
+              <MappingFragment StoreEntitySet="mMessage">
+                <ScalarProperty Name="MessageContent" ColumnName="MessageContent" />
+                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+                <ScalarProperty Name="UpdUPGID" ColumnName="UpdUPGID" />
+                <ScalarProperty Name="UpdUserID" ColumnName="UpdUserID" />
+                <ScalarProperty Name="UpdTime" ColumnName="UpdTime" />
+                <ScalarProperty Name="MessageID" ColumnName="MessageID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="mPilot">
             <EntityTypeMapping TypeName="BerthPlanModel.mPilot">
               <MappingFragment StoreEntitySet="mPilot">
@@ -480,6 +473,25 @@
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="PilotName" ColumnName="PilotName" />
                 <ScalarProperty Name="PilotCD" ColumnName="PilotCD" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mUser">
+            <EntityTypeMapping TypeName="BerthPlanModel.mUser">
+              <MappingFragment StoreEntitySet="mUser">
+                <ScalarProperty Name="Flag" ColumnName="Flag" />
+                <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
+                <ScalarProperty Name="LastLogin" ColumnName="LastLogin" />
+                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+                <ScalarProperty Name="UpdPGID" ColumnName="UpdPGID" />
+                <ScalarProperty Name="UpdUserID" ColumnName="UpdUserID" />
+                <ScalarProperty Name="UpdTime" ColumnName="UpdTime" />
+                <ScalarProperty Name="ApplicantCD" ColumnName="ApplicantCD" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -514,72 +526,6 @@
                 <ScalarProperty Name="UpdTime" ColumnName="UpdTime" />
                 <ScalarProperty Name="WharfName" ColumnName="WharfName" />
                 <ScalarProperty Name="WharfCD" ColumnName="WharfCD" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="BerthPlanModel.sysdiagrams">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="definition" ColumnName="definition" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="mMessage">
-            <EntityTypeMapping TypeName="BerthPlanModel.mMessage">
-              <MappingFragment StoreEntitySet="mMessage">
-                <ScalarProperty Name="MessageContent" ColumnName="MessageContent" />
-                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
-                <ScalarProperty Name="UpdUPGID" ColumnName="UpdUPGID" />
-                <ScalarProperty Name="UpdUserID" ColumnName="UpdUserID" />
-                <ScalarProperty Name="UpdTime" ColumnName="UpdTime" />
-                <ScalarProperty Name="MessageID" ColumnName="MessageID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tSchedule">
-            <EntityTypeMapping TypeName="BerthPlanModel.tSchedule">
-              <MappingFragment StoreEntitySet="tSchedule">
-                <ScalarProperty Name="Flag" ColumnName="Flag" />
-                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
-                <ScalarProperty Name="UpdPGID" ColumnName="UpdPGID" />
-                <ScalarProperty Name="UpdUserID" ColumnName="UpdUserID" />
-                <ScalarProperty Name="UpdTime" ColumnName="UpdTime" />
-                <ScalarProperty Name="ShipFace" ColumnName="ShipFace" />
-                <ScalarProperty Name="ETD" ColumnName="ETD" />
-                <ScalarProperty Name="ETB" ColumnName="ETB" />
-                <ScalarProperty Name="ETA" ColumnName="ETA" />
-                <ScalarProperty Name="LineBoat" ColumnName="LineBoat" />
-                <ScalarProperty Name="Tag" ColumnName="Tag" />
-                <ScalarProperty Name="PilotGuide" ColumnName="PilotGuide" />
-                <ScalarProperty Name="PilotCD" ColumnName="PilotCD" />
-                <ScalarProperty Name="ApplicantCD" ColumnName="ApplicantCD" />
-                <ScalarProperty Name="BerthID" ColumnName="BerthID" />
-                <ScalarProperty Name="VoyageNo" ColumnName="VoyageNo" />
-                <ScalarProperty Name="VesselCD" ColumnName="VesselCD" />
-                <ScalarProperty Name="ScheduleID" ColumnName="ScheduleID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="mUser">
-            <EntityTypeMapping TypeName="BerthPlanModel.mUser">
-              <MappingFragment StoreEntitySet="mUser">
-                <ScalarProperty Name="Flag" ColumnName="Flag" />
-                <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
-                <ScalarProperty Name="LastLogin" ColumnName="LastLogin" />
-                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
-                <ScalarProperty Name="UpdPGID" ColumnName="UpdPGID" />
-                <ScalarProperty Name="UpdUserID" ColumnName="UpdUserID" />
-                <ScalarProperty Name="UpdTime" ColumnName="UpdTime" />
-                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -640,6 +586,30 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="tSchedule">
+            <EntityTypeMapping TypeName="BerthPlanModel.tSchedule">
+              <MappingFragment StoreEntitySet="tSchedule">
+                <ScalarProperty Name="Flag" ColumnName="Flag" />
+                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+                <ScalarProperty Name="UpdPGID" ColumnName="UpdPGID" />
+                <ScalarProperty Name="UpdUserID" ColumnName="UpdUserID" />
+                <ScalarProperty Name="UpdTime" ColumnName="UpdTime" />
+                <ScalarProperty Name="ShipFace" ColumnName="ShipFace" />
+                <ScalarProperty Name="ETD" ColumnName="ETD" />
+                <ScalarProperty Name="ETB" ColumnName="ETB" />
+                <ScalarProperty Name="ETA" ColumnName="ETA" />
+                <ScalarProperty Name="LineBoat" ColumnName="LineBoat" />
+                <ScalarProperty Name="Tag" ColumnName="Tag" />
+                <ScalarProperty Name="PilotGuide" ColumnName="PilotGuide" />
+                <ScalarProperty Name="PilotCD" ColumnName="PilotCD" />
+                <ScalarProperty Name="ApplicantCD" ColumnName="ApplicantCD" />
+                <ScalarProperty Name="BerthID" ColumnName="BerthID" />
+                <ScalarProperty Name="VoyageNo" ColumnName="VoyageNo" />
+                <ScalarProperty Name="VesselCD" ColumnName="VesselCD" />
+                <ScalarProperty Name="ScheduleID" ColumnName="ScheduleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -657,6 +627,7 @@
         <DesignerProperty Name="EnablePluralization" Value="False" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="なし" />
+        <DesignerProperty Name="UseLegacyProvider" Value="True" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->

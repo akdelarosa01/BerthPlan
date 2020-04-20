@@ -5,7 +5,7 @@
         <div id="Form1" class="form-horizontal" runat="server">
             <div class="row">
 
-                <div class="col-md-4 col-xs-6">
+                <div class="col-md-2 col-xs-6">
                     <div class="input-group input-group-sm has-feedback" id="textUserID_grp">
                         <span class="input-group-addon">ユーザーID<span class="text-danger">*</span></span>
                         <input type="text" ID="textUserID" name="textUserID" MaxLength="4" class="form-control enter txtBox required upper-case special-characters single-byte" data-name="ユーザーID"/>
@@ -13,7 +13,7 @@
                     <strong class="text-danger" id="textUserID_msg"></strong>
                 </div>
 
-                <div class="col-md-4 col-xs-6">
+                <div class="col-md-3 col-xs-6">
                     <div class="input-group input-group-sm has-feedback" id="textPassword_grp">
                         <span class="input-group-addon">パスワード<span class="text-danger">*</span></span>
                         <input type="password" ID="textPassword" name="textPassword" MaxLength="8" class="form-control enter txtBox required" data-name="パスワード"/>
@@ -21,18 +21,20 @@
                     <strong class="text-danger" id="textPassword_msg"></strong>
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="input-group input-group-sm has-feedback" id="textEmail_grp">
                         <span class="input-group-addon">E-メール<span class="text-danger">*</span></span>
                         <input type="email" ID="textEmail" MaxLength="50" name="email" class="form-control enter txtBox required single-byte" data-name="E-メール"/>
                     </div>
                     <strong class="text-danger" id="textEmail_msg"></strong>
                 </div>
-                
+
+                <muc:CompanyControl runat="server" id="ApplicantCD" name="ApplicantCD" />   
+
             </div>
 
             <div class="row">
-                <div class="col-md-4 col-xs-7">
+                <div class="col-md-3 col-xs-7">
                     <div class="input-group input-group-sm has-feedback" id="textUserName_grp">
                         <span class="input-group-addon">ユーザー名<span class="text-danger">*</span></span>
                         <input type="text" ID="textUserName" MaxLength="25" class="form-control enter txtBox required" data-name="ユーザー名"/>
@@ -96,4 +98,5 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="PageScripts" runat="server">
     <script src="../Assets/scripts/masters/UserMaster.js"></script>
+    <script src="../Assets/scripts/modal/CompanyModal.js"></script>
 </asp:Content>

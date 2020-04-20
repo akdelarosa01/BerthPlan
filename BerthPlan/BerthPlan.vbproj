@@ -1098,9 +1098,6 @@
     <Compile Include="Pages\VesselScheduleVisual.aspx.vb">
       <DependentUpon>VesselScheduleVisual.aspx</DependentUpon>
     </Compile>
-    <Compile Include="sysdiagrams.vb">
-      <DependentUpon>BerthDB.tt</DependentUpon>
-    </Compile>
     <Compile Include="tBoard.vb">
       <DependentUpon>BerthDB.tt</DependentUpon>
     </Compile>

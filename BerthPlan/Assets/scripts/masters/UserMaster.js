@@ -92,7 +92,7 @@ $(function () {
     });
 
     //Print Event
-    $('#btnExcel').on('click', function() {
+    $('#btnExcel').on('click', function () {
         var oUserData = [];
         var tUser = $('#tblUser').DataTable();
 
@@ -104,6 +104,7 @@ $(function () {
                 UserID: data._aData.UserID,
                 UserName: data._aData.UserName,
                 EmailAddress: data._aData.EmailAddress,
+                ApplicantCD: data._aData.ApplicantName,   //4.19.2020
                 Flag: data._aData.Flag
             });
         });
@@ -139,11 +140,14 @@ $(function () {
         $('#textUserName').val(sData.UserName);
         $('#textPassword').val(sData.Password);
         $('#textEmail').val(sData.EmailAddress);
+        $('#MainContent_ApplicantCD_ApplicantCD').val(sData.ApplicantCD);
+        $('#MainContent_ApplicantCD_ApplicantName').val(sData.ApplicantName);
 
-        $('#checkAuthorize').prop('checked', false);
-        if (sData.IsAdmin) {
-            $('#checkAuthorize').prop('checked', true);
-        }
+        //$('#checkAuthorize').prop('checked', false);
+        $('#checkAuthorize').prop('checked', sData.IsAdmin == true ? true : false);
+        //if (sData.IsAdmin) {
+        //    $('#checkAuthorize').prop('checked', true);
+        //}
 
         $('#textUserID').prop('readonly', true);
         $('#btnUpdate').prop('disabled', false);
@@ -224,8 +228,9 @@ function fGetUsersData() {
             "language": dataTableLanguageVariable(),
             "sDom": "rtipl",
             "lengthChange": false,
-            "ordering": false,
+            //"order": [[7, "desc"]],
             "processing": true,
+            "responsive": true,
             "columns": [
                 {
                     title: '<input type="checkbox" class="checkAllitem" />',
@@ -233,11 +238,12 @@ function fGetUsersData() {
                         var checked = (data.Flag == 1) ? ' disabled="disabled"' : '';
 
                         return '<input type="checkbox" data-time="' + ParseDateTime(data.UpdTime, 'ss') + '" data-id="' + data.ID + '"  name="' + data.ID + '" class="checkItem" ' + checked + '>';
-                    }, sortable: false, orderable: false, width: "3%"
+                    }, sortable: false, orderable: false, width: "5%"
                 },
-                { title: "ユーザーID", data: "UserID", width: "17%", sortable: false, orderable: false },
+                { title: "ユーザーID", data: "UserID", width: "15%", sortable: false, orderable: false },
                 { title: "ユーザー名", data: "UserName", width: "20%", sortable: false, orderable: false },
-                { title: "メール", data: 'EmailAddress', width: "18%", sortable: false, orderable: false },
+                { title: "メール", data: 'EmailAddress', width: "15%", sortable: false, orderable: false },
+                { title: "申請者名", data: "ApplicantName", width: "10%", sortable: false, orderable: false }, //Added 4.19.2020
                 {
                     title: "管理権限", data: function (data) {
                         if (data.IsAdmin) {
@@ -300,9 +306,9 @@ function fGetUsersData() {
                                     }
                                 });
 
-                                column.data().unique().sort().each(function (d, j) {
-                                    select.append('<option value="' + d + '">' + d + '</option>')
-                                });
+                            column.data().unique().sort().each(function (d, j) {
+                                select.append('<option value="' + d + '">' + d + '</option>')
+                            });
                         }
                     });
 
@@ -319,7 +325,7 @@ function fGetUsersData() {
         });
 
     }).fail(function (xhr, textStatus, errorThrown) {
-        msg(errorThrown,textStatus);
+        msg(errorThrown, textStatus);
     });
 
 }
@@ -329,28 +335,25 @@ function fCheck() {
     var invalid = 0;
     $('.required').each(function () {
         var id = $(this).attr('id');
-        if ($('#'+id).val() == "") {
+        if ($('#' + id).val() == "") {
             showError(id, getMsg('E06', $(this).attr('data-name')));
             invalid++;
         }
     });
-    if (invalid != 0) { return false } //msg(getMsg('E01'), 'failed');
+    if (invalid != 0) { return false }
 
     if ($('#textUserID').val().length != 4) {
         showError('textUserID', getMsg('E02', 'ユーザーID'));
         return false;
     }
-
     if ($('#textPassword').val().length < 5) {
         showError('textPassword', getMsg('E02', 'パスワード'));
         return false;
     }
-
     if (!validateEmail($('#textEmail').val())) {
         showError('textEmail', getMsg('E07', 'E-メール'));
         return false;
     }
-
     return true;
 }
 
@@ -361,7 +364,8 @@ function fDispClear() {
     vUpdTime = '';
 
     $('.txtBox').val('');
-    $('.Checked').prop('checked', false);
+    $('#MainContent_ApplicantCD_ApplicantCD').val('');
+    $('#MainContent_ApplicantCD_ApplicantName').val('');
     $('#checkAuthorize').prop('checked', false);
 
     $('#btnUpdate').prop('disabled', true);
@@ -420,6 +424,7 @@ function fGetObjData() {
         UserName: $('#textUserName').val(),
         Password: $('#textPassword').val(),
         EmailAddress: $('#textEmail').val(),
+        ApplicantCD: $('#MainContent_ApplicantCD_ApplicantCD').val(), //4.19.2020
         Flag: vIsDeleted,
         IsAdmin: $('#checkAuthorize').is(':checked'),
         UpdTime: vUpdTime

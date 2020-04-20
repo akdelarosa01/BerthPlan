@@ -1,4 +1,10 @@
-﻿' 既定のコード生成がモデル 'C:\Users\seiko\Documents\New folder\BerthPlan\BerthDB.edmx' に対して無効です。 
-' 既定のコード生成を有効にするには、'コード生成方法' デザイナー プロパティの値を代替値に変更
-' します。このプロパティは、デザイナーでモデルが開かれている場合に [プロパティ] ウィンドウで
-' 使用できます。
+﻿' T4 code generation is enabled for model 'C:\Users\ユーザー\source\repos\BerthPlan\BerthPlan\BerthDB.edmx'. 
+' To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
+' property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
+' is open in the designer.
+
+' If no context and entity classes have been generated, it may be because you created an empty model but
+' have not yet chosen which version of Entity Framework to use. To generate a context class and entity
+' classes for your model, open the model in the designer, right-click on the designer surface, and
+' select 'Update Model from Database...', 'Generate Database from Model...', or 'Add Code Generation
+' Item...'.
