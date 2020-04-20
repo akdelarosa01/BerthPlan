@@ -64,7 +64,14 @@ function GetSessionExpire() {
     var qs = location.search.substring(1);
     strx = qs.split('&');
     if (qs != '') {
-        $('#failed_alert').show();
-        $("#failed_alert").html(' <div class="alert alert-danger alert-dismissible" id="failed_alert"><span class="close" data-dismiss="alert" aria-label="close">&times;</span><strong>Failed!</strong> <span id="failed_msg">セッションの有効期限が切れ。アカウントに再ログインします</span></div>');
+        if (qs == 'DeletedAccount') {
+            $('#failed_alert').show();
+            $("#failed_alert").html(' <div class="alert alert-danger alert-dismissible" id="failed_alert"><span class="close" data-dismiss="alert" aria-label="close">&times;</span><strong>Failed!</strong> <span id="failed_msg">セッションの有効期限が切れ。アカウントに再ログインします</span></div>');
+
+        } else {
+            $('#failed_alert').show();
+            $("#failed_alert").html(' <div class="alert alert-danger alert-dismissible" id="failed_alert"><span class="close" data-dismiss="alert" aria-label="close">&times;</span><strong>Failed!</strong> <span id="failed_msg">セッションの有効期限が切れ。アカウントに再ログインします</span></div>');
+
+        }
     }
 }

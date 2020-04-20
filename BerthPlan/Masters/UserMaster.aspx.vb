@@ -38,6 +38,7 @@ Public Class UserMaster
 #Region "## クラス内変数 ## "
     ''' <summary>DBBerth</summary>
     Public Shared _db As BerthPlan.BerthPlanEntities = New BerthPlanEntities
+
 #End Region
 
 #Region "## コントロールイベント定義 ##"
@@ -50,7 +51,7 @@ Public Class UserMaster
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         Try
             If IsNothing(Session("UserID")) Then
-                Response.Redirect("~/Login.aspx")
+                Response.Redirect("~/Login.aspx?SessionExpire")
                 Exit Sub
             End If
 
