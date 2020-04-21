@@ -114,6 +114,10 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="PageScripts" runat="server">
+
+
+
+
     
     <script src="../Assets/scripts/modal/CompanyModal.js"></script>
     <script src="../Assets/scripts/masters/VesselMaster.js"></script>
