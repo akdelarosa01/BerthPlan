@@ -19,6 +19,7 @@ $(function () {
     //Initialize Display
     fDispClear();
 
+
     //Get User List
     fGetUsersData();
 
