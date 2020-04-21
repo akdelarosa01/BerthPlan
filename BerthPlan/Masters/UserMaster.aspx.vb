@@ -55,6 +55,7 @@ Public Class UserMaster
                 Exit Sub
             End If
 
+            'Check Session
             If fgCheckSession() Then
                 Exit Sub
             End If
