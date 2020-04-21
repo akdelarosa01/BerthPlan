@@ -347,9 +347,7 @@ function fPrintData(oBerthData) {
 
 //Check Required Fields
 function fCheck() {
-    var sWharfCD = $('#MainContent_WharfCD_WharfCD').val();
     var sBerthCD = $('#textBerthCD').val();
-    var sBerthName = $('#textBerthName').val();
     var iCnt = 0;
 
     $('.required').each(function () {
@@ -412,7 +410,14 @@ function fUpdData() {
             //Clear Display
             fDispClear();
         }
-        msg(sResult.Msg, sResult.Status);
+        if (sResult.Data) {
+            $('#MainContent_WharfCD_WharfCD').val('');
+            $('#MainContent_WharfCD_WharfName').val('');
+
+            showError('MainContent_WharfCD_WharfCD', getMsg('E06', 'ワーフ'));
+        } else {
+            msg(sResult.Msg, sResult.Status);
+        }
     }).fail(function (xhr, textStatus, errorThrown) {
         msg(textStatus, 'error');
     });

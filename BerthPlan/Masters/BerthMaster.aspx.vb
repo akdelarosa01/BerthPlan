@@ -124,7 +124,7 @@ Public Class BerthMaster
                                   And w.Flag = False
                           Select w)
             If iWharf.Count < 1 Then
-                flUpdData.Msg = fgMsgOut("EBP002", "", "ワーフコード")
+                flUpdData.Data = fgMsgOut("EBP002", "", "ワーフコード")
                 Exit Function
             End If
 

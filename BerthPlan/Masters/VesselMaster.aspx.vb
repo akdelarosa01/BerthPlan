@@ -107,6 +107,13 @@ Public Class VesselMaster
                 Exit Function
             End If
 
+            If (From c In db.mCompany.AsNoTracking.ToList Where c.ApplicantCD = mVessel.ApplicantCD And c.Flag = False).Count = 0 And mVessel.ApplicantCD <> "" Then
+                SaveVessel.Msg = fgMsgOut("EBP002", "", "申請者")
+                SaveVessel.Status = "failed"
+                SaveVessel.Data = "MainContent_ApplicantCD_ApplicantCD"
+                Exit Function
+            End If
+
             If mVessel.ID = 0 Then
 
                 If (From c In _db.mVessel.AsNoTracking.ToList Where c.VesselCD = mVessel.VesselCD And c.Flag = False).Count <> 0 Then

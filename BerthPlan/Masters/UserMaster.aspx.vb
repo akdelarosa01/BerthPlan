@@ -419,7 +419,7 @@ Public Class UserMaster
                                 And c.Flag = 0
                            Select c
             If iCompany.Count < 1 Then
-                flUpdData.Msg = fgMsgOut("EBP002", "", "申請者コード")
+                flUpdData.Data = fgMsgOut("EBP002", "", "申請者コード")
                 Exit Function
             End If
 
