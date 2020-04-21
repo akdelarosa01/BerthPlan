@@ -1,4 +1,4 @@
-﻿/// <reference path="" />
+﻿
 $(function () {
 
     $('#CurrentPassword').focus();

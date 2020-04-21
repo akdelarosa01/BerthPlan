@@ -992,3 +992,52 @@ function is_url(str) {
 
     return false;
 }
+
+function flGetCompanies(BoardID) {
+    var $table = $('#tblCompany');
+
+    $.ajax({
+        type: 'POST',
+        url: '.../../../Pages/BoardRegistration.aspx/flGetCompanyList',
+        data: '{ BoardID: ' + BoardID + '}',
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
+    }).done(function (data, textStatus, xhr) {
+        $table.dataTable().fnClearTable();
+        $table.dataTable().fnDestroy();
+        $table.dataTable({
+            "data": data.d,
+            "columnDefs": [
+                { "width": "5%", "targets": [0] },
+                { "className": "text-center custom-middle-align td-checkbox", "targets": [0] },
+                { "targets": 0, "sortable": false, "orderable": false },
+            ],
+            "language": dataTableLanguageVariable(),
+            "sDom": "rtipl",
+            "lengthChange": false,
+            "searching": false,
+            "order": [[3, "desc"]],
+            "processing": true,
+            "responsive": true,
+            "columns": [
+                { data: "UserID", width: "20%" },
+                { data: "UserName", width: "30%" },
+                { data: "IsChecked", width: "20%" },
+                {
+                    data: function (data) {
+                        return ParseDate(data.UpdTime)
+                    }, width: "30%"
+                },
+            ],
+            "createdRow": function (row, data, dataIndex) {
+                if (data.IsChecked === '○') {
+                    $(row).css('background-color', '#8abaae');
+                    //$(row).css('color', '#fff');
+                }
+            }
+        });
+
+    }).fail(function (xhr, textStatus, errorThrown) {
+        console.log('error');
+    });
+}

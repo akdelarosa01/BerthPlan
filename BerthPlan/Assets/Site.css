@@ -51,8 +51,8 @@ input[type="time"].input-sm {
 }
 
 .row {
-    margin-right: -9px;
-    margin-left: -9px;
+    margin-right: -5px;
+    margin-left: -5px;
 }
 
 /* Forms */
@@ -1567,7 +1567,7 @@ table.dataTable thead .sorting_desc::after {
     padding-left: 0px;
 }
 
-@media (max-width: 765px) {
+@media (max-width: 769px) {
   .padd-right-date {
       padding-right: 5px;
   }

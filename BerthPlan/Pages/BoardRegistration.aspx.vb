@@ -347,6 +347,28 @@ Public Class BoardRegistration
         End Try
         Return flDeleteBoardFiles
     End Function
+
+    ''' <summary>
+    ''' データ取得機能
+    ''' </summary>
+    ''' <param name="BoardID"></param>
+    ''' <returns></returns>
+    <WebMethod()>
+    Public Shared Function flGetCompanyList(ByVal BoardID As Integer) As Object
+        flGetCompanyList = Nothing
+
+        Try
+            If BoardID = 0 Then
+                flGetCompanyList = _db.mCompany.AsNoTracking.Where(Function(x) x.Flag = False).OrderByDescending(Function(x) x.UpdTime).ToList()
+            Else
+                flGetCompanyList = _db.mCompany.AsNoTracking.Where(Function(x) x.Flag = False).OrderByDescending(Function(x) x.UpdTime).ToList()
+            End If
+
+        Catch ex As Exception
+            Throw
+        End Try
+        Return flGetCompanyList
+    End Function
 #End Region
 
 End Class

@@ -43,105 +43,131 @@
                 </div>
             </div>
         </div>
+
         <div class="row">
-            <div class="col-md-1">
-                <button type="button" id="btnNew" class="btn btn-sm btn-primary btn-block btn-flat">新规(F1)</button>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-2 col-sm-2 col-sm-offset-10 col-xs-3 col-xs-offset-9">
+                        <button type="button" id="btnNew" class="btn btn-sm btn-primary btn-block btn-flat">新规(F1)</button>
+                    </div>
+                </div>
+
+                <div id="BulletinBoardRegistration" class="form-horizontal" runat="server">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <input type="hidden" ID="hdUserID" name="hdUserID" />
+                            <input type="hidden" ID="hdStatus" name="hdStatus" class="clear" />
+                            <input type="hidden" ID="hdUpdTime" name="hdUpdTime" class="clear" />
+                            <input type="hidden" ID="txtBoardID" name="txtBoardID" class="clear" value="0"/>
+
+                            <div class="input-group input-group-sm has-feedback" id="txtTitle_grp">
+                                <span class="input-group-addon">タイトル</span>
+                                <input type="text" class="form-control enter clear required" id="txtTitle" name="txtTitle" data-name="タイトル"/>
+                            </div>
+                            <strong class="text-danger" id="txtTitle_msg"></strong>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="input-group input-group-sm has-feedback" id="txtContent_grp">
+                                <span class="input-group-addon">内容</span>
+                                <textarea id="txtContent" name="txtContent" class="form-control enter clear required" Rows="5" style="resize:none;height:100px;width:100%" data-name="内容"></textarea>
+                            </div>
+                            <strong class="text-danger" id="txtContent_msg"></strong>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="input-group input-group-sm has-feedback" id="txtLink_grp">
+                                <span class="input-group-addon">リンク</span>
+                                <input type="url" class="form-control enter clear" id="txtLink" name="txtLink" data-name="リンク"/>
+                            </div>
+                            <strong class="text-danger" id="txtLink_msg"></strong>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 padd-right-date">
+                            <div class="input-group input-group-sm has-feedback datepicker required-date" id="PostingStartDate_grp" data-name="PostingStartDate" >
+                                <span class="input-group-addon">揭載期間</span>
+                                <input type="text" class="form-control enter required clear is_datepicker" id="PostingStartDate" name="PostingStartDate" data-name="終了日"/>
+                                <span class="input-group-addon">
+                                    <i class="fa fa-calendar text-danger"></i>
+                                </span>
+                            </div>
+                            <strong class="text-danger" id="PostingStartDate_msg"></strong>
+                        </div>
+
+                        <div class="col-md-6 padd-left-date">
+                            <div class="input-group input-group-sm has-feedback datepicker required-date" id="PostingEndDate_grp" data-name="PostingEndDate" >
+                                <span class="input-group-addon">
+                                    ~
+                                </span>
+                                <input type="text" class="form-control enter required clear is_datepicker" id="PostingEndDate" name="PostingEndDate"  data-name="終了日"/>
+                                <span class="input-group-addon">
+                                    <i class="fa fa-calendar text-danger"></i>
+                                </span>
+                            </div>
+                            <strong class="text-danger" id="PostingEndDate_msg"></strong>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                
+                        <div class="col-md-9 col-sm-9 col-xs-8">
+                            <div class="input-group input-group-sm">
+                                <label class="input-group-btn">
+                                    <span class="btn btn-default">
+                                        ブラウズ <i class="fa fa-folder-open"></i> 
+                                        <asp:FileUpload ID="fileAttachment" runat="server" Cssclass="custom-file-input" AllowMultiple="true"/>
+                                    </span>
+                                </label>
+                                <input type="text" class="form-control enter file-label" readonly="true">
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-4">
+                            <button id="btnUpload" type="button" class="btn btn-sm btn-flat btn-primary btn-block enter">アップロード(F3)</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-md-6">
+                <h4>掲載先</h4>
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-condensed table-striped table-bordered table-link" id="tblCompany" width="100%">
+                            <thead>
+                                <tr class="info">
+                                    <th>
+                                        <input type="checkbox" class="checkAllCompItem"/>
+                                    </th>
+                                    <th>会社コード</th>
+                                    <th>会社名</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tblCompany_body"></tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div id="BulletinBoardRegistration" class="form-horizontal" runat="server">
-            <div class="row">
-                <div class="col-md-6">
-                    <input type="hidden" ID="hdUserID" name="hdUserID" />
-                    <input type="hidden" ID="hdStatus" name="hdStatus" class="clear" />
-                    <input type="hidden" ID="hdUpdTime" name="hdUpdTime" class="clear" />
-                    <input type="hidden" ID="txtBoardID" name="txtBoardID" class="clear" value="0"/>
-
-                    <div class="input-group input-group-sm has-feedback" id="txtTitle_grp">
-                        <span class="input-group-addon">タイトル</span>
-                        <input type="text" class="form-control enter clear required" id="txtTitle" name="txtTitle" data-name="タイトル"/>
-                    </div>
-                    <strong class="text-danger" id="txtTitle_msg"></strong>
-                </div>
+        <div class="row" style="margin-top:10px">
+            <div class="col-md-1 col-sm-3 col-xs-3">
+                <button id="btnSave" type="button" class="btn btn-info btn-block btn-sm btn-flat enter" runat="server">登録(F2)</button>
             </div>
-
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="input-group input-group-sm has-feedback" id="txtContent_grp">
-                        <span class="input-group-addon">内容</span>
-                        <textarea id="txtContent" name="txtContent" class="form-control enter clear required" Rows="5" style="resize:none;height:100px;width:100%" data-name="内容"></textarea>
-                    </div>
-                    <strong class="text-danger" id="txtContent_msg"></strong>
-                </div>
+            <div class="col-md-1 col-sm-3 col-xs-3">
+                <button id="btnClear" type="button" class="btn btn-warning btn-block btn-sm btn-flat enter">クリアー(F4)</button>
             </div>
-
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="input-group input-group-sm has-feedback" id="txtLink_grp">
-                        <span class="input-group-addon">リンク</span>
-                        <input type="url" class="form-control enter clear" id="txtLink" name="txtLink" data-name="リンク"/>
-                    </div>
-                    <strong class="text-danger" id="txtLink_msg"></strong>
-                </div>
+            <div class="col-md-1 col-sm-3 col-xs-3">
+                <button id="btnDelete" type="button" class="btn btn-danger btn-block btn-sm btn-flat enter">削除(F8)</button>
             </div>
-
-            <div class="row">
-                <div class="col-md-3 padd-left-date">
-                    <div class="input-group input-group-sm has-feedback datepicker required-date" id="PostingStartDate_grp" data-name="PostingStartDate" >
-                        <span class="input-group-addon">揭載期間</span>
-                        <input type="text" class="form-control enter required clear is_datepicker" id="PostingStartDate" name="PostingStartDate" data-name="終了日"/>
-                        <span class="input-group-addon">
-                            <i class="fa fa-calendar text-danger"></i>
-                        </span>
-                    </div>
-                    <strong class="text-danger" id="PostingStartDate_msg"></strong>
-                </div>
-
-                <div class="col-md-3">
-                    <div class="input-group input-group-sm has-feedback datepicker required-date" id="PostingEndDate_grp" data-name="PostingEndDate" >
-                        <span class="input-group-addon">
-                            ~
-                        </span>
-                        <input type="text" class="form-control enter required clear is_datepicker" id="PostingEndDate" name="PostingEndDate"  data-name="終了日"/>
-                        <span class="input-group-addon">
-                            <i class="fa fa-calendar text-danger"></i>
-                        </span>
-                    </div>
-                    <strong class="text-danger" id="PostingEndDate_msg"></strong>
-                </div>
-            </div>
-
-            <div class="row">
-                
-                <div class="col-md-5">
-                    <div class="input-group input-group-sm">
-                        <label class="input-group-btn">
-                            <span class="btn btn-default">
-                                ブラウズ <i class="fa fa-folder-open"></i> 
-                                <asp:FileUpload ID="fileAttachment" runat="server" Cssclass="custom-file-input" AllowMultiple="true"/>
-                            </span>
-                        </label>
-                        <input type="text" class="form-control enter file-label" readonly="true">
-                    </div>
-                </div>
-                <div class="col-md-1">
-                    <button id="btnUpload" type="button" class="btn btn-sm btn-flat btn-primary btn-block enter">アップロード(F3)</button>
-                </div>
-            </div>
-
-            <div class="row" style="margin-top:10px">
-                <div class="col-md-1">
-                    <button id="btnSave" type="button" class="btn btn-info btn-block btn-sm btn-flat enter" runat="server">登録(F2)</button>
-                </div>
-                <div class="col-md-1 ">
-                    <button id="btnClear" type="button" class="btn btn-warning btn-block btn-sm btn-flat enter">クリアー(F4)</button>
-                </div>
-                <div class="col-md-1 ">
-                    <button id="btnDelete" type="button" class="btn btn-danger btn-block btn-sm btn-flat enter">削除(F8)</button>
-                </div>
-                <div class="col-md-1 col-md-offset-8">
-                    <a id="A1" runat="server" href="~/Pages/SystemMenu" class="btn btn-darkgrey btn-block btn-sm btn-flat enter">閉じる(F12)</a>
-                </div>
+            <div class="col-md-1 col-md-offset-8 col-sm-3 col-xs-3">
+                <a id="A1" runat="server" href="~/Pages/SystemMenu" class="btn btn-darkgrey btn-block btn-sm btn-flat enter">閉じる(F12)</a>
             </div>
         </div>
 
