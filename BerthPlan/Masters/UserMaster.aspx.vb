@@ -412,7 +412,17 @@ Public Class UserMaster
                 Exit Function
             End If
 
-            'Get Code and Check If already exist
+            'Check Company If Exist on Master List
+            Dim iCompany = From c In _db.mCompany.AsNoTracking()
+                           Where c.ApplicantCD.ToUpper = pUserInfo.ApplicantCD.ToUpper _
+                                And c.Flag = 0
+                           Select c
+            If iCompany.Count < 1 Then
+                flUpdData.Msg = fgMsgOut("EBP002", "", "申請者コード")
+                Exit Function
+            End If
+
+            'Get UserID and Check If already exist
             iID = fgNullToZero(pUserInfo.ID)
             sUserID = fgNullToStr(pUserInfo.UserID.ToUpper)
             If flCheckCode(iID, sUserID) = False Then

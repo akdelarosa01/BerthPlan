@@ -102,7 +102,7 @@ Public Class BerthMaster
     Public Shared Function flUpdData(ByVal pBerthInfo As mBerth, ByVal pIsChanged As Boolean) As MyResult
         Dim oBerth As mBerth = New mBerth
         Dim sWharfCD As String = String.Empty
-        Dim sBethCD As String = String.Empty
+        Dim sBerthCD As String = String.Empty
 
         Try
             flUpdData = New MyResult
@@ -116,16 +116,26 @@ Public Class BerthMaster
 
             'Initialize Berth and Wharf Code
             sWharfCD = fgNullToStr(pBerthInfo.WharfCD.ToUpper)
-            sBethCD = fgNullToStr(pBerthInfo.BerthCD.ToUpper)
+            sBerthCD = fgNullToStr(pBerthInfo.BerthCD.ToUpper)
+
+            'Check WharfCode
+            Dim iWharf = (From w In _db.mWharf.AsNoTracking()
+                          Where w.WharfCD.ToUpper = sWharfCD _
+                                  And w.Flag = False
+                          Select w)
+            If iWharf.Count < 1 Then
+                flUpdData.Msg = fgMsgOut("EBP002", "", "ワーフコード")
+                Exit Function
+            End If
 
             'Check Wharf With Berth Code
             If pIsChanged = True Then
                 Dim iBerth = From sBerth In _db.mBerth.ToList()
-                         Where Trim(sBerth.WharfCD.ToUpper()) = sWharfCD _
-                                 And Trim(sBerth.BerthCD.ToUpper()) = sBethCD _
+                             Where Trim(sBerth.WharfCD.ToUpper()) = sWharfCD _
+                                 And Trim(sBerth.BerthCD.ToUpper()) = sBerthCD _
                                  And sBerth.Flag = False
-                         Select sBerth
-                If iBerth.Count = 1 Then
+                             Select sBerth
+                If iBerth.Count >= 1 Then
                     flUpdData.Msg = fgMsgOut("EBP001", "", "岸壁コードとバース")
                     Exit Function
                 End If
