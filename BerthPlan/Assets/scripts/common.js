@@ -78,7 +78,8 @@ $(function () {
     $('.timepicker').timepicker({
         showInputs: false,
         minuteStep: 1,
-        explicitMode: true
+        //explicitMode: true
+        template: false
     });
 
     /* Highlighting Time Input value */

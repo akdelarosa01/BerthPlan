@@ -19,7 +19,6 @@ $(function () {
     //Initialize Display
     fDispClear();
 
-
     //Get User List
     fGetUsersData();
 
@@ -334,6 +333,7 @@ function fGetUsersData() {
 //Check Req Fields
 function fCheck() {
     var invalid = 0;
+
     $('.required').each(function () {
         var id = $(this).attr('id');
         if ($('#' + id).val() == "") {
@@ -389,7 +389,6 @@ function fUpdData() {
         var sResult = data.d;
         sessionOut(sResult.Status);
         if (sResult.Status == 'success') {
-
             bootbox.dialog({
                 title: '<div style="color: #1BA39C"><strong><i class="fa fa-check"></i></strong> ' + jsUcfirst(sResult.Status) + '</div>',
                 message: sResult.Msg,
@@ -410,7 +409,14 @@ function fUpdData() {
                 }
             });
         } else {
-            msg(sResult.Msg, sResult.Status);
+            if (sResult.Data) {
+                $('#MainContent_ApplicantCD_ApplicantCD').val('');
+                $('#MainContent_ApplicantCD_ApplicantName').val('');
+
+                showError('MainContent_ApplicantCD_ApplicantCD', getMsg('E06', '申請者'));
+            } else {
+                msg(sResult.Msg, sResult.Status);
+            }
         }
     }).fail(function (xhr, textStatus, errorThrown) {
         msg(textStatus, 'error');
