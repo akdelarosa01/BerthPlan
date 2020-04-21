@@ -326,7 +326,7 @@ Public Class PilotMaster
         Try
             flInsert = False
 
-            oPilot.PilotCD = fgNullToStr(pPilot.PilotCD)
+            oPilot.PilotCD = fgNullToStr(pPilot.PilotCD.ToUpper)
             oPilot.PilotName = fgNullToStr(pPilot.PilotName)
             oPilot.Email = fgNullToStr(pPilot.Email)
             oPilot.Tel = fgNullToStr(pPilot.Tel)
@@ -367,7 +367,7 @@ Public Class PilotMaster
                 Exit Function
             End If
 
-            getRow.PilotCD = fgNullToStr(pPilot.PilotCD)
+            getRow.PilotCD = fgNullToStr(pPilot.PilotCD.ToUpper)
             getRow.PilotName = fgNullToStr(pPilot.PilotName)
             getRow.Email = fgNullToStr(pPilot.Email)
             getRow.Tel = fgNullToStr(pPilot.Tel)
@@ -406,7 +406,7 @@ Public Class PilotMaster
                         And rData.Flag = False _
                         And rData.ID <> iID
                       Select rData).ToList()
-            If lPilot.Count > 1 Then
+            If lPilot.Count > 0 Then
                 flCheckCode = False
                 Exit Function
             End If
