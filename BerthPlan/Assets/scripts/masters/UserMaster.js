@@ -430,6 +430,7 @@ function fGetObjData() {
         IsAdmin: $('#checkAuthorize').is(':checked'),
         UpdTime: vUpdTime
     };
+
     return obj;
 }
 
