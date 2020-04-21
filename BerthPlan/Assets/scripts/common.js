@@ -107,7 +107,7 @@ $(function () {
     });
 
     /* Block Special Characters && pasting */
-    $('.sc').on('keypress', function (e) {
+    $('.special-characters').on('keypress', function (e) {
         if (!blockSpecialCharacters(e)) {
             e.preventDefault();
         }
