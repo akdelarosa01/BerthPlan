@@ -211,7 +211,13 @@ function SaveVessel() {
                 getVesselDataTables();
                 Clear();
                 msg(data.d.Msg, data.d.Status);
-            } else { msg(data.d.Msg, data.d.Status); }
+            } else {
+                if (data.d.Data == "MainContent_ApplicantCD_ApplicantCD") {
+                    showError($('#MainContent_ApplicantCD_ApplicantCD').attr('id'), data.d.Msg);
+                } else {
+                    msg(data.d.Msg, data.d.Status);
+                }
+            }
         }).fail(function (xhr, textStatus, errorThrown) {
             msg(errorThrown, "error");
         });
