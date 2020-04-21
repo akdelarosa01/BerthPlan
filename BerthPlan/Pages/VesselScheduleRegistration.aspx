@@ -7,7 +7,7 @@
             
             <div class="row">
 
-                <div class="col-md-3">
+                <div class="col-md-3 col-sm-3">
                     <div class="input-group input-group-sm has-feedback" id="Voyage_grp">
                         <span class="input-group-addon">Voyage No.<span class="text-danger">*</span></span>
                         <input type="text" class="form-control cls enter required upper-case special-characters single-byte" id="Voyage" name="Voyage" data-name="Voyage No." maxlength="10" autofocus>
@@ -19,7 +19,7 @@
                 
 
 
-                <div class="col-md-1">
+                <div class="col-md-1 col-sm-3 col-xs-4">
                     <input type="button" value="検索(F1)" id="btnSearch" class="btn btn-primary btn-sm btn-block btn-flat enter"/>
                 </div>
 
@@ -50,7 +50,7 @@
 
             <div class="row">
                 <div class="col-md-4">
-                    <div class="col-md-8 col-xs-8" style="padding-right:0px;" id="ETAdate_grp">
+                    <div class="col-md-8 col-sm-8 col-xs-8" style="padding-right:0px;" id="ETAdate_grp">
                         <div class="input-group input-group-sm datepicker required-date" id="divETA" data-name="ETAdate">
                             <span class="input-group-addon">E.T.A.<span class="text-danger">*</span></span>
                             <input type="text" class="form-control is_datepicker enter cls tDsble required" data-name="ETADate" id="ETAdate" name="ETAdate" autocomplete="off"/>
@@ -60,12 +60,12 @@
                         </div>
                         <strong class="text-danger" id="ETAdate_msg"></strong>
                     </div>
-                    <div class="col-md-4 col-xs-4" style="padding-left:0px;" id="ETAtime_grp">
+                    <div class="col-md-4 col-sm-4 col-xs-4" style="padding-left:0px;" id="ETAtime_grp">
                         <input type="text" class="form-control input-sm timepicker enter cls tDsble required" data-name="ETAtime" id="ETAtime" name="ETAtime" autocomplete="off"/>
                          <strong class="text-danger" id="ETAtime_msg"></strong>
                     </div>
 
-                    <div class="col-md-8 col-xs-8" style="padding-right:0px;" id="ETBdate_grp">
+                    <div class="col-md-8 col-sm-8 col-xs-8" style="padding-right:0px;" id="ETBdate_grp">
                         <div class="input-group input-group-sm datepicker required-date" id="divETB" data-name="ETBdate">
                             <span class="input-group-addon">E.T.B.<span class="text-danger">*</span></span>
                             <input type="text" class="form-control is_datepicker enter cls tDsble required" id="ETBdate" data-name="ETBdate" name="ETBdate" autocomplete="off"/>
@@ -75,7 +75,7 @@
                         </div>
                         <strong class="text-danger" id="ETBdate_msg"></strong>
                     </div>
-                    <div class="col-md-4 col-xs-4" style="padding-left:0px;" id="ETBtime_grp">
+                    <div class="col-md-4 col-sm-4 col-xs-4" style="padding-left:0px;" id="ETBtime_grp">
                         <input type="text" class="form-control enter input-sm timepicker cls tDsble required" id="ETBtime" data-name="ETBtime" name="ETBtime" autocomplete="off"/>
                         <strong class="text-danger" id="ETBtime_msg"></strong>
                     </div>
@@ -146,13 +146,13 @@
             </div>
 
             <div class="row">
-                <div class="col-md-1 col-md-offset-5">
+                <div class="col-md-1 col-md-offset-5 col-sm-4 col-xs-4">
                     <input type="button" ID="btnRegister" class="btn btn-info btn-block btn-sm btn-flat" value="登録(F2)"/>
                 </div>
-                <div class="col-md-1">
+                <div class="col-md-1 col-sm-4 col-xs-4">
                     <input type="button" ID="btnClear" class="btn btn-warning btn-block btn-sm btn-flat" value="クリア(F4)"/>
                 </div>
-                <div class="col-md-1">
+                <div class="col-md-1 col-sm-4 col-xs-4">
                     <input type="button" id="btnBack" value="閉じる(F12)" class="btn btn-darkgrey btn-block btn-sm btn-flat"/>
                 </div>
             </div>

@@ -340,7 +340,16 @@ function FormValidate() {
         return false;
     }
 
-    return true;
+    if (!$.isNumeric($('#GrossTon').val())) {
+        showError($('#GrossTon').attr('id'), "正しい番号を入力してください");
+        return false;
+    }
+
+    if (!$.isNumeric($('#LOA').val())) {
+        showError($('#LOA').attr('id'), "正しい番号を入力してください");
+        return false;
+    }
+    return false;
 }
 
 function Clear() {

@@ -31,7 +31,7 @@
                     <input type="button" id="btnSearch" class="btn btn-sm btn-primary enter btn-block btn-flat" value="検索(F1)" />
                 </div>
 
-                <div class="col-md-1 col-md-offset-3 col-sm-3 col-xs-6">
+                <div class="col-md-1 col-md-offset-6 col-sm-3 col-xs-6">
                     <input type="button" id="btnExcel" class="btn btn-sm btn-success btn-block btn-flat enter input" value="印刷(F10)" />
                 </div>
 

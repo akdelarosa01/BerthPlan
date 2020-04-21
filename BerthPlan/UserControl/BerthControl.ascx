@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="vb" AutoEventWireup="false" CodeBehind="BerthControl.ascx.vb" Inherits="BerthPlan.BerthControl" %>
 
-<div class="col-md-2 col-xs-5" style="padding-right:0px;">
+<div class="col-md-2 col-sm-3 col-xs-5" style="padding-right:0px;">
     <div class="input-group input-group-sm has-feedback" id="MainContent_BerthID_BerthCD_grp">
         <span class="input-group-addon" id="TitleBerth">着岸バース</span>
         <asp:TextBox runat="server" type="text" class="form-control enter" id="BerthID" name="BerthID"  style="display:none" />
@@ -12,7 +12,7 @@
     <strong class="text-danger" id="MainContent_BerthID_BerthCD_msg"></strong>
 </div>
 
-<div class="col-md-3 col-xs-7" style="padding-left:0px;">
+<div class="col-md-2 col-sm-3 col-xs-7" style="padding-left:0px;">
     <asp:TextBox runat="server" type="text" class="form-control input-sm" id="BerthName" name="BerthName" readonly="true" />
 </div>
 

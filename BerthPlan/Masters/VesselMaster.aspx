@@ -31,10 +31,11 @@
                 </div>
 
                 <div class="col-md-4 col-xs-5">
-                    <div class="input-group input-group-sm">
+                    <div class="input-group input-group-sm has-feedback" id="GrossTon_grp">
                         <span class="input-group-addon">総トン数</span>
-                         <input type="number" class="form-control enter cls" id="GrossTon" name="GrossTon" onKeyPress="if(this.value.length==15) return false;"/>
+                         <input type="number" class="form-control enter cls" id="GrossTon" name="GrossTon" data-name="総トン数" onKeyPress="if(this.value.length==15) return false;"/>
                     </div>
+                    <strong class="text-danger" id="GrossTon_msg"></strong>
                 </div>
 
             </div>
@@ -42,10 +43,11 @@
             <div class="row">
 
                 <div class="col-md-2 col-xs-4">
-                    <div class="input-group input-group-sm">
+                    <div class="input-group input-group-sm has-feedback" id="LOA_grp">
                         <span class="input-group-addon">LOA</span>
-                         <input type="number" class="form-control enter cls" id="LOA" name="LOA" onKeyPress="if(this.value.length==15) return false;" />
+                         <input type="number" class="form-control enter cls" id="LOA" name="LOA" data-name="LOA" onKeyPress="if(this.value.length==15) return false;" />
                     </div>
+                    <strong class="text-danger" id="LOA_msg"></strong>
                 </div>
 
                 <div class="col-md-4 col-xs-8">
@@ -101,7 +103,7 @@
                     <input type="button" ID="btnDelete" class="btn btn-danger btn-block btn-flat btn-sm enter" value="削除(F8)"/>
                 </div>
                 <div class="col-md-1 col-xs-4">
-                    <input type="button" id="btnExcel" value="印刷" class="btn btn-success btn-block btn-flat btn-sm enter"/>
+                    <input type="button" id="btnExcel" value="印刷(F10)" class="btn btn-success btn-block btn-flat btn-sm enter"/>
                 </div>
                 <div class="col-md-1 col-md-offset-9 col-xs-4">
                     <a id="A1" runat="server" href="~/Pages/SystemMenu" class="btn btn-darkgrey btn-block btn-flat btn-sm enter">閉じる(F12)</a>
@@ -112,6 +114,10 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="PageScripts" runat="server">
+
+
+
+
     
     <script src="../Assets/scripts/modal/CompanyModal.js"></script>
     <script src="../Assets/scripts/masters/VesselMaster.js"></script>
