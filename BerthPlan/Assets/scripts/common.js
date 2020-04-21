@@ -15,8 +15,6 @@ $(function () {
 
     /* Initilize Date Input */
     $('.datepicker').datetimepicker({
-
-
         allowInputToggle: false,
         format: 'YYYY/MM/DD',
         locale: moment.locale('ja'),
