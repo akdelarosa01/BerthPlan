@@ -349,7 +349,7 @@ function FormValidate() {
         showError($('#LOA').attr('id'), "正しい番号を入力してください");
         return false;
     }
-    return false;
+    return true;
 }
 
 function Clear() {
