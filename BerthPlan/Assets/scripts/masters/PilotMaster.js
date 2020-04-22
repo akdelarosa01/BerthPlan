@@ -17,7 +17,6 @@ var vID = 0;
 $(function () {
     // Initialize input mask on 電話番号
     $('#textTel').inputmask("999-9999-99999", { "clearIncomplete": false, "placeholder": " " });
-    
 
     //Initialize Display
     fDispClear();
@@ -289,15 +288,19 @@ function fCheck() {
     var invalid = 0;
     $('.required').each(function () {
         var id = $(this).attr('id');
-        if ($(this).val() == "") {
+        if ($(this).val() == '') {
             showError(id, getMsg('E06', $(this).attr('data-name')));
             invalid++;
         }
     });
-    if (invalid != 0) { return false } // msg(getMsg('E01'), 'failed');
+    if (invalid != 0) { return false } 
 
     if ($('#textPilotCode').val().length != 4) {
         showError($('#textPilotCode').attr('id'), getMsg('E02', '水先人コード'));
+        return false;
+    }
+    if (!validateEmail($('#textEmail').val())) {
+        showError('textEmail', getMsg('E07', 'E-メール'));
         return false;
     }
 
@@ -309,16 +312,14 @@ function fDispClear() {
     vUpdTime = '';
     vID = 0;
 
-    flGetPilotList()
-
     $('.required').each(function () {
         if ($(this).value !== '' || $(this).value !== null) {
             hideError($(this).attr('id'));
         }
     });
     $('.txtBox').val('');
-    $('#btnUpdate').prop('disabled', true);
     $('#textPilotCode').prop('readonly', false);
+    $('#btnUpdate').prop('disabled', true);
     $('#btnNew').prop('disabled', false);
 
     $('#textPilotCode').focus();

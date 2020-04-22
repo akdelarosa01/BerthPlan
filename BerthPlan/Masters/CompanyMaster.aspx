@@ -58,10 +58,11 @@
                 </div>
 
                 <div class="col-md-5 col-sm-7 col-xs-7">
-                    <div class="input-group input-group-sm">
+                    <div class="input-group input-group-sm has-feedback" id="Email_grp">
                         <span class="input-group-addon">E-メール</span>
-                        <input type="text" ID="Email" MaxLength="50" name="Email" class="form-control enter cls single-byte" >
+                        <input type="text" ID="Email" MaxLength="50" name="Email" data-name="E-メール<" class="form-control enter cls single-byte" >
                     </div>
+                    <strong class="text-danger" id="Email_msg"></strong>
                 </div>
 
                 <div class="col-md-2 col-sm-5 col-xs-5">

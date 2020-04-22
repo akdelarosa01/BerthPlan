@@ -359,9 +359,25 @@ Public Class BoardRegistration
 
         Try
             If BoardID = 0 Then
-                flGetCompanyList = _db.mCompany.AsNoTracking.Where(Function(x) x.Flag = False).OrderByDescending(Function(x) x.UpdTime).ToList()
+                flGetCompanyList = (From b In _db.mCompany.AsNoTracking
+                                    Where b.Flag = False
+                                    Select New With {
+                                      .ID = b.ID,
+                                      .ApplicantCD = b.ApplicantCD,
+                                      .ApplicantName = b.ApplicantName,
+                                      .UpdTime = b.UpdTime
+                                      })
             Else
-                flGetCompanyList = _db.mCompany.AsNoTracking.Where(Function(x) x.Flag = False).OrderByDescending(Function(x) x.UpdTime).ToList()
+                flGetCompanyList = (From b In _db.tBoardCompany.AsNoTracking
+                                    Where b.BoardID = BoardID And b.Flag = False
+                                    Select New With {
+                                      .ID = b.ID,
+                                      .BoardID = b.BoardID,
+                                      .CompanyID = b.CompanyID,
+                                      .ApplicantCD = b.ApplicantCD,
+                                      .ApplicantName = b.ApplicantName,
+                                      .UpdTime = b.UpdTime
+                                      })
             End If
 
         Catch ex As Exception

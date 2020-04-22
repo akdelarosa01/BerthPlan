@@ -201,6 +201,19 @@ $(function () {
         var newVal = $(this).val().replace(/[^a-zA-Z0-9\-@)/+*$,._\\-]/g, '');
         $(this).val(newVal);
     });
+
+    $(".decimal-fomat").on("keypress", function (e) {
+        var decimalPlaces = $(this).val().length - $(this).val().indexOf(".");
+        if ($(this).val().indexOf(".") != -1 && decimalPlaces >= 5) {
+            e.preventDefault();
+        } else if ((e.key != "." && $(this).val().length == 9) || ($(this).val().indexOf(".") != -1 && e.key == ".")) {
+            e.preventDefault();
+        }
+    });
+
+    $(".decimal-fomat").on("input change paste", function (e) {
+        e.preventDefault();
+    });
 });
 
 function getCaret(el) {

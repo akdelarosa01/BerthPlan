@@ -33,7 +33,7 @@
                 <div class="col-md-4 col-xs-5">
                     <div class="input-group input-group-sm has-feedback" id="GrossTon_grp">
                         <span class="input-group-addon">総トン数</span>
-                         <input type="number" class="form-control enter cls" id="GrossTon" name="GrossTon" data-name="総トン数" onKeyPress="if(this.value.length==15) return false;"/>
+                         <input type="text" class="form-control enter cls number decimal-fomat" id="GrossTon" name="GrossTon" data-name="総トン数" onKeyPress="if(this.value.length==15) return false;"/>
                     </div>
                     <strong class="text-danger" id="GrossTon_msg"></strong>
                 </div>
@@ -45,7 +45,7 @@
                 <div class="col-md-2 col-xs-4">
                     <div class="input-group input-group-sm has-feedback" id="LOA_grp">
                         <span class="input-group-addon">LOA</span>
-                         <input type="number" class="form-control enter cls" id="LOA" name="LOA" data-name="LOA" onKeyPress="if(this.value.length==15) return false;" />
+                         <input type="text" class="form-control enter cls number decimal-fomat" id="LOA" name="LOA" data-name="LOA" onKeyPress="if(this.value.length==15) return false;" />
                     </div>
                     <strong class="text-danger" id="LOA_msg"></strong>
                 </div>
@@ -114,11 +114,6 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="PageScripts" runat="server">
-
-
-
-
-    
     <script src="../Assets/scripts/modal/CompanyModal.js"></script>
     <script src="../Assets/scripts/masters/VesselMaster.js"></script>
 </asp:Content>
