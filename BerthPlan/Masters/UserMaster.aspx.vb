@@ -574,6 +574,7 @@ Public Class UserMaster
             If HttpContext.Current.Session("ID") = sGetRow.ID Then
                 HttpContext.Current.Session("UserName") = sGetRow.UserName
             End If
+            HttpContext.Current.Session("IsAdmin") = sGetRow.IsAdmin
 
             flUpdate = True
 
