@@ -53,7 +53,7 @@
                     <div class="col-md-8 col-sm-8 col-xs-8" style="padding-right:0px;" id="ETAdate_grp">
                         <div class="input-group input-group-sm datepicker required-date" id="divETA" data-name="ETAdate">
                             <span class="input-group-addon">E.T.A.<span class="text-danger">*</span></span>
-                            <input type="text" class="form-control is_datepicker enter cls tDsble required" data-name="ETADate" id="ETAdate" name="ETAdate" autocomplete="off"/>
+                            <input type="text" class="form-control is_datepicker enter cls disble-fld required" data-name="ETADate" id="ETAdate" name="ETAdate" autocomplete="off"/>
                             <span class="input-group-addon datetimepicker-addon">
                                 <i class="fa fa-calendar text-danger"></i>
                             </span>
@@ -61,14 +61,14 @@
                         <strong class="text-danger" id="ETAdate_msg"></strong>
                     </div>
                     <div class="col-md-4 col-sm-4 col-xs-4" style="padding-left:0px;" id="ETAtime_grp">
-                        <input type="text" class="form-control input-sm timepicker enter cls tDsble required" data-name="ETAtime" id="ETAtime" name="ETAtime" autocomplete="off"/>
+                        <input type="text" class="form-control input-sm timepicker enter cls disble-fld required" data-name="ETAtime" id="ETAtime" name="ETAtime" autocomplete="off"/>
                          <strong class="text-danger" id="ETAtime_msg"></strong>
                     </div>
 
                     <div class="col-md-8 col-sm-8 col-xs-8" style="padding-right:0px;" id="ETBdate_grp">
                         <div class="input-group input-group-sm datepicker required-date" id="divETB" data-name="ETBdate">
                             <span class="input-group-addon">E.T.B.<span class="text-danger">*</span></span>
-                            <input type="text" class="form-control is_datepicker enter cls tDsble required" id="ETBdate" data-name="ETBdate" name="ETBdate" autocomplete="off"/>
+                            <input type="text" class="form-control is_datepicker enter cls disble-fld required" id="ETBdate" data-name="ETBdate" name="ETBdate" autocomplete="off"/>
                             <span class="input-group-addon datetimepicker-addon">
                                 <i class="fa fa-calendar text-danger"></i>
                             </span>
@@ -76,14 +76,14 @@
                         <strong class="text-danger" id="ETBdate_msg"></strong>
                     </div>
                     <div class="col-md-4 col-sm-4 col-xs-4" style="padding-left:0px;" id="ETBtime_grp">
-                        <input type="text" class="form-control enter input-sm timepicker cls tDsble required" id="ETBtime" data-name="ETBtime" name="ETBtime" autocomplete="off"/>
+                        <input type="text" class="form-control enter input-sm timepicker cls disble-fld required" id="ETBtime" data-name="ETBtime" name="ETBtime" autocomplete="off"/>
                         <strong class="text-danger" id="ETBtime_msg"></strong>
                     </div>
 
                     <div class="col-md-8 col-xs-8" style="padding-right:0px;" id="ETDdate_grp">
                         <div class="input-group input-group-sm datepicker required-date" id="divETD" data-name="ETDdate">
                             <span class="input-group-addon">E.T.D.<span class="text-danger">*</span></span>
-                            <input type="text" class="form-control is_datepicker enter cls tDsble required" id="ETDdate" data-name="ETDdate" name="ETDdate" autocomplete="off"/>
+                            <input type="text" class="form-control is_datepicker enter cls disble-fld required" id="ETDdate" data-name="ETDdate" name="ETDdate" autocomplete="off"/>
                             <span class="input-group-addon datetimepicker-addon">
                                 <i class="fa fa-calendar text-danger"></i>
                             </span>
@@ -91,7 +91,7 @@
                         <strong class="text-danger" id="ETDdate_msg"></strong>
                     </div>
                     <div class="col-md-4 col-xs-4" style="padding-left:0px;" id="ETDtime_grp">
-                        <input type="text" class="form-control input-sm timepicker enter cls tDsble required" id="ETDtime" data-name="ETDtime" name="ETDtime" autocomplete="off"/>
+                        <input type="text" class="form-control input-sm timepicker enter cls disble-fld required" id="ETDtime" data-name="ETDtime" name="ETDtime" autocomplete="off"/>
                         <strong class="text-danger" id="ETDtime_msg"></strong>
                     </div>
                 </div>
@@ -100,7 +100,7 @@
                     <div class="col-md-12">
                         <div class="input-group input-group-sm">
                             <span class="input-group-addon">水先案内人要/不要</span>
-                            <select class="form-control enter cls tDsble" id="PilotRequired" name="PilotRequired">
+                            <select class="form-control enter cls disble-fld" id="PilotRequired" name="PilotRequired">
                                 <option></option>
                                 <option value=true>Y</option>
                                 <option value=false>N</option>
@@ -111,7 +111,7 @@
                     <div class="col-md-12">
                         <div class="input-group input-group-sm" id="ShipFacing_grp">
                             <span class="input-group-addon">右舷／左舷<span class="text-danger">*</span></span>
-                            <select class="form-control enter cls tDsble required" id="ShipFacing" data-name="右舷／左舷" name="ShipFacing">
+                            <select class="form-control enter cls disble-fld required" id="ShipFacing" data-name="右舷／左舷" name="ShipFacing">
                                 <option></option>
                                 <option value=true>右</option>
                                 <option value=false>左</option>
@@ -123,7 +123,7 @@
                     <div class="col-md-12">
                         <div class="input-group input-group-sm">
                             <span class="input-group-addon">タグ</span>
-                            <select class="form-control enter cls tDsble" id="TugRequired" name="TugRequired">
+                            <select class="form-control enter cls disble-fld" id="TugRequired" name="TugRequired">
                                 <option></option>
                                 <option value=true>Y</option>
                                 <option value=false>N</option>
@@ -134,7 +134,7 @@
                     <div class="col-md-12">
                         <div class="input-group input-group-sm">
                             <span class="input-group-addon">ラインボート</span>
-                            <select class="form-control enter cls tDsble" id="LineRequired" name="LineRequired">
+                            <select class="form-control enter cls disble-fld" id="LineRequired" name="LineRequired">
                                 <option></option>
                                 <option value=true>Y</option>
                                 <option value=false>N</option>

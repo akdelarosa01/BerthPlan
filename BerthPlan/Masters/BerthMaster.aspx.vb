@@ -384,7 +384,11 @@ Public Class BerthMaster
         fgBerthName = Nothing
 
         Try
-            fgBerthName = _db.mBerth.AsNoTracking.Where(Function(b) b.BerthCD = BerthCD And b.Flag = False).FirstOrDefault()
+            fgBerthName = (From b In _db.mBerth.AsNoTracking
+                           Where b.BerthCD.ToUpper = BerthCD.ToUpper _
+                                 And b.Flag = False
+                           Order By b.UpdTime Descending
+                           Select b).FirstOrDefault
 
         Catch ex As Exception
         End Try

@@ -1130,6 +1130,9 @@
     <Compile Include="tBoard.vb">
       <DependentUpon>BerthDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="tBoardCompany.vb">
+      <DependentUpon>BerthDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="tBoardFile.vb">
       <DependentUpon>BerthDB.tt</DependentUpon>
     </Compile>

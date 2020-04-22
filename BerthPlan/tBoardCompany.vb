@@ -10,20 +10,16 @@
 Imports System
 Imports System.Collections.Generic
 
-Partial Public Class mCompany
+Partial Public Class tBoardCompany
     Public Property ID As Integer
+    Public Property BoardID As Integer
+    Public Property CompanyID As Integer
     Public Property ApplicantCD As String
     Public Property ApplicantName As String
-    Public Property PostCode As String
-    Public Property Address As String
-    Public Property Tel As String
-    Public Property Fax As String
-    Public Property Email As String
-    Public Property Color As String
     Public Property UpdTime As Date
     Public Property UpdUserID As String
     Public Property UpdPGID As String
-    Public Property TimeStamp As Byte()
+    Public Property TimeStamp As Date
     Public Property Flag As Boolean
 
 End Class

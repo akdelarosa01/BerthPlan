@@ -15,14 +15,13 @@ var vUpdTime = '';
 //*
 
 $(function () {
-
-
     //Initialize Screen
     fDispClear('I');
 
     //Get Web URL
     fGetURL();
 
+    //Voyage On Change Event
     $("#Voyage").on('change', function (e) {
         $.ajax({
             type: "POST",
@@ -32,7 +31,7 @@ $(function () {
             data: '{VoyageNo: "' + $(this).val() + '" }',
         }).done(function (data, textStatus, xhr) {
             if (data.d == '' || data.d == null) {
-
+                //
             } else {
                 $("#MainContent_VesselCD_VesselCD").val(data.d.VesselCD);
                 $("#MainContent_VesselCD_VesselName").val(data.d.VesselName);
@@ -63,7 +62,8 @@ $(function () {
         }
         //Get Data, Register
         var obj = fGetObjectData();
-        fRegister(obj);
+        var berthCD = $('#MainContent_BerthID_BerthCD').val();
+        fRegister(obj, berthCD);
     });
 
     //Back Event
@@ -83,10 +83,10 @@ $(function () {
             ApplicantCD = strx[5].substring(strx[5].indexOf("=") + 1);
             PilotCD = strx[6].substring(strx[6].indexOf("=") + 1);
             window.location.href = "VesselScheduleList?StartETA=" + StartETA +
-                                                    "&EndETA=" + EndETA +
-                                                    "&VesselCD=" + VesselCD +
-                                                    "&ApplicantCD=" + ApplicantCD +
-                                                    "&PilotCD=" + PilotCD + "";
+                "&EndETA=" + EndETA +
+                "&VesselCD=" + VesselCD +
+                "&ApplicantCD=" + ApplicantCD +
+                "&PilotCD=" + PilotCD + "";
         } else if (strx.length == 2) {
             window.location.href = "VesselScheduleVisual";
         } else {
@@ -94,6 +94,7 @@ $(function () {
         }
     });
 
+    //Clear Display
     $('#btnClear').on('click', function (e) {
         fDispClear('I');
         $('.required').each(function () {
@@ -123,9 +124,6 @@ $(function () {
             //F3: 
             case 114:
                 e.preventDefault();
-                if (!$('#btnUpdate').is(':disabled')) {
-                    $('#btnUpdate').click();
-                }
                 break
             //F4: CLEAR
             case 115:
@@ -136,14 +134,14 @@ $(function () {
             case 117:
                 e.preventDefault();
                 break;
-                //F8: 
+            //F8: 
             case 119:
                 e.preventDefault();
                 break;
-                //F10: 
+            //F10: 
             case 121:
                 e.preventDefault();
-                //F12: CLOSE
+            //F12: CLOSE
             case 123:
                 e.preventDefault();
                 window.location.href = ".../../../Pages/SystemMenu"
@@ -188,26 +186,33 @@ function fSearchVoyage(sVesselCD, sVoyage) {
         var sData = data.d;
         sessionOut(sData.Status);
         if (sData.Status == 'failed') {
-            bootbox.confirm({
-                title: "新規データ",
-                size: 'small',
-                message: sData.Msg,
-                buttons: {
-                    confirm: {
-                        label: 'OK',
-                        className: 'btn-sm btn-success'
+            if (sData.Data) {
+                $('#MainContent_VesselCD_VesselCD').val('');
+                $('#MainContent_VesselCD_VesselName').val('');
+
+                showError('MainContent_VesselCD_VesselCD', getMsg('E06', $('#MainContent_VesselCD_VesselCD').attr('data-name')));
+            } else {
+                bootbox.confirm({
+                    title: "新規データ",
+                    size: 'small',
+                    message: sData.Msg,
+                    buttons: {
+                        confirm: {
+                            label: 'OK',
+                            className: 'btn-sm btn-success'
+                        },
+                        cancel: {
+                            label: 'キャンセル',
+                            className: 'btn-sm btn-default'
+                        }
                     },
-                    cancel: {
-                        label: 'キャンセル',
-                        className: 'btn-sm btn-default'
+                    callback: function (result) {
+                        if (result) {
+                            fSearch(sVesselCD, sVoyage);
+                        }
                     }
-                },
-                callback: function (result) {
-                    if (result) {
-                        fSearch(sVesselCD, sVoyage);
-                    }
-                }
-            })
+                })
+            }
         } else if (sData.Status == 'error') {
             msg(sData.Msg, 'failed');
         } else {
@@ -219,7 +224,7 @@ function fSearchVoyage(sVesselCD, sVoyage) {
     });
 }
 
-//Search
+//Get Data
 function fSearch(sVesselCD, sVoyage) {
     $.ajax({
         type: 'POST',
@@ -229,7 +234,6 @@ function fSearch(sVesselCD, sVoyage) {
         dataType: 'json',
     }).done(function (data, textStatus, xhr) {
         var sData = data.d;
-        var sLOAUnit = 'm';
 
         if (sData.Status == 'failed' || sData.Status == 'error') {
             msg(sData.Msg, sData.Status);
@@ -244,7 +248,7 @@ function fSearch(sVesselCD, sVoyage) {
 
             $('#MainContent_VesselCD_VesselName').val(sData.VesselName);
             $('#GrossTon').text(numberFormat(sData.GrossTon));
-            $('#LOA').text(numberFormat(sData.LOA) + sLOAUnit);
+            $('#LOA').text(numberFormat(sData.LOA) + 'm');
 
             vSchedID = sData.ScheduleID;
             if (vSchedID != 0) {
@@ -278,8 +282,6 @@ function fSearch(sVesselCD, sVoyage) {
                 $('#divETD').data("DateTimePicker").minDate(ParseDate(sData.ETB));
                 $('#divETA').data("DateTimePicker").minDate(false);
                 $('#divETA').data("DateTimePicker").maxDate(ParseDate(sData.ETB));
-
-
             }
             fDispClear('S');
         }
@@ -289,12 +291,12 @@ function fSearch(sVesselCD, sVoyage) {
 }
 
 //Register Schedule
-function fRegister(obj) {
+function fRegister(obj, berthCD) {
     $.ajax({
         type: 'POST',
         url: 'VesselScheduleRegistration.aspx/flRegister',
         beforeSend: ShowLoading(),
-        data: JSON.stringify({ pSched: obj }),
+        data: JSON.stringify({ pSched: obj, berthCD: berthCD }),
         contentType: 'application/json; charset=utf-8',
         dataType: 'json',
     }).done(function (data, textStatus, xhr) {
@@ -303,7 +305,30 @@ function fRegister(obj) {
         if (sResult.Status == 'success') {
             fDispClear('I');
         }
-        msg(sResult.Msg, sResult.Status);
+        if (sResult.Data) {
+            var data = sResult.Data;
+            if (data[0] == 'Error') { //Berth
+                $('#MainContent_BerthID_BerthID').val('');
+                $('#MainContent_BerthID_BerthCD').val('');
+                $('#MainContent_BerthID_BerthName').val('');
+
+                showError('MainContent_BerthID_BerthCD', getMsg('E06', $('#MainContent_BerthID_BerthCD').attr('data-name')));
+            }
+            if (data[1] == 'Error') { //Applicant
+                $('#MainContent_ApplicantCD_ApplicantCD').val('');
+                $('#MainContent_ApplicantCD_ApplicantName').val('');
+
+                showError('MainContent_ApplicantCD_ApplicantCD', getMsg('E06', $('#MainContent_ApplicantCD_ApplicantCD').attr('data-name')));
+            }
+            if (data[2] == 'Error') { //Pilot
+                $('#MainContent_PilotCD_PilotCD').val('');
+                $('#MainContent_PilotCD_PilotName').val('');
+
+                showError('MainContent_PilotCD_PilotCD', getMsg('E06', $('#MainContent_PilotCD_PilotCD').attr('data-name')));
+            }
+        } else {
+            msg(sResult.Msg, sResult.Status);
+        }
         HideLoading();
     }).fail(function (xhr, textStatus, errorThrown) {
         msg(textStatus, 'error');
@@ -316,9 +341,11 @@ function fFormatAMPM(date) {
     var hours = date.getHours();
     var minutes = date.getMinutes();
     var ampm = hours >= 12 ? 'PM' : 'AM';
+
     hours = hours % 12;
     hours = hours ? hours : 12; // the hour '0' should be '12'
     minutes = minutes < 10 ? '0' + minutes : minutes;
+
     var strTime = hours + ':' + minutes + ' ' + ampm;
     return strTime;
 }
@@ -326,11 +353,6 @@ function fFormatAMPM(date) {
 //Check Required Fields
 function fCheck(sMode) {
     var invalid = 0;
-    var sCD = {
-        'PilotCD': 'PilotCD',
-        'BerthID': 'BerthCD',
-        'ApplicantCD': 'ApplicantCD'
-    };
 
     if (sMode == 'S') {
         if ($('#MainContent_VesselCD_VesselCD').val() == "") {
@@ -349,13 +371,12 @@ function fCheck(sMode) {
     } else {
         $('.required').each(function () {
             var id = $(this).attr('id');
-            var sID = '#' + id;
             if ($(this).val() == '') {
                 showError(id, getMsg('E06', $('#' + id).attr('data-name')));
                 invalid++;
             }
         });
-        
+
         if ($('#ETAtime').val().length <= 5) {
             msg(getMsg('E04'), 'failed');
             return false
@@ -393,12 +414,13 @@ function fCheck(sMode) {
 
 //Initialize Display
 function fDispClear(sStatus) {
-    var enableField = [];
+    var state = [];
     switch (sStatus) {
         case 'I':
             vSchedID = 0;
             vUpdTime = '';
-            //Block Previous Date
+
+            //-------------Block Previous Date-------------------
             $("#divETA").on("dp.change", function (e) {
                 $('#divETB').data("DateTimePicker").minDate(e.date);
                 if ($('#ETBdate').val() == '') {
@@ -415,10 +437,10 @@ function fDispClear(sStatus) {
 
             $('#divETB').data("DateTimePicker").maxDate(false);
             $('#divETA').data("DateTimePicker").maxDate(false);
-
             $('#divETB').data("DateTimePicker").minDate(DateNow());
             $('#divETD').data("DateTimePicker").minDate(DateNow());
             $('#divETA').data("DateTimePicker").minDate(DateNow());
+            //----------------------------------------------------
 
             $("#TitleBerth").html('着岸バース<span class="text-danger">*</span>');
             $("#TitleVessel").html('本船<span class="text-danger">*</span>');
@@ -426,26 +448,41 @@ function fDispClear(sStatus) {
             $("#TitleApplicant").html('申請者<span class="text-danger">*</span>');
 
             $('.cls').val('');
-            $('.tDsble').prop('disabled', true);
+            $('.disble-fld').prop('disabled', true);
+
             $('#GrossTon').text('');
             $('#LOA').text('');
 
-            $('#MainContent_PilotCD_PilotCD').prop('disabled', true);
-            $('#MainContent_BerthID_BerthCD').prop('disabled', true);
-            $('#MainContent_ApplicantCD_ApplicantCD').prop('disabled', true);
-            $('#btnSearchBerth').prop('disabled', true);
-            $('#btnSearchCompany').prop('disabled', true);
-            $('#btnSearchPilot').prop('disabled', true);
+            state = ['#MainContent_PilotCD_PilotCD', '#MainContent_BerthID_BerthCD', '#MainContent_ApplicantCD_ApplicantCD',
+                           '#btnSearchBerth', '#btnSearchCompany', '#btnSearchPilot'];
+            $.each(state, function (idx, val) {
+                $(val).prop('disabled', true);
+            });
 
-            $('#MainContent_VesselCD_VesselCD').val('');
+            //$('#MainContent_PilotCD_PilotCD').prop('disabled', true);
+            //$('#MainContent_BerthID_BerthCD').prop('disabled', true);
+            //$('#MainContent_ApplicantCD_ApplicantCD').prop('disabled', true);
+            //$('#btnSearchBerth').prop('disabled', true);
+            //$('#btnSearchCompany').prop('disabled', true);  
+            //$('#btnSearchPilot').prop('disabled', true);
+
+            $('.required').val('');
             $('#MainContent_VesselCD_VesselName').val('');
             $('#MainContent_BerthID_BerthID').val('');
             $('#MainContent_BerthID_BerthCD').val('');
             $('#MainContent_BerthID_BerthName').val('');
-            $('#MainContent_ApplicantCD_ApplicantCD').val('');
             $('#MainContent_ApplicantCD_ApplicantName').val('');
-            $('#MainContent_PilotCD_PilotCD').val('');
             $('#MainContent_PilotCD_PilotName').val('');
+
+            //$('#MainContent_VesselCD_VesselCD').val('');
+            //$('#MainContent_VesselCD_VesselName').val('');
+            //$('#MainContent_BerthID_BerthID').val('');
+            //$('#MainContent_BerthID_BerthCD').val('');
+            //$('#MainContent_BerthID_BerthName').val('');
+            //$('#MainContent_ApplicantCD_ApplicantCD').val('');
+            //$('#MainContent_ApplicantCD_ApplicantName').val('');
+            //$('#MainContent_PilotCD_PilotCD').val('');
+            //$('#MainContent_PilotCD_PilotName').val('');
 
             $('#Voyage').prop('disabled', false);
             $('#btnRegister').prop('disabled', true);
@@ -456,11 +493,11 @@ function fDispClear(sStatus) {
             $('#Voyage').focus();
             break;
         case 'S':
-            $('.tDsble').prop('disabled', false);
+            $('.disble-fld').prop('disabled', false);
             $('.required').prop('disabled', false);
 
-            enableField = ['#btnSearchBerth', '#btnSearchCompany', '#btnSearchPilot', '#btnRegister'];
-            $.each(enableField, function (idx, val) {
+            state = ['#btnSearchBerth', '#btnSearchCompany', '#btnSearchPilot', '#btnRegister'];
+            $.each(state, function (idx, val) {
                 $(val).prop('disabled', false);
             });
 
@@ -481,7 +518,7 @@ function fGetObjectData() {
         ScheduleID: vSchedID,
         VesselCD: $('#MainContent_VesselCD_VesselCD').val(),
         VoyageNo: $('#Voyage').val(),
-        BerthID: $('#MainContent_BerthID_BerthID').val(),
+        BerthID: $('#MainContent_BerthID_BerthID').val() == '' ? 0 : $('#MainContent_BerthID_BerthID').val(),
         ApplicantCD: $('#MainContent_ApplicantCD_ApplicantCD').val(),
         PilotCD: $('#MainContent_PilotCD_PilotCD').val(),
         PilotGuide: $('#PilotRequired option:selected').val() == '' ? false : $('#PilotRequired option:selected').val(),
@@ -505,8 +542,5 @@ function fCheckYear(date_value) {
     }
     return true;
 }
-
-
-
 
 

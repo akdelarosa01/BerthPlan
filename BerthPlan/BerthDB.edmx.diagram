@@ -48,17 +48,18 @@
         <EntityTypeShape EntityType="BerthPlanModel.tBoardView" Width="1.5" PointX="10.763901577686845" PointY="11.568117013000006" />
         <EntityTypeShape EntityType="BerthPlanModel.tSchedule" Width="1.5" PointX="10.047722914278378" PointY="9.6141555652088275" />
       <Diagram DiagramId="2c420ac4c3834020b8a5f7273568ce3f" Name="ダイアグラム1" ZoomLevel="75">
-        <EntityTypeShape EntityType="BerthPlanModel.mBerth" Width="1.5" PointX="1.2184933411043573" PointY="22.348702619945957" />
-        <EntityTypeShape EntityType="BerthPlanModel.mCompany" Width="1.5" PointX="2.7533833490467554" PointY="26.464146879717777" />
-        <EntityTypeShape EntityType="BerthPlanModel.mMessage" Width="1.5" PointX="1.5224354777123943" PointY="26.348948610177704" />
-        <EntityTypeShape EntityType="BerthPlanModel.mPilot" Width="1.5" PointX="0.99390004994063641" PointY="25.903160867236164" />
-        <EntityTypeShape EntityType="BerthPlanModel.mUser" Width="1.5" PointX="9.4241173311248971" PointY="6.855013671729254" />
-        <EntityTypeShape EntityType="BerthPlanModel.mVessel" Width="1.5" PointX="1.5175453915808095" PointY="21.534802908792535" />
-        <EntityTypeShape EntityType="BerthPlanModel.mWharf" Width="1.5" PointX="4.8381003443329131" PointY="27.343319950319511" />
-        <EntityTypeShape EntityType="BerthPlanModel.tBoard" Width="1.5" PointX="3.2770263102264261" PointY="17.444291823284836" />
-        <EntityTypeShape EntityType="BerthPlanModel.tBoardFile" Width="1.5" PointX="10.157505304625959" PointY="18.370081954808011" />
-        <EntityTypeShape EntityType="BerthPlanModel.tBoardView" Width="1.5" PointX="1.6924202561808843" PointY="31.120014786310502" />
-        <EntityTypeShape EntityType="BerthPlanModel.tSchedule" Width="1.5" PointX="7.4935152714576176" PointY="9.819954027337932" />
+        <EntityTypeShape EntityType="BerthPlanModel.mBerth" Width="1.5" PointX="7.6683953272497254" PointY="30.735083683736196" />
+        <EntityTypeShape EntityType="BerthPlanModel.mCompany" Width="1.5" PointX="3.0519148609842706" PointY="5.4883814926670782" />
+        <EntityTypeShape EntityType="BerthPlanModel.mMessage" Width="1.5" PointX="5.450180888851258" PointY="8.612069640593635" />
+        <EntityTypeShape EntityType="BerthPlanModel.mPilot" Width="1.5" PointX="0.59025509124167974" PointY="20.3371720110705" />
+        <EntityTypeShape EntityType="BerthPlanModel.mUser" Width="1.5" PointX="7.3826708660380307" PointY="14.089452392463317" />
+        <EntityTypeShape EntityType="BerthPlanModel.mVessel" Width="1.5" PointX="7.0753081082717078" PointY="14.084632909896147" />
+        <EntityTypeShape EntityType="BerthPlanModel.mWharf" Width="1.5" PointX="9.2799593812227066" PointY="27.62821067666086" />
+        <EntityTypeShape EntityType="BerthPlanModel.tBoard" Width="1.5" PointX="11.304479330454246" PointY="4.4636798968835176" />
+        <EntityTypeShape EntityType="BerthPlanModel.tBoardCompany" Width="1.5" PointX="0.71963059935701579" PointY="28.84740526827397" />
+        <EntityTypeShape EntityType="BerthPlanModel.tBoardFile" Width="1.5" PointX="6.5635427118109266" PointY="8.02478672937713" />
+        <EntityTypeShape EntityType="BerthPlanModel.tBoardView" Width="1.5" PointX="3.9935990851342673" PointY="5.9130499688503564" />
+        <EntityTypeShape EntityType="BerthPlanModel.tSchedule" Width="1.5" PointX="9.9692144943257865" PointY="11.026057278283899" />
       </Diagram>
       </edmx:Designer>
 </edmx:Edmx>

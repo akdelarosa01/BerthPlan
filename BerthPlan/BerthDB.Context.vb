@@ -11,7 +11,7 @@ Imports System
 Imports System.Data.Entity
 Imports System.Data.Entity.Infrastructure
 
-Public Class BerthPlanEntities
+Partial Public Class BerthPlanEntities
     Inherits DbContext
 
     Public Sub New()
@@ -30,6 +30,7 @@ Public Class BerthPlanEntities
     Public Property mVessel() As DbSet(Of mVessel)
     Public Property mWharf() As DbSet(Of mWharf)
     Public Property tBoard() As DbSet(Of tBoard)
+    Public Property tBoardCompany() As DbSet(Of tBoardCompany)
     Public Property tBoardFile() As DbSet(Of tBoardFile)
     Public Property tBoardView() As DbSet(Of tBoardView)
     Public Property tSchedule() As DbSet(Of tSchedule)

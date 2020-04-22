@@ -92,14 +92,25 @@ Public Class VesselScheduleRegistration
             flSearchVoyage = New MyResult
             flSearchVoyage.Status = C_Flag.CodeF
 
+            'Initialize Data
+            pVoyageNo = fgNullToStr(pVoyageNo)
+            pVesselCD = fgNullToStr(pVesselCD)
+
             'Check Session
             If fgCheckSession() = False Then
                 flSearchVoyage.Status = C_Flag.CodeO
                 Exit Function
             End If
 
-            pVoyageNo = fgNullToStr(pVoyageNo)
-            pVesselCD = fgNullToStr(pVesselCD)
+            'Check Vessel in master
+            Dim iVessel = _db.mVessel.Where(Function(x) x.VesselCD = pVesselCD _
+                                                And x.Flag = False).ToList
+            If iVessel.Count < 1 Then
+                flSearchVoyage.Data = "Err"
+                Exit Function
+            End If
+
+            'Check Voyage
             If flCheckVoyage(pVoyageNo, pVesselCD, rMsg, rFlag) = False Then
                 flSearchVoyage.Status = rFlag
                 flSearchVoyage.Msg = rMsg
@@ -121,59 +132,54 @@ Public Class VesselScheduleRegistration
     ''' <param name="rObj"></param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Private Shared Function flGetVessel(ByVal pVesselCD As String, _
-                                        ByVal pVoyageNo As String, _
+    Private Shared Function flGetVessel(ByVal pVesselCD As String,
+                                        ByVal pVoyageNo As String,
                                         ByRef rObj As Object) As Boolean
         Try
             flGetVessel = False
 
-            'Check Vessel in master
-            Dim iVessel = _db.mVessel.Where(Function(x) x.VesselCD = pVesselCD And x.Flag = False).ToList
-            If iVessel.Count < 1 Then
-                Exit Function
-            End If
-
             rObj = (From tS In _db.tSchedule
-                       Join mV In _db.mVessel
-                               On tS.VesselCD Equals mV.VesselCD
-                       Join mB In _db.mBerth
-                               On tS.BerthID Equals mB.BerthID
-                       Join mC In _db.mCompany
-                               On tS.ApplicantCD Equals mC.ApplicantCD
-                       Join mP In _db.mPilot
-                               On tS.PilotCD Equals mP.PilotCD
-                   Where tS.VesselCD = pVesselCD And tS.VoyageNo = pVoyageNo And tS.Flag = False
-                   Select New With {
-                           .VesselName = mV.VesselName,
-                           .GrossTon = mV.GrossTon,
-                           .LOA = mV.LOA,
-                           .ScheduleID = tS.ScheduleID,
-                           .VoyageNo = tS.VoyageNo,
-                           .BerthID = tS.BerthID,
-                           .BerthCD = mB.BerthCD,
-                           .BerthName = mB.BerthName,
-                           .PilotCD = tS.PilotCD,
-                           .PilotName = mP.PilotName,
-                           .ApplicantCD = tS.ApplicantCD,
-                           .ApplicantName = mC.ApplicantName,
-                           .PilotGuide = tS.PilotGuide,
-                           .Tag = tS.Tag,
-                           .LineBoat = tS.LineBoat,
-                           .ETA = tS.ETA,
-                           .ETB = tS.ETB,
-                           .ETD = tS.ETD,
-                           .ShipFace = tS.ShipFace,
-                           .UpdTime = tS.UpdTime
-                       }).FirstOrDefault()
+                    Join mV In _db.mVessel
+                            On tS.VesselCD Equals mV.VesselCD
+                    Join mB In _db.mBerth
+                            On tS.BerthID Equals mB.BerthID
+                    Join mC In _db.mCompany
+                            On tS.ApplicantCD Equals mC.ApplicantCD
+                    Join mP In _db.mPilot
+                            On tS.PilotCD Equals mP.PilotCD
+                    Where tS.VesselCD = pVesselCD And tS.VoyageNo = pVoyageNo And tS.Flag = False
+                    Select New With {
+                            .VesselName = mV.VesselName,
+                            .GrossTon = mV.GrossTon,
+                            .LOA = mV.LOA,
+                            .ScheduleID = tS.ScheduleID,
+                            .VoyageNo = tS.VoyageNo,
+                            .BerthID = tS.BerthID,
+                            .BerthCD = mB.BerthCD,
+                            .BerthName = mB.BerthName,
+                            .PilotCD = tS.PilotCD,
+                            .PilotName = mP.PilotName,
+                            .ApplicantCD = tS.ApplicantCD,
+                            .ApplicantName = mC.ApplicantName,
+                            .PilotGuide = tS.PilotGuide,
+                            .Tag = tS.Tag,
+                            .LineBoat = tS.LineBoat,
+                            .ETA = tS.ETA,
+                            .ETB = tS.ETB,
+                            .ETD = tS.ETD,
+                            .ShipFace = tS.ShipFace,
+                            .UpdTime = tS.UpdTime
+                        }).FirstOrDefault()
             'If Nothing, Get VesselInfo for New Registration
             If IsNothing(rObj) Then
-                rObj = (From x In iVessel
-                            Select New With {
-                                 .ScheduleID = 0,
-                                 .VesselName = x.VesselName,
-                                 .GrossTon = x.GrossTon,
-                                 .LOA = x.LOA
-                                }).FirstOrDefault()
+                rObj = (From x In _db.mVessel.Where(Function(x) x.VesselCD = pVesselCD _
+                                                And x.Flag = False).ToList
+                        Select New With {
+                             .ScheduleID = 0,
+                             .VesselName = x.VesselName,
+                             .GrossTon = x.GrossTon,
+                             .LOA = x.LOA
+                            }).FirstOrDefault()
             End If
 
             flGetVessel = True
@@ -189,8 +195,12 @@ Public Class VesselScheduleRegistration
     ''' <returns></returns>
     ''' <remarks></remarks>
     <System.Web.Services.WebMethod()>
-    Public Shared Function flRegister(ByVal pSched As tSchedule) As MyResult
+    Public Shared Function flRegister(ByVal pSched As tSchedule, ByVal berthCD As String) As MyResult
         Dim sMsg As String = String.Empty
+        Dim aName As String() = {"", "", ""}
+        Dim sErr As String = "Error"
+        Dim iBerth As mBerth = New mBerth
+        Dim iBerthID As Integer = 0
 
         Try
             flRegister = New MyResult
@@ -202,11 +212,15 @@ Public Class VesselScheduleRegistration
                 Exit Function
             End If
 
-            'Check Req Fields
-            If fgNullToStr(pSched.ApplicantCD) = String.Empty Or fgNullToStr(pSched.PilotCD) = String.Empty Then
-                flRegister.Msg = fgMsgOut("EBP006", "")
+            'Check User Controls
+            aName = flCheckUserControl(pSched.BerthID, berthCD, pSched.ApplicantCD, pSched.PilotCD, iBerthID)
+            If aName(0) <> String.Empty Or aName(1) <> String.Empty Or aName(2) <> String.Empty Then
+                flRegister.Data = aName
                 Exit Function
             End If
+
+            'Pass the updated current BerthID
+            pSched.BerthID = iBerthID
 
             'Check Date
             If flCheckDate(pSched.ETA, pSched.ETB, pSched.ETD) = False Then
@@ -243,12 +257,81 @@ Public Class VesselScheduleRegistration
     End Function
 
     ''' <summary>
+    ''' Check User Controls
+    ''' </summary>
+    ''' <param name="iBerthID"></param>
+    ''' <param name="sBerthCD"></param>
+    ''' <param name="sApplicantCD"></param>
+    ''' <param name="sPilotCD"></param>
+    ''' <param name="rBerthID"></param>
+    ''' <returns></returns>
+    Private Shared Function flCheckUserControl(ByVal iBerthID As Integer, ByVal sBerthCD As String,
+                                               ByVal sApplicantCD As String, ByVal sPilotCD As String,
+                                               ByRef rBerthID As Integer) As String()
+        Dim sErr As String = "Error"
+        Dim iBerth As mBerth = New mBerth
+        Dim aName As String() = {"", "", ""}
+
+        Try
+            aName = {"", "", ""}
+
+            'Check Berth
+            If iBerthID = 0 Then
+                iBerth = (From b In _db.mBerth.AsNoTracking
+                          Where b.BerthCD.ToUpper = sBerthCD.ToUpper _
+                                 And b.Flag = False
+                          Order By b.UpdTime Descending
+                          Select b).FirstOrDefault
+                If iBerth Is Nothing Then
+                    aName(0) = sErr
+                End If
+            Else
+                iBerth = (From b In _db.mBerth.AsNoTracking
+                          Where b.BerthCD.ToUpper = sBerthCD.ToUpper _
+                                And b.BerthID = iBerthID And b.Flag = False
+                          Select b).FirstOrDefault
+                If iBerth Is Nothing Then
+                    aName(0) = sErr
+                End If
+            End If
+
+            'Check Applicant
+            Dim iApplicant = From c In _db.mCompany.AsNoTracking
+                             Where c.ApplicantCD.ToUpper = sApplicantCD.ToUpper _
+                                    And c.Flag = False
+                             Select c
+            If iApplicant.Count < 1 Then
+                aName(1) = sErr
+            End If
+
+            'Check Pilot
+            Dim iPilot = From p In _db.mPilot.AsNoTracking()
+                         Where p.PilotCD.ToUpper = sPilotCD.ToUpper _
+                            And p.Flag = False
+                         Select p
+            If iPilot.Count < 1 Then
+                aName(2) = sErr
+            End If
+
+            'Return Got BerthID 
+            If Not iBerth Is Nothing Then
+                rBerthID = iBerth.BerthID
+            End If
+
+            flCheckUserControl = aName
+
+        Catch ex As Exception
+            Throw
+        End Try
+    End Function
+
+    ''' <summary>
     ''' Check Date
     ''' </summary>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Private Shared Function flCheckDate(ByVal pETA As DateTime, _
-                                    ByVal pETB As DateTime, _
+    Private Shared Function flCheckDate(ByVal pETA As DateTime,
+                                    ByVal pETB As DateTime,
                                     ByVal pETD As DateTime) As Boolean
         Dim dtETA As DateTime
         Dim dtETB As DateTime
@@ -294,7 +377,7 @@ Public Class VesselScheduleRegistration
     ''' <param name="rMsg"></param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Private Shared Function flCheckVoyage(ByVal pVoyageNo As String, ByVal pVesselCD As String, _
+    Private Shared Function flCheckVoyage(ByVal pVoyageNo As String, ByVal pVesselCD As String,
                                           ByRef rMsg As String, ByRef rFlag As String) As Boolean
         Try
             flCheckVoyage = False
@@ -302,16 +385,16 @@ Public Class VesselScheduleRegistration
             'Make VoyageNo UpperCase and Check
             pVoyageNo = pVoyageNo.ToString().ToUpper()
             Dim chckVoy = (From sData In _db.tSchedule
-                             Where sData.VoyageNo.ToUpper = pVoyageNo _
-                             And sData.Flag = False
+                           Where sData.VoyageNo.ToUpper = pVoyageNo _
+                           And sData.Flag = False
                            Select sData).ToList
 
             If chckVoy.Count > 0 Then
                 'Check if UserInput VoyageNo if already in the Schedule
                 Dim sCheck = (From sData In _db.tSchedule
-                                Where sData.VoyageNo.ToUpper = pVoyageNo _
-                                And sData.VesselCD = pVesselCD _
-                                And sData.Flag = 0
+                              Where sData.VoyageNo.ToUpper = pVoyageNo _
+                              And sData.VesselCD = pVesselCD _
+                              And sData.Flag = 0
                               Select sData)
                 If sCheck.Count = 0 Then
                     rFlag = C_Flag.CodeE
@@ -462,9 +545,11 @@ Public Class VesselScheduleRegistration
     <WebMethod()>
     Public Shared Function fgVesseNoExist(VoyageNo As String) As mVessel
         fgVesseNoExist = New mVessel
+
         Try
             Dim VesselCD As String = _db.tSchedule.AsNoTracking.Where(Function(s) s.VoyageNo = VoyageNo And s.Flag = False).Select(Function(s) s.VesselCD).FirstOrDefault()
             fgVesseNoExist = _db.mVessel.AsNoTracking.Where(Function(v) v.VesselCD = VesselCD).FirstOrDefault
+
         Catch ex As Exception
 
         End Try

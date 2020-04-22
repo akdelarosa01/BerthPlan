@@ -17,6 +17,7 @@
 
     $("#MainContent_BerthID_BerthCD").on('change', function (e) {
         var BerthCD = $("#MainContent_BerthID_BerthCD").val();
+        $('#MainContent_BerthID_BerthID').val('');
         $.ajax({
             type: "POST",
             url: ".../../../Masters/BerthMaster.aspx/fgBerthName",
@@ -29,7 +30,7 @@
                 $('#MainContent_BerthID_BerthID').val('');
             } else {
                 $("#MainContent_BerthID_BerthName").val(data.d.BerthName);
-                $('#MainContent_BerthID_BerthID').val(data.d.BerthID);
+                //$('#MainContent_BerthID_BerthID').val(data.d.BerthID);
             }
         }).fail(function (xhr, textStatus, errorThrown) {
             console.log("error");
