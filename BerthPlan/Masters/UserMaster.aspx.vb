@@ -573,8 +573,8 @@ Public Class UserMaster
             'Change Current UserName Session
             If HttpContext.Current.Session("ID") = sGetRow.ID Then
                 HttpContext.Current.Session("UserName") = sGetRow.UserName
+                HttpContext.Current.Session("IsAdmin") = sGetRow.IsAdmin
             End If
-            HttpContext.Current.Session("IsAdmin") = sGetRow.IsAdmin
 
             flUpdate = True
 
