@@ -134,6 +134,11 @@
         });
     });
 
+    /* Hide Error when keydown on components */
+    $('#Email').on('keydown', function (e) {
+        hideError('Email');   
+    });
+
     $(document).on('keydown', function (e) {
         switch (e.keyCode) {
             //F1: Block F1
@@ -344,6 +349,7 @@ function Clear() {
             hideError($(this).attr('id'));
         }
     });
+    hideError("Email");
     $(".cls").val("");
     $('#ApplicantCD').prop('readonly', false);
     $('#btnUpdate').prop('disabled', true);
