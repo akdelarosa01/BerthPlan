@@ -31,7 +31,8 @@ Public Class BoardRegistration
 #End Region
 
 #Region "## クラス内変数 ## "
-    Public Shared _db As BerthPlanEntities = New BerthPlanEntities()
+
+    Public Shared _db As BerthPlan.BerthPlanEntities = New BerthPlan.BerthPlanEntities()
     Public Shared _BoardID As Integer = 0
     Public Shared ServerPath As String = HttpContext.Current.Server.MapPath("~/Assets/bulletin_files/")
 #End Region
@@ -138,7 +139,7 @@ Public Class BoardRegistration
     ''' <remarks></remarks>
     <WebMethod()>
     Public Shared Function flDeleteBoard(ByVal ids As Object) As MyResult
-        Dim tBoards As IQueryable(Of tBoard) = Nothing
+        Dim tBoards As IQueryable(Of BerthPlan.tBoard) = Nothing
         Dim id As String() = Nothing
         Dim files As Object = Nothing
         flDeleteBoard = New MyResult
@@ -155,7 +156,7 @@ Public Class BoardRegistration
                 Function(b) id.Contains(b.BoardID)
                 )
 
-            For Each board As tBoard In tBoards
+            For Each board As BerthPlan.tBoard In tBoards
                 board.Flag = True
                 files = _db.tBoardFile.Where(Function(f) f.BoardID = board.BoardID).FirstOrDefault
                 If Directory.Exists(ServerPath & board.BoardID) Then
@@ -188,7 +189,7 @@ Public Class BoardRegistration
     Public Shared Function flRegisterKeijiban(ByVal id As Integer, ByVal title As String, ByVal contents As String, ByVal link As String, _
                                                ByVal postSdate As String, ByVal postEdate As String, ByVal hdStatus As String, ByVal hdUserID As String) As MyResult
         Dim Auth As Authentication = New Authentication()
-        Dim tBoard As tBoard
+        Dim tBoard As BerthPlan.tBoard
         flRegisterKeijiban = New MyResult
 
         Try
@@ -205,7 +206,7 @@ Public Class BoardRegistration
                 Exit Function
             End If
 
-            tBoard = New tBoard()
+            tBoard = New BerthPlan.tBoard
             Select Case hdStatus
                 Case "EDIT"
                     tBoard = (From c In _db.tBoard.ToList()
@@ -240,7 +241,7 @@ Public Class BoardRegistration
             End Select
 
             If _db.SaveChanges() > 0 Then
-                Dim tBoardView As New tBoardView
+                Dim tBoardView As New BerthPlan.tBoardView
 
                 tBoardView.BoardID = tBoard.BoardID
                 tBoardView.UserID = Auth.ID
@@ -306,7 +307,7 @@ Public Class BoardRegistration
     ''' <remarks></remarks>
     <WebMethod()>
     Public Shared Function flDeleteBoardFiles(ByVal ids As Object) As MyResult
-        Dim tBoardFiles As IQueryable(Of tBoardFile) = Nothing
+        Dim tBoardFiles As IQueryable(Of BerthPlan.tBoardFile) = Nothing
         Dim id As String() = Nothing
         flDeleteBoardFiles = New MyResult
         Dim BoardID As Integer
@@ -323,7 +324,7 @@ Public Class BoardRegistration
                 Function(b) id.Contains(b.BoardFileID)
                 )
 
-            For Each board As tBoardFile In tBoardFiles
+            For Each board As BerthPlan.tBoardFile In tBoardFiles
                 board.Flag = True
                 BoardID = board.BoardID
 
@@ -368,16 +369,18 @@ Public Class BoardRegistration
                                       .UpdTime = b.UpdTime
                                       })
             Else
-                flGetCompanyList = (From b In _db.tBoardCompany.AsNoTracking
-                                    Where b.BoardID = BoardID And b.Flag = False
+
+                flGetCompanyList = (From c In _db.mCompany.AsNoTracking.ToList
+                                    Group Join b In _db.tBoardCompany.AsNoTracking.ToList On c.ID Equals b.CompanyID Into Group
+                                    From x In Group.DefaultIfEmpty()
                                     Select New With {
-                                      .ID = b.ID,
-                                      .BoardID = b.BoardID,
-                                      .CompanyID = b.CompanyID,
-                                      .ApplicantCD = b.ApplicantCD,
-                                      .ApplicantName = b.ApplicantName,
-                                      .UpdTime = b.UpdTime
-                                      })
+                                        .ID = c.ID,
+                                        .ApplicantCD = c.ApplicantCD,
+                                        .ApplicantName = c.ApplicantName,
+                                        .UpdTime = If(IsNothing(x), String.Empty, x.UpdTime),
+                                        .BoardID = If(IsNothing(x), String.Empty, x.BoardID)
+                                    })
+
             End If
 
         Catch ex As Exception

@@ -19,7 +19,7 @@ Public Class Login
 
     Inherits System.Web.UI.Page
 #Region "## クラス内変数 ## "
-    Dim _db As BerthPlanEntities
+    Dim _db As BerthPlan.BerthPlanEntities
     Dim Auth As Authentication = New Authentication
     Private LoginResult As sLoginResult
 #End Region
@@ -63,13 +63,20 @@ Public Class Login
             failed_alert.Visible = False
             failed_msg.InnerText = ""
 
-            ClientScript.RegisterStartupScript(Me.GetType(), _
-                                                       "OpenNewWindow", _
-                                                       "<script language=""javascript"">window.open('Pages/SystemMenu.aspx'," & _
-                                                       "'_blank'," & _
+            ClientScript.RegisterStartupScript(Me.GetType(),
+                                                       "OpenNewWindow",
+                                                       "<script language=""javascript"">window.open('Pages/SystemMenu.aspx'," &
+                                                       "'_blank'," &
                                                        "'status=1, scrollbars=1, resizable=1, fullscreen=yes'); window.location.href = '.../../../Login.aspx'; </script>")
+
             '自画面を閉じる
             ClientScript.RegisterStartupScript(Me.GetType(), "OpenClose", "<script language=""javascript"">window.open('', '_self').close();</script>")
+
+            'ClientScript.RegisterStartupScript(Me.GetType(),
+            '                                           "OpenNewWindow",
+            '                                           "<script language=""javascript"">window.open('Pages/SystemMenu.aspx'," &
+            '                                           "'_blank'," &
+            '                                           "'status=1, scrollbars=1, resizable=1, fullscreen=yes'); window.open('', '_self').close() </script>")
 
             'メッセージマスタ取得
             Call fgGetMsgmst()

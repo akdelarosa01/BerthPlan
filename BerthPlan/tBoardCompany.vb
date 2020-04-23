@@ -10,16 +10,20 @@
 Imports System
 Imports System.Collections.Generic
 
-Partial Public Class tBoardCompany
-    Public Property ID As Integer
-    Public Property BoardID As Integer
-    Public Property CompanyID As Integer
-    Public Property ApplicantCD As String
-    Public Property ApplicantName As String
-    Public Property UpdTime As Date
-    Public Property UpdUserID As String
-    Public Property UpdPGID As String
-    Public Property TimeStamp As Date
-    Public Property Flag As Boolean
+Namespace BerthPlan
 
-End Class
+    Partial Public Class tBoardCompany
+        Public Property ID As Integer
+        Public Property BoardID As Integer
+        Public Property CompanyID As Integer
+        Public Property ApplicantCD As String
+        Public Property ApplicantName As String
+        Public Property UpdTime As Date
+        Public Property UpdUserID As String
+        Public Property UpdPGID As String
+        Public Property TimeStamp As Byte()
+        Public Property Flag As Boolean
+    
+    End Class
+
+End Namespace

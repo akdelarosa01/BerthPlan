@@ -10,16 +10,20 @@
 Imports System
 Imports System.Collections.Generic
 
-Partial Public Class mPilot
-    Public Property ID As Integer
-    Public Property PilotCD As String
-    Public Property PilotName As String
-    Public Property Email As String
-    Public Property Tel As String
-    Public Property UpdTime As Date
-    Public Property UpdUserID As String
-    Public Property UpdPGID As String
-    Public Property TimeStamp As Byte()
-    Public Property Flag As Boolean
+Namespace BerthPlan
 
-End Class
+    Partial Public Class mPilot
+        Public Property ID As Integer
+        Public Property PilotCD As String
+        Public Property PilotName As String
+        Public Property Email As String
+        Public Property Tel As String
+        Public Property UpdTime As Date
+        Public Property UpdUserID As String
+        Public Property UpdPGID As String
+        Public Property TimeStamp As Byte()
+        Public Property Flag As Boolean
+    
+    End Class
+
+End Namespace

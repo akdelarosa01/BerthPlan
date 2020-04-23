@@ -37,7 +37,7 @@ Public Class PilotMaster
 
 #Region "## クラス内変数 ## "
     ''' <summary>Berth Plan Database</summary>
-    Private Shared _db As BerthPlanEntities = New BerthPlanEntities
+    Private Shared _db As BerthPlan.BerthPlanEntities = New BerthPlan.BerthPlanEntities
 #End Region
 
 #Region "## コントロールイベント定義 ##"
@@ -88,7 +88,7 @@ Public Class PilotMaster
     ''' <param name="data"></param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Shared Function flSortByColumnWithOrder(ByVal order As String, ByVal orderDir As String, data As List(Of mPilot)) As List(Of mPilot)
+    Public Shared Function flSortByColumnWithOrder(ByVal order As String, ByVal orderDir As String, data As List(Of BerthPlan.mPilot)) As List(Of BerthPlan.mPilot)
         flSortByColumnWithOrder = Nothing
 
         Try
@@ -98,20 +98,20 @@ Public Class PilotMaster
 
             Select Case order
                 Case "0"
-                    flSortByColumnWithOrder = If(orderDir.Equals("DESC", StringComparison.CurrentCultureIgnoreCase), _
-                                               data.OrderByDescending(Function(b) b.ID).ToList(), _
+                    flSortByColumnWithOrder = If(orderDir.Equals("DESC", StringComparison.CurrentCultureIgnoreCase),
+                                               data.OrderByDescending(Function(b) b.ID).ToList(),
                                                data.OrderBy(Function(b) b.ID).ToList())
                 Case "1"
-                    flSortByColumnWithOrder = If(orderDir.Equals("DESC", StringComparison.CurrentCultureIgnoreCase), _
-                                               data.OrderByDescending(Function(b) b.PilotCD).ToList(), _
+                    flSortByColumnWithOrder = If(orderDir.Equals("DESC", StringComparison.CurrentCultureIgnoreCase),
+                                               data.OrderByDescending(Function(b) b.PilotCD).ToList(),
                                                data.OrderBy(Function(b) b.PilotCD).ToList())
                 Case "2"
-                    flSortByColumnWithOrder = If(orderDir.Equals("DESC", StringComparison.CurrentCultureIgnoreCase), _
-                                               data.OrderByDescending(Function(b) b.PilotName).ToList(), _
+                    flSortByColumnWithOrder = If(orderDir.Equals("DESC", StringComparison.CurrentCultureIgnoreCase),
+                                               data.OrderByDescending(Function(b) b.PilotName).ToList(),
                                                data.OrderBy(Function(b) b.PilotName).ToList())
                 Case "3"
-                    flSortByColumnWithOrder = If(orderDir.Equals("DESC", StringComparison.CurrentCultureIgnoreCase), _
-                                               data.OrderByDescending(Function(b) b.UpdTime).ToList(), _
+                    flSortByColumnWithOrder = If(orderDir.Equals("DESC", StringComparison.CurrentCultureIgnoreCase),
+                                               data.OrderByDescending(Function(b) b.UpdTime).ToList(),
                                                data.OrderBy(Function(b) b.UpdTime).ToList())
             End Select
 
@@ -128,8 +128,8 @@ Public Class PilotMaster
     ''' <returns></returns>
     ''' <remarks></remarks>
     <WebMethod()>
-    Public Shared Function flDelPilot(ByVal lPilot As List(Of mPilot)) As MyResult
-        Dim mPilot As IQueryable(Of mPilot) = Nothing
+    Public Shared Function flDelPilot(ByVal lPilot As List(Of BerthPlan.mPilot)) As MyResult
+        Dim mPilot As IQueryable(Of BerthPlan.mPilot) = Nothing
 
         Try
             flDelPilot = New MyResult
@@ -142,17 +142,17 @@ Public Class PilotMaster
             End If
 
             'Check UpdTime if the same
-            For Each sLine As mPilot In lPilot
-                If flCheckUpdDate(sLine.UpdTime, (From x In _db.mPilot.AsNoTracking _
-                                                    Where x.ID = sLine.ID _
-                                                   Select x.UpdTime).FirstOrDefault) = False Then
+            For Each sLine As BerthPlan.mPilot In lPilot
+                If flCheckUpdDate(sLine.UpdTime, (From x In _db.mPilot.AsNoTracking
+                                                  Where x.ID = sLine.ID
+                                                  Select x.UpdTime).FirstOrDefault) = False Then
                     flDelPilot.Msg = fgMsgOut("EXX004", "")
                     Exit Function
                 End If
             Next
 
             'Delete Pilot
-            For Each sRow As mPilot In lPilot
+            For Each sRow As BerthPlan.mPilot In lPilot
                 Dim sData = _db.mPilot.Where(Function(x) x.ID = sRow.ID).FirstOrDefault
                 sData.UpdTime = DateTime.Now
                 sData.Flag = True
@@ -180,8 +180,8 @@ Public Class PilotMaster
     ''' <returns></returns>
     ''' <remarks></remarks>
     <System.Web.Services.WebMethod()>
-    Public Shared Function flUpdData(ByVal pPilotInfo As mPilot) As MyResult
-        Dim oPilot As mPilot = New mPilot
+    Public Shared Function flUpdData(ByVal pPilotInfo As BerthPlan.mPilot) As MyResult
+        Dim oPilot As BerthPlan.mPilot = New BerthPlan.mPilot
         Dim sPilotCD As String = String.Empty
         Dim iID As Integer = 0
 
@@ -236,7 +236,7 @@ Public Class PilotMaster
     ''' <returns></returns>
     ''' <remarks></remarks>
     <System.Web.Services.WebMethod()>
-    Public Shared Function flPrint(ByVal lPilot As List(Of mPilot)) As MyResult
+    Public Shared Function flPrint(ByVal lPilot As List(Of BerthPlan.mPilot)) As MyResult
         Dim objWorkBook As XLWorkbook = Nothing
         Dim objWorkSheet As IXLWorksheet = Nothing
         Dim ReturnData = New String() {"", ""}
@@ -319,9 +319,9 @@ Public Class PilotMaster
     ''' <param name="pPilot"></param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Private Shared Function flInsert(ByVal pPilot As mPilot) As Boolean
+    Private Shared Function flInsert(ByVal pPilot As BerthPlan.mPilot) As Boolean
         Dim Auth As Authentication = New Authentication()
-        Dim oPilot As mPilot = New mPilot
+        Dim oPilot As BerthPlan.mPilot = New BerthPlan.mPilot
 
         Try
             flInsert = False
@@ -352,7 +352,7 @@ Public Class PilotMaster
     ''' <param name="pPilot"></param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Private Shared Function flUpdate(ByVal pPilot As mPilot) As Boolean
+    Private Shared Function flUpdate(ByVal pPilot As BerthPlan.mPilot) As Boolean
         Dim Auth As Authentication = New Authentication()
 
         Try
@@ -361,8 +361,8 @@ Public Class PilotMaster
             Dim getRow = _db.mPilot.Where(Function(x) x.ID = pPilot.ID).FirstOrDefault()
 
             'Check UpdTime if the same
-            If flCheckUpdDate(pPilot.UpdTime, (From x In _db.mPilot.AsNoTracking _
-                                                Where x.ID = pPilot.ID _
+            If flCheckUpdDate(pPilot.UpdTime, (From x In _db.mPilot.AsNoTracking
+                                               Where x.ID = pPilot.ID
                                                Select x.UpdTime).FirstOrDefault) = False Then
                 Exit Function
             End If
@@ -396,7 +396,7 @@ Public Class PilotMaster
     ''' <returns></returns>
     ''' <remarks></remarks>
     Private Shared Function flCheckCode(ByVal sPilotCD As String, ByVal iID As Integer) As Boolean
-        Dim lPilot As List(Of mPilot) = New List(Of mPilot)
+        Dim lPilot As List(Of BerthPlan.mPilot) = New List(Of BerthPlan.mPilot)
 
         Try
             flCheckCode = False

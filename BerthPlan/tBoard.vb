@@ -10,19 +10,23 @@
 Imports System
 Imports System.Collections.Generic
 
-Partial Public Class tBoard
-    Public Property BoardID As Integer
-    Public Property Title As String
-    Public Property Contents As String
-    Public Property PostingStartDate As Date
-    Public Property PostingEndDate As Date
-    Public Property HyperLink As String
-    Public Property CreateUserID As String
-    Public Property CreatedTime As Date
-    Public Property UpdTime As Date
-    Public Property UpdUserID As String
-    Public Property UpdPGID As String
-    Public Property TimeStamp As Byte()
-    Public Property Flag As Boolean
+Namespace BerthPlan
 
-End Class
+    Partial Public Class tBoard
+        Public Property BoardID As Integer
+        Public Property Title As String
+        Public Property Contents As String
+        Public Property PostingStartDate As Date
+        Public Property PostingEndDate As Date
+        Public Property HyperLink As String
+        Public Property CreateUserID As String
+        Public Property CreatedTime As Date
+        Public Property UpdTime As Date
+        Public Property UpdUserID As String
+        Public Property UpdPGID As String
+        Public Property TimeStamp As Byte()
+        Public Property Flag As Boolean
+    
+    End Class
+
+End Namespace

@@ -30,7 +30,7 @@ Public Class CompanyMaster
 
 
 #Region "## クラス内変数 ## "
-    Public Shared db As BerthPlanEntities = New BerthPlanEntities()
+    Public Shared db As BerthPlan.BerthPlanEntities = New BerthPlan.BerthPlanEntities
     Public Shared Auth As Authentication = New Authentication()
 #End Region
 
@@ -75,7 +75,7 @@ Public Class CompanyMaster
     ''' <returns></returns>
     ''' <remarks></remarks>
     <WebMethod()>
-    Public Shared Function SaveCompany(ByVal mCompany As mCompany) As MyResult
+    Public Shared Function SaveCompany(ByVal mCompany As BerthPlan.mCompany) As MyResult
         SaveCompany = New MyResult
         SaveCompany.Status = C_Flag.CodeF
         Try
@@ -118,7 +118,7 @@ Public Class CompanyMaster
                     Exit Function
                 End If
 
-                Dim UpdateCompany As mCompany = (From c In _db.mCompany.ToList() Where c.ID = mCompany.ID Select c).FirstOrDefault()
+                Dim UpdateCompany As BerthPlan.mCompany = (From c In _db.mCompany.ToList() Where c.ID = mCompany.ID Select c).FirstOrDefault()
 
                 UpdateCompany.ApplicantCD = fgNullToStr(mCompany.ApplicantCD)
                 UpdateCompany.ApplicantName = fgNullToStr(mCompany.ApplicantName)
@@ -150,7 +150,7 @@ Public Class CompanyMaster
     ''' <returns></returns>
     ''' <remarks></remarks>
     <WebMethod()>
-    Public Shared Function DeleteCompany(ByVal mCompany As List(Of mCompany)) As MyResult
+    Public Shared Function DeleteCompany(ByVal mCompany As List(Of BerthPlan.mCompany)) As MyResult
         DeleteCompany = New MyResult
         Try
             'Check Session
@@ -168,7 +168,7 @@ Public Class CompanyMaster
             Next
 
             For Each c In mCompany
-                Dim DCompany As mCompany = (From x In _db.mCompany.ToList() Where x.ID = c.ID And c.Flag = False Select x).FirstOrDefault()
+                Dim DCompany As BerthPlan.mCompany = (From x In _db.mCompany.ToList() Where x.ID = c.ID And c.Flag = False Select x).FirstOrDefault()
                 DCompany.UpdTime = DateTime.Now
                 DCompany.UpdPGID = C_PGID.CompanyMaster
                 DCompany.UpdUserID = Auth.userID
@@ -190,7 +190,7 @@ Public Class CompanyMaster
     ''' <returns></returns>
     ''' <remarks></remarks>
     <WebMethod()>
-    Public Shared Function PrintCompany(mCompany As List(Of mCompany)) As MyResult
+    Public Shared Function PrintCompany(mCompany As List(Of BerthPlan.mCompany)) As MyResult
         PrintCompany = New MyResult
         PrintCompany.Status = C_Flag.CodeF
         Dim iCount As Integer = 0

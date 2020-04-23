@@ -33,7 +33,7 @@ Public Class WharfMaster
 #End Region
 
 #Region "## クラス内変数 ## "
-    Public Shared db As BerthPlanEntities = New BerthPlanEntities()
+    Public Shared db As BerthPlan.BerthPlanEntities = New BerthPlan.BerthPlanEntities
     Public Shared Auth As Authentication = New Authentication()
 #End Region
 
@@ -74,7 +74,7 @@ Public Class WharfMaster
     ''' <returns></returns>
     ''' <remarks></remarks>
     <WebMethod()>
-    Public Shared Function SaveWharf(ByVal mWharf As mWharf) As MyResult
+    Public Shared Function SaveWharf(ByVal mWharf As BerthPlan.mWharf) As MyResult
         SaveWharf = New MyResult
         Try
             'Check Session
@@ -111,7 +111,7 @@ Public Class WharfMaster
                     Exit Function
                 End If
 
-                Dim UpdateWharf As mWharf = (From c In _db.mWharf.ToList() Where c.ID = mWharf.ID Select c).FirstOrDefault()
+                Dim UpdateWharf As BerthPlan.mWharf = (From c In _db.mWharf.ToList() Where c.ID = mWharf.ID Select c).FirstOrDefault()
 
                 UpdateWharf.WharfCD = fgNullToStr(mWharf.WharfCD)
                 UpdateWharf.WharfName = fgNullToStr(mWharf.WharfName)
@@ -137,7 +137,7 @@ Public Class WharfMaster
     ''' <returns></returns>
     ''' <remarks></remarks>
     <WebMethod()>
-    Public Shared Function DeleteWharf(ByVal mWharf As List(Of mWharf)) As MyResult
+    Public Shared Function DeleteWharf(ByVal mWharf As List(Of BerthPlan.mWharf)) As MyResult
         DeleteWharf = New MyResult
         Try
             'Check Session
@@ -155,7 +155,7 @@ Public Class WharfMaster
             Next
 
             For Each w In mWharf
-                Dim DWharf As mWharf = (From x In _db.mWharf.ToList() Where x.ID = w.ID And x.Flag = False Select x).FirstOrDefault()
+                Dim DWharf As BerthPlan.mWharf = (From x In _db.mWharf.ToList() Where x.ID = w.ID And x.Flag = False Select x).FirstOrDefault()
                 DWharf.UpdTime = DateTime.Now
                 DWharf.UpdPGID = C_PGID.VesselMaster
                 DWharf.UpdUserID = Auth.userID
@@ -178,7 +178,7 @@ Public Class WharfMaster
     ''' <returns></returns>
     ''' <remarks></remarks>
     <WebMethod()>
-    Public Shared Function PrintWharf(mWharf As List(Of mWharf)) As MyResult
+    Public Shared Function PrintWharf(mWharf As List(Of BerthPlan.mWharf)) As MyResult
         PrintWharf = New MyResult
         PrintWharf.Status = C_Flag.CodeF
         Dim iCount As Integer = 0

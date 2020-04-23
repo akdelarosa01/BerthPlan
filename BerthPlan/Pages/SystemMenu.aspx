@@ -34,9 +34,7 @@
                     <textarea id="annContent" class="form-control input-sm ann-content" readonly=""></textarea>
                 </div>
 
-                <div class="row">
-                    <div class="col-md-12" id="aLink">
-                    </div>
+                <div class="row" id="aLink">
                 </div>
 
                 <div class="row" id="FileDisplay"></div>

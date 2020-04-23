@@ -37,7 +37,7 @@ Public Class UserMaster
 
 #Region "## クラス内変数 ## "
     ''' <summary>DBBerth</summary>
-    Public Shared _db As BerthPlan.BerthPlanEntities = New BerthPlanEntities
+    Public Shared _db As BerthPlan.BerthPlanEntities = New BerthPlan.BerthPlanEntities
 
 #End Region
 
@@ -77,7 +77,7 @@ Public Class UserMaster
     <ScriptMethod(ResponseFormat:=ResponseFormat.Json, UseHttpGet:=True)>
     Public Shared Function flGetUserList() As sDataTables
         flGetUserList = Nothing
-        Dim data As List(Of mUser) = Nothing   'Data
+        Dim data As List(Of BerthPlan.mUser) = Nothing   'Data
         Dim search As String = String.Empty     'DataTable Search Value
         Dim draw As String = String.Empty       'Value when drawing DataTable
         Dim order As String = String.Empty      'Defined Column to Order
@@ -173,8 +173,8 @@ Public Class UserMaster
     ''' <param name="data"></param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Shared Function flSortByColumnWithOrder(ByVal order As String, ByVal orderDir As String, data As List(Of mUser)) As List(Of mUser)
-        flSortByColumnWithOrder = New List(Of mUser)
+    Public Shared Function flSortByColumnWithOrder(ByVal order As String, ByVal orderDir As String, data As List(Of BerthPlan.mUser)) As List(Of BerthPlan.mUser)
+        flSortByColumnWithOrder = New List(Of BerthPlan.mUser)
 
         Try
             If IsNothing(orderDir) Then
@@ -236,8 +236,8 @@ Public Class UserMaster
     ''' <returns></returns>
     ''' <remarks></remarks>
     <WebMethod()>
-    Public Shared Function flDelUser(ByVal lUser As List(Of mUser)) As MyResult
-        Dim mUser As IQueryable(Of mUser) = Nothing
+    Public Shared Function flDelUser(ByVal lUser As List(Of BerthPlan.mUser)) As MyResult
+        Dim mUser As IQueryable(Of BerthPlan.mUser) = Nothing
         Dim bIsMe As Boolean = False
 
         Try
@@ -251,7 +251,7 @@ Public Class UserMaster
             End If
 
             'Check UpdTime if the same
-            For Each sLine As mUser In lUser
+            For Each sLine As BerthPlan.mUser In lUser
                 If flCheckUpdDate(sLine.UpdTime, (From x In _db.mUser.AsNoTracking
                                                   Where x.ID = sLine.ID
                                                   Select x.UpdTime).FirstOrDefault) = False Then
@@ -261,7 +261,7 @@ Public Class UserMaster
             Next
 
             'Delete User
-            For Each sRow As mUser In lUser
+            For Each sRow As BerthPlan.mUser In lUser
                 Dim sData = _db.mUser.Where(Function(x) x.ID = sRow.ID).FirstOrDefault
 
                 If fgNullToStr(sData.ID) = fgNullToStr(GlobalProperties.gsID) Then
@@ -313,7 +313,7 @@ Public Class UserMaster
     ''' <returns></returns>
     ''' <remarks></remarks>
     <WebMethod()>
-    Public Shared Function flPrint(ByVal lUser As List(Of mUser)) As MyResult
+    Public Shared Function flPrint(ByVal lUser As List(Of BerthPlan.mUser)) As MyResult
         Dim objWorkBook As XLWorkbook = Nothing
         Dim objWorkSheet As IXLWorksheet = Nothing
         Dim ReturnData = New String() {"", ""}
@@ -397,9 +397,9 @@ Public Class UserMaster
     ''' <returns></returns>
     ''' <remarks></remarks>
     <System.Web.Services.WebMethod()>
-    Public Shared Function flUpdData(ByVal pUserInfo As mUser) As MyResult
-        Dim lUser As List(Of mUser) = New List(Of mUser)
-        Dim oUser As mUser = New mUser
+    Public Shared Function flUpdData(ByVal pUserInfo As BerthPlan.mUser) As MyResult
+        Dim lUser As List(Of BerthPlan.mUser) = New List(Of BerthPlan.mUser)
+        Dim oUser As BerthPlan.mUser = New BerthPlan.mUser
         Dim sUserID As String = String.Empty
         Dim iID As Integer = 0
 
@@ -470,7 +470,7 @@ Public Class UserMaster
     ''' <returns></returns>
     ''' <remarks></remarks>
     Private Shared Function flCheckCode(ByVal iID As Integer, ByVal sUserID As String) As Boolean
-        Dim lUser As List(Of mUser) = New List(Of mUser)
+        Dim lUser As List(Of BerthPlan.mUser) = New List(Of BerthPlan.mUser)
 
         Try
             flCheckCode = False
@@ -499,9 +499,9 @@ Public Class UserMaster
     ''' <param name="pUser"></param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Private Shared Function flInsert(ByVal pUser As mUser) As Boolean
+    Private Shared Function flInsert(ByVal pUser As BerthPlan.mUser) As Boolean
         Dim Auth As Authentication = New Authentication()
-        Dim oUser As mUser = New mUser
+        Dim oUser As BerthPlan.mUser = New BerthPlan.mUser
 
         Try
             flInsert = False
@@ -534,7 +534,7 @@ Public Class UserMaster
     ''' <param name="pUser"></param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Private Shared Function flUpdate(ByVal pUser As mUser) As Boolean
+    Private Shared Function flUpdate(ByVal pUser As BerthPlan.mUser) As Boolean
         Dim Auth As Authentication = New Authentication()
         Dim sPassWord As String = String.Empty
 

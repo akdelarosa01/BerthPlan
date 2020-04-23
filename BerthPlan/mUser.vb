@@ -10,19 +10,23 @@
 Imports System
 Imports System.Collections.Generic
 
-Partial Public Class mUser
-    Public Property ID As Integer
-    Public Property UserID As String
-    Public Property UserName As String
-    Public Property Password As String
-    Public Property EmailAddress As String
-    Public Property ApplicantCD As String
-    Public Property UpdTime As Date
-    Public Property UpdUserID As String
-    Public Property UpdPGID As String
-    Public Property TimeStamp As Byte()
-    Public Property LastLogin As Nullable(Of Date)
-    Public Property IsAdmin As Boolean
-    Public Property Flag As Boolean
+Namespace BerthPlan
 
-End Class
+    Partial Public Class mUser
+        Public Property ID As Integer
+        Public Property UserID As String
+        Public Property UserName As String
+        Public Property Password As String
+        Public Property EmailAddress As String
+        Public Property ApplicantCD As String
+        Public Property UpdTime As Date
+        Public Property UpdUserID As String
+        Public Property UpdPGID As String
+        Public Property TimeStamp As Byte()
+        Public Property LastLogin As Nullable(Of Date)
+        Public Property IsAdmin As Boolean
+        Public Property Flag As Boolean
+    
+    End Class
+
+End Namespace

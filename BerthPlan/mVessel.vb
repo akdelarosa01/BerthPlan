@@ -10,20 +10,24 @@
 Imports System
 Imports System.Collections.Generic
 
-Partial Public Class mVessel
-    Public Property ID As Integer
-    Public Property VesselCD As String
-    Public Property VesselName As String
-    Public Property IMO As String
-    Public Property ApplicantCD As String
-    Public Property GrossTon As Decimal
-    Public Property Nationality As String
-    Public Property LOA As Decimal
-    Public Property IO As Boolean
-    Public Property UpdTime As Date
-    Public Property UpdUserID As String
-    Public Property UpdPGID As String
-    Public Property TimeStamp As Byte()
-    Public Property Flag As Boolean
+Namespace BerthPlan
 
-End Class
+    Partial Public Class mVessel
+        Public Property ID As Integer
+        Public Property VesselCD As String
+        Public Property VesselName As String
+        Public Property IMO As String
+        Public Property ApplicantCD As String
+        Public Property GrossTon As Decimal
+        Public Property Nationality As String
+        Public Property LOA As Decimal
+        Public Property IO As Boolean
+        Public Property UpdTime As Date
+        Public Property UpdUserID As String
+        Public Property UpdPGID As String
+        Public Property TimeStamp As Byte()
+        Public Property Flag As Boolean
+    
+    End Class
+
+End Namespace

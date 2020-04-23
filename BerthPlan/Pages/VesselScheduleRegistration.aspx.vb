@@ -15,7 +15,7 @@ Public Class VesselScheduleRegistration
 
 #Region "## クラス内変数 ## "
     ''' <summary>_db</summary>
-    Private Shared _db As BerthPlanEntities = New BerthPlanEntities
+    Private Shared _db As BerthPlan.BerthPlanEntities = New BerthPlan.BerthPlanEntities
 #End Region
 
 #Region "## コントロールイベント定義 ##"
@@ -195,11 +195,11 @@ Public Class VesselScheduleRegistration
     ''' <returns></returns>
     ''' <remarks></remarks>
     <System.Web.Services.WebMethod()>
-    Public Shared Function flRegister(ByVal pSched As tSchedule, ByVal berthCD As String) As MyResult
+    Public Shared Function flRegister(ByVal pSched As BerthPlan.tSchedule, ByVal berthCD As String) As MyResult
         Dim sMsg As String = String.Empty
         Dim aName As String() = {"", "", ""}
         Dim sErr As String = "Error"
-        Dim iBerth As mBerth = New mBerth
+        Dim iBerth As BerthPlan.mBerth = New BerthPlan.mBerth
         Dim iBerthID As Integer = 0
 
         Try
@@ -269,7 +269,7 @@ Public Class VesselScheduleRegistration
                                                ByVal sApplicantCD As String, ByVal sPilotCD As String,
                                                ByRef rBerthID As Integer) As String()
         Dim sErr As String = "Error"
-        Dim iBerth As mBerth = New mBerth
+        Dim iBerth As BerthPlan.mBerth = New BerthPlan.mBerth
         Dim aName As String() = {"", "", ""}
 
         Try
@@ -451,8 +451,8 @@ Public Class VesselScheduleRegistration
     ''' <param name="rMsg"></param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Private Shared Function flInsData(ByVal pSched As tSchedule, ByRef rMsg As String) As Boolean
-        Dim oSched As tSchedule = New tSchedule
+    Private Shared Function flInsData(ByVal pSched As BerthPlan.tSchedule, ByRef rMsg As String) As Boolean
+        Dim oSched As BerthPlan.tSchedule = New BerthPlan.tSchedule
 
         Try
             flInsData = False
@@ -494,8 +494,8 @@ Public Class VesselScheduleRegistration
     ''' <param name="rMsg"></param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Shared Function flUpdData(ByVal pSched As tSchedule, ByRef rMsg As String) As Boolean
-        Dim oSched As tSchedule = New tSchedule
+    Public Shared Function flUpdData(ByVal pSched As BerthPlan.tSchedule, ByRef rMsg As String) As Boolean
+        Dim oSched As BerthPlan.tSchedule = New BerthPlan.tSchedule
 
         Try
             flUpdData = False
@@ -543,8 +543,8 @@ Public Class VesselScheduleRegistration
     ''' <returns></returns>
     ''' <remarks></remarks>
     <WebMethod()>
-    Public Shared Function fgVesseNoExist(VoyageNo As String) As mVessel
-        fgVesseNoExist = New mVessel
+    Public Shared Function fgVesseNoExist(VoyageNo As String) As BerthPlan.mVessel
+        fgVesseNoExist = New BerthPlan.mVessel
 
         Try
             Dim VesselCD As String = _db.tSchedule.AsNoTracking.Where(Function(s) s.VoyageNo = VoyageNo And s.Flag = False).Select(Function(s) s.VesselCD).FirstOrDefault()

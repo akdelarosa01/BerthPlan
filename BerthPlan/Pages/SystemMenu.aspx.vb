@@ -21,7 +21,7 @@ Public Class SystemMenu
     Inherits System.Web.UI.Page
 
 #Region "## クラス内変数 ## "
-    Public Shared db As BerthPlanEntities = New BerthPlanEntities()
+    Public Shared db As BerthPlan.BerthPlanEntities = New BerthPlan.BerthPlanEntities
     Public Shared Auth As Authentication = New Authentication()
 #End Region
 
@@ -87,7 +87,7 @@ Public Class SystemMenu
     <WebMethod()>
     Public Shared Function flFileDisplay(ByVal BoardID As Integer) As MyResult
         flFileDisplay = New MyResult
-        Dim data As List(Of tBoardFile) = Nothing
+        Dim data As List(Of BerthPlan.tBoardFile) = Nothing
 
         Try
             'Check Session
@@ -119,7 +119,7 @@ Public Class SystemMenu
     Public Shared Function flSeenUserViewBoard(ByVal BoardID As String) As MyResult
         flSeenUserViewBoard = New MyResult
         flSeenUserViewBoard.Status = C_Flag.CodeS
-        Dim tBoardView As New tBoardView
+        Dim tBoardView As New BerthPlan.tBoardView
         Try
             'Check Session
             If fgCheckSession() = False Then

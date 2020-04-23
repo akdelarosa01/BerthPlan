@@ -33,7 +33,7 @@ Public Class VesselMaster
 #End Region
 
 #Region "## クラス内変数 ## "
-    Public Shared db As BerthPlanEntities = New BerthPlanEntities()
+    Public Shared db As BerthPlan.BerthPlanEntities = New BerthPlan.BerthPlanEntities
     Public Shared Auth As Authentication = New Authentication()
 #End Region
 
@@ -98,7 +98,7 @@ Public Class VesselMaster
     ''' <returns></returns>
     ''' <remarks></remarks>
     <WebMethod()>
-    Public Shared Function SaveVessel(ByVal mVessel As mVessel) As MyResult
+    Public Shared Function SaveVessel(ByVal mVessel As BerthPlan.mVessel) As MyResult
         SaveVessel = New MyResult
         Try
             'Check Session
@@ -142,7 +142,7 @@ Public Class VesselMaster
                     Exit Function
                 End If
 
-                Dim UpdateVessel As mVessel = (From c In _db.mVessel.ToList() Where c.ID = mVessel.ID Select c).FirstOrDefault()
+                Dim UpdateVessel As BerthPlan.mVessel = (From c In _db.mVessel.ToList() Where c.ID = mVessel.ID Select c).FirstOrDefault()
 
                 UpdateVessel.VesselCD = fgNullToStr(mVessel.VesselCD)
                 UpdateVessel.IMO = fgNullToStr(mVessel.IMO)
@@ -173,7 +173,7 @@ Public Class VesselMaster
     ''' <returns></returns>
     ''' <remarks></remarks>
     <WebMethod()>
-    Public Shared Function DeleteVessel(ByVal mVessel As List(Of mVessel)) As MyResult
+    Public Shared Function DeleteVessel(ByVal mVessel As List(Of BerthPlan.mVessel)) As MyResult
         DeleteVessel = New MyResult
         Try
             'Check Session
@@ -191,7 +191,7 @@ Public Class VesselMaster
             Next
 
             For Each v In mVessel
-                Dim DVessel As mVessel = (From x In _db.mVessel.ToList() Where x.ID = v.ID And x.Flag = False Select x).FirstOrDefault()
+                Dim DVessel As BerthPlan.mVessel = (From x In _db.mVessel.ToList() Where x.ID = v.ID And x.Flag = False Select x).FirstOrDefault()
                 DVessel.UpdTime = DateTime.Now
                 DVessel.UpdPGID = C_PGID.VesselMaster
                 DVessel.UpdUserID = Auth.userID
@@ -213,7 +213,7 @@ Public Class VesselMaster
     ''' <returns></returns>
     ''' <remarks></remarks>
     <WebMethod()>
-    Public Shared Function PrintVessel(mVessel As List(Of mVessel)) As MyResult
+    Public Shared Function PrintVessel(mVessel As List(Of BerthPlan.mVessel)) As MyResult
         PrintVessel = New MyResult
         PrintVessel.Status = C_Flag.CodeF
         Dim iCount As Integer = 0

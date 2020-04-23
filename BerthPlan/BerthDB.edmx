@@ -145,7 +145,7 @@
           <Property Name="UpdTime" Type="datetime" Nullable="false" />
           <Property Name="UpdUserID" Type="nvarchar" MaxLength="4" Nullable="false" />
           <Property Name="UpdPGID" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+          <Property Name="TimeStamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
           <Property Name="Flag" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="tBoardFile">
@@ -233,10 +233,10 @@
           <EntitySet Name="mVessel" EntityType="BerthPlanModel.mVessel" />
           <EntitySet Name="mWharf" EntityType="BerthPlanModel.mWharf" />
           <EntitySet Name="tBoard" EntityType="BerthPlanModel.tBoard" />
-          <EntitySet Name="tBoardCompany" EntityType="BerthPlanModel.tBoardCompany" />
           <EntitySet Name="tBoardFile" EntityType="BerthPlanModel.tBoardFile" />
           <EntitySet Name="tBoardView" EntityType="BerthPlanModel.tBoardView" />
           <EntitySet Name="tSchedule" EntityType="BerthPlanModel.tSchedule" />
+          <EntitySet Name="tBoardCompany" EntityType="BerthPlanModel.tBoardCompany" />
         </EntityContainer>
         <EntityType Name="mBerth">
           <Key>
@@ -366,21 +366,6 @@
           <Property Name="TimeStamp" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
           <Property Name="Flag" Type="Boolean" Nullable="false" />
         </EntityType>
-        <EntityType Name="tBoardCompany">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="BoardID" Type="Int32" Nullable="false" />
-          <Property Name="CompanyID" Type="Int32" Nullable="false" />
-          <Property Name="ApplicantCD" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ApplicantName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="UpdTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdUserID" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="true" />
-          <Property Name="UpdPGID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="TimeStamp" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Flag" Type="Boolean" Nullable="false" />
-        </EntityType>
         <EntityType Name="tBoardFile">
           <Key>
             <PropertyRef Name="BoardFileID" />
@@ -436,6 +421,21 @@
           <Property Name="UpdTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UpdUserID" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
           <Property Name="UpdPGID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TimeStamp" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Flag" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tBoardCompany">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BoardID" Type="Int32" Nullable="false" />
+          <Property Name="CompanyID" Type="Int32" Nullable="false" />
+          <Property Name="ApplicantCD" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ApplicantName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UpdTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdUserID" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Name="UpdPGID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="TimeStamp" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
           <Property Name="Flag" Type="Boolean" Nullable="false" />
         </EntityType>
@@ -581,22 +581,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tBoardCompany">
-            <EntityTypeMapping TypeName="BerthPlanModel.tBoardCompany">
-              <MappingFragment StoreEntitySet="tBoardCompany">
-                <ScalarProperty Name="Flag" ColumnName="Flag" />
-                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
-                <ScalarProperty Name="UpdPGID" ColumnName="UpdPGID" />
-                <ScalarProperty Name="UpdUserID" ColumnName="UpdUserID" />
-                <ScalarProperty Name="UpdTime" ColumnName="UpdTime" />
-                <ScalarProperty Name="ApplicantName" ColumnName="ApplicantName" />
-                <ScalarProperty Name="ApplicantCD" ColumnName="ApplicantCD" />
-                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
-                <ScalarProperty Name="BoardID" ColumnName="BoardID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tBoardFile">
             <EntityTypeMapping TypeName="BerthPlanModel.tBoardFile">
               <MappingFragment StoreEntitySet="tBoardFile">
@@ -655,6 +639,22 @@
                 <ScalarProperty Name="VoyageNo" ColumnName="VoyageNo" />
                 <ScalarProperty Name="VesselCD" ColumnName="VesselCD" />
                 <ScalarProperty Name="ScheduleID" ColumnName="ScheduleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tBoardCompany">
+            <EntityTypeMapping TypeName="BerthPlanModel.tBoardCompany">
+              <MappingFragment StoreEntitySet="tBoardCompany">
+                <ScalarProperty Name="Flag" ColumnName="Flag" />
+                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+                <ScalarProperty Name="UpdPGID" ColumnName="UpdPGID" />
+                <ScalarProperty Name="UpdUserID" ColumnName="UpdUserID" />
+                <ScalarProperty Name="UpdTime" ColumnName="UpdTime" />
+                <ScalarProperty Name="ApplicantName" ColumnName="ApplicantName" />
+                <ScalarProperty Name="ApplicantCD" ColumnName="ApplicantCD" />
+                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+                <ScalarProperty Name="BoardID" ColumnName="BoardID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -31,7 +31,7 @@ Public Class VesselScheduleVisual
     Inherits System.Web.UI.Page
 
 #Region "## クラス内変数 ## "
-    Public Shared db As BerthPlanEntities = New BerthPlanEntities()
+    Public Shared db As BerthPlan.BerthPlanEntities = New BerthPlan.BerthPlanEntities
     ''' <summary>EXCELファイルの名前</summary>
     Public Shared C_ExcelName As String = "本船スケジュール.xlsx"
 

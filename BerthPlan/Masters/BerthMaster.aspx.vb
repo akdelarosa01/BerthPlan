@@ -36,7 +36,7 @@ Public Class BerthMaster
 
 #Region "## クラス内変数 ## "
     ''' <summary>Berth Plan Database</summary>
-    Private Shared _db As BerthPlanEntities = New BerthPlanEntities
+    Private Shared _db As BerthPlan.BerthPlanEntities = New BerthPlan.BerthPlanEntities
 
     Private Shared aTimeStamp As Object()
 #End Region
@@ -99,8 +99,8 @@ Public Class BerthMaster
     ''' <returns></returns>
     ''' <remarks></remarks>
     <WebMethod()>
-    Public Shared Function flUpdData(ByVal pBerthInfo As mBerth, ByVal pIsChanged As Boolean) As MyResult
-        Dim oBerth As mBerth = New mBerth
+    Public Shared Function flUpdData(ByVal pBerthInfo As BerthPlan.mBerth, ByVal pIsChanged As Boolean) As MyResult
+        Dim oBerth As BerthPlan.mBerth = New BerthPlan.mBerth
         Dim sWharfCD As String = String.Empty
         Dim sBerthCD As String = String.Empty
 
@@ -170,8 +170,8 @@ Public Class BerthMaster
     ''' <returns></returns>
     ''' <remarks></remarks>
     <WebMethod()>
-    Public Shared Function flDelBerth(ByVal lBerth As List(Of mBerth)) As MyResult
-        Dim mBerth As IQueryable(Of mBerth) = Nothing
+    Public Shared Function flDelBerth(ByVal lBerth As List(Of BerthPlan.mBerth)) As MyResult
+        Dim mBerth As IQueryable(Of BerthPlan.mBerth) = Nothing
 
         Try
             flDelBerth = New MyResult
@@ -184,17 +184,17 @@ Public Class BerthMaster
             End If
 
             'Check UpdTime if the same
-            For Each sLine As mBerth In lBerth
-                If flCheckUpdDate(sLine.UpdTime, (From x In _db.mBerth.AsNoTracking _
-                                                    Where x.BerthID = sLine.BerthID _
-                                                   Select x.UpdTime).FirstOrDefault) = False Then
+            For Each sLine As BerthPlan.mBerth In lBerth
+                If flCheckUpdDate(sLine.UpdTime, (From x In _db.mBerth.AsNoTracking
+                                                  Where x.BerthID = sLine.BerthID
+                                                  Select x.UpdTime).FirstOrDefault) = False Then
                     flDelBerth.Msg = fgMsgOut("EXX004", "")
                     Exit Function
                 End If
             Next
 
             'Delete Berth
-            For Each sBerth As mBerth In lBerth
+            For Each sBerth As BerthPlan.mBerth In lBerth
                 Dim sData = _db.mBerth.Where(Function(x) x.BerthID = sBerth.BerthID).FirstOrDefault
                 sData.UpdTime = DateTime.Now
                 sData.Flag = True
@@ -222,7 +222,7 @@ Public Class BerthMaster
     ''' <returns></returns>
     ''' <remarks></remarks>
     <System.Web.Services.WebMethod()>
-    Public Shared Function flPrint(ByVal lBerth As List(Of mBerth)) As MyResult
+    Public Shared Function flPrint(ByVal lBerth As List(Of BerthPlan.mBerth)) As MyResult
         Dim objWorkBook As XLWorkbook = Nothing
         Dim objWorkSheet As IXLWorksheet = Nothing
         Dim sReturnData = New String() {"", ""}
@@ -259,8 +259,8 @@ Public Class BerthMaster
                 .Style.NumberFormat.Format = "@"
                 For Each row In lBerth
                     .Cell(iRow, 1).Value = row.WharfCD
-                    .Cell(iRow, 2).Value = (From x In _db.mWharf _
-                                                Where x.WharfCD = row.WharfCD _
+                    .Cell(iRow, 2).Value = (From x In _db.mWharf
+                                            Where x.WharfCD = row.WharfCD _
                                                 And x.Flag = False
                                             Select x.WharfName).FirstOrDefault
                     .Cell(iRow, 3).Value = row.BerthCD
@@ -307,9 +307,9 @@ Public Class BerthMaster
     ''' <param name="pBerth"></param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Private Shared Function flInsert(ByVal pBerth As mBerth) As Boolean
+    Private Shared Function flInsert(ByVal pBerth As BerthPlan.mBerth) As Boolean
         Dim Auth As Authentication = New Authentication()
-        Dim oBerth As mBerth = New mBerth
+        Dim oBerth As BerthPlan.mBerth = New BerthPlan.mBerth
 
         Try
             flInsert = False
@@ -339,7 +339,7 @@ Public Class BerthMaster
     ''' <param name="pBerth"></param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Private Shared Function flUpdate(ByVal pBerth As mBerth) As Boolean
+    Private Shared Function flUpdate(ByVal pBerth As BerthPlan.mBerth) As Boolean
         Dim Auth As Authentication = New Authentication()
 
         Try
@@ -348,8 +348,8 @@ Public Class BerthMaster
             Dim getRow = _db.mBerth.Where(Function(x) x.BerthID = pBerth.BerthID).FirstOrDefault()
 
             'Check UpdTime if the same
-            If flCheckUpdDate(pBerth.UpdTime, (From x In _db.mBerth.AsNoTracking _
-                                                Where x.BerthID = pBerth.BerthID _
+            If flCheckUpdDate(pBerth.UpdTime, (From x In _db.mBerth.AsNoTracking
+                                               Where x.BerthID = pBerth.BerthID
                                                Select x.UpdTime).FirstOrDefault) = False Then
                 Exit Function
             End If
@@ -380,7 +380,7 @@ Public Class BerthMaster
     ''' <returns></returns>
     ''' <remarks></remarks>
     <WebMethod()>
-    Public Shared Function fgBerthName(BerthCD As String) As mBerth
+    Public Shared Function fgBerthName(BerthCD As String) As BerthPlan.mBerth
         fgBerthName = Nothing
 
         Try
@@ -400,7 +400,7 @@ Public Class BerthMaster
     ''' <returns></returns>
     ''' <remarks></remarks>
     <WebMethod()>
-    Public Shared Function fgBerth(BerthID As Integer) As mBerth
+    Public Shared Function fgBerth(BerthID As Integer) As BerthPlan.mBerth
         fgBerth = Nothing
 
         Try

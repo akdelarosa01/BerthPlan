@@ -1,7 +1,6 @@
 ﻿$(function () {
 
     Initialize();
-
     $("#divStartETA").on("dp.change", function (e) {
         $('#divEndETA').data("DateTimePicker").minDate(e.date);
     });
@@ -127,7 +126,12 @@
                 if (data.d.Status == 'success') {
                     GetScheduleList();
                     msg(data.d.Msg, data.d.Status);
-                } else { msg(data.d.Msg, data.d.Status); }
+                } else {
+                    if (data.d.Data != null) {
+                        ConflictDate(data.d.Data.dbData, data.d.Data.tableData)
+                    }
+                    msg(data.d.Msg, data.d.Status);
+                }
             }).fail(function (xhr, textStatus, errorThrown) {
                 HideLoading();
                 console.log(errorThrown);
@@ -492,6 +496,9 @@ function GetScheduleList() {
              '",ApplicantCD: "' + $("#MainContent_ApplicantCD_ApplicantCD").val() + 
              '",PilotCD: "' + $("#MainContent_PilotCD_PilotCD").val() + '" }',
     }).done(function (data, textStatus, xhr) {
+
+        $('#ListConflictModal').modal('show');
+        ConflictDate(data.d.Data, data.d.Data)
         sessionOut(data.d.Status);
         if (data.d.Status != "failed") {
             if (data.d.Data.length != 0) {
@@ -798,6 +805,77 @@ function EmptyString(ETAD, ETBD, ETDD, ETAT, ETBT, ETDT) {
         return false;
     }
     return true;
+}
+
+function ConflictDate(dbData,tableData) {
+    $('#tblNewListConflictModal').dataTable().fnClearTable();
+    $('#tblNewListConflictModal').dataTable().fnDestroy();
+    $('#tblNewListConflictModal').dataTable({
+        "data": dbData,
+        "scrollX": true,
+        "destroy": true,
+        "lengthChange": false,
+        "sDom": "rtipl",
+        "language": dataTableLanguageVariable(),
+        "processing": true,
+        "responsive": true,
+        "columns": [
+            { data: "VoyageNo", width: "20%" },
+            { data: "VesselName", width: "35%" },
+            {
+                title: "ETA",
+                data: function (data) {
+                    return ParseDate(data.ETA);
+                }, width: "15%", sortable: false, orderable: false
+            },
+            {
+                title: "ETB",
+                data: function (data) {
+                    return ParseDate(data.ETB);
+                }, width: "15%", sortable: false, orderable: false
+            },
+            {
+                title: "ETD",
+                data: function (data) {
+                    return ParseDate(data.UpdTime);
+                }, width: "15%", sortable: false, orderable: false
+            }
+        ]
+    });
+
+    $('#tblSaveListConflictModal').dataTable().fnClearTable();
+    $('#tblSaveListConflictModal').dataTable().fnDestroy();
+    $('#tblSaveListConflictModal').dataTable({
+        "data": tableData,
+        "language": dataTableLanguageVariable(),
+        "sDom": "rtipl",
+        "lengthChange": false,
+        "processing": true,
+        "responsive": true,
+        "order": [3, 'asc'],
+        "columns": [
+            { data: "VoyageNo", width: "20%" },
+            { data: "VesselName", width: "35%" },
+            {
+                title: "ETA",
+                data: function (data) {
+                    return ParseDate(data.ETA);
+                }, width: "15%", sortable: false, orderable: false
+            },
+            {
+                title: "ETB",
+                data: function (data) {
+                    return ParseDate(data.ETB);
+                }, width: "15%", sortable: false, orderable: false
+            },
+            {
+                title: "ETD",
+                data: function (data) {
+                    return ParseDate(data.UpdTime);
+                }, width: "15%", sortable: false, orderable: false
+            }
+        ]
+    });
 }
 
 function DateFormat(date) {

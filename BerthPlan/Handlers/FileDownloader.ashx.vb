@@ -12,9 +12,7 @@ Public Class FileDownloader
     Implements System.Web.IHttpHandler
 
 #Region "## クラス内変数 ## "
-    Public Shared _db As BerthPlanEntities = New BerthPlanEntities()
-
-
+    Public Shared _db As BerthPlan.BerthPlanEntities = New BerthPlan.BerthPlanEntities
 #End Region
 
     Sub ProcessRequest(ByVal context As HttpContext) Implements IHttpHandler.ProcessRequest

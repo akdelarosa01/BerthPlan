@@ -42,6 +42,10 @@
             case 117:
                 e.preventDefault();
                 break;
+                //F7: 
+            case 118:
+                e.preventDefault();
+                break;
                 //F8: 
             case 119:
                 e.preventDefault();

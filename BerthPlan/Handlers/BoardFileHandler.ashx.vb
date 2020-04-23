@@ -6,6 +6,7 @@ Imports System.Web
 Imports System.Web.Script.Serialization
 Imports System.Text
 Imports BerthPlan.GlobalFunction
+
 #End Region
 
 ''' <summary>
@@ -22,7 +23,7 @@ Public Class BoardFileHandler
 #End Region
 
 #Region "## クラス内変数 ## "
-    Public Shared _db As BerthPlanEntities = New BerthPlanEntities()
+    Public Shared _db As BerthPlan.BerthPlanEntities = New BerthPlan.BerthPlanEntities()
 
     Structure FileInformation
         Public filename As String
@@ -49,7 +50,7 @@ Public Class BoardFileHandler
         Dim folderPath As String = String.Empty
         Dim fileName As String = String.Empty
         Dim fileInf As FileInformation = Nothing
-        Dim tBoard As tBoard = Nothing
+        Dim tBoard As BerthPlan.tBoard = Nothing
         Dim fileId As Integer = 0
         Dim StringPath As String = String.Empty
         Dim exceededFileCount As Boolean = False
@@ -58,6 +59,7 @@ Public Class BoardFileHandler
         Dim msgContent As String = String.Empty
         Dim jSonStatusCode As Integer = 0
         Dim lastSavedID As Integer = 0
+        Dim CompanyIDs As Object
 
         Try
             'If Not fgCheckSession() Then
@@ -69,12 +71,12 @@ Public Class BoardFileHandler
             If fileId > 0 Then
                 Dim bytes As Byte()
                 Dim dlFileName, contentType As String
-                Dim data As List(Of tBoardFile) = Nothing
+                Dim data As List(Of BerthPlan.tBoardFile) = Nothing
 
                 data = _db.tBoardFile.AsNoTracking.Where(Function(bf) bf.Flag = False And bf.BoardFileID = fileId).ToList
 
-                Dim tbFile As tBoardFile = (From f In data
-                            Select f).FirstOrDefault()
+                Dim tbFile As BerthPlan.tBoardFile = (From f In data
+                                                      Select f).FirstOrDefault()
 
                 bytes = CType(tbFile.Data, Byte())
                 contentType = tbFile.ContentType
@@ -106,8 +108,9 @@ Public Class BoardFileHandler
                     hdUserID = .Form("hdUserID")
                     hdUpdTime = If(.Form("hdUpdTime") = "", DateTime.Now, .Form("hdUpdTime"))
                     boardID = If(String.IsNullOrEmpty(.Form("txtBoardID")), 0, Convert.ToInt32(.Form("txtBoardID")))
+                    CompanyIDs = .Form("CompanyIDs")
                 End With
-                Dim save = flSaveBulletinBoard(boardID, title, contents, link, pSdate, pEdate, hdStatus, hdUserID, hdUpdTime)
+                Dim save = flSaveBulletinBoard(boardID, title, contents, link, pSdate, pEdate, hdStatus, hdUserID, hdUpdTime, CompanyIDs)
 
                 If Not save.Status = "success" Then
                     json = New JavaScriptSerializer().Serialize(New With {
@@ -142,7 +145,7 @@ Public Class BoardFileHandler
                             Exit For
                         End If
 
-                        Dim tBoardFile As tBoardFile = New tBoardFile()
+                        Dim tBoardFile As BerthPlan.tBoardFile = New BerthPlan.tBoardFile
                         'Fetch the Uploaded File.
                         postedFile = context.Request.Files(index)
                         Dim Filesize As Double = context.Request.Files(index).ContentLength
@@ -271,11 +274,11 @@ Public Class BoardFileHandler
     ''' </summary>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Private Function flSaveBulletinBoard(ByVal id As Integer, ByVal title As String, ByVal contents As String, ByVal link As String, _
-                                               ByVal postSdate As String, ByVal postEdate As String, ByVal hdStatus As String, _
-                                               ByVal hdUserID As String, ByVal hdUpdTime As DateTime) As MyResult
+    Private Function flSaveBulletinBoard(ByVal id As Integer, ByVal title As String, ByVal contents As String, ByVal link As String,
+                                               ByVal postSdate As String, ByVal postEdate As String, ByVal hdStatus As String,
+                                               ByVal hdUserID As String, ByVal hdUpdTime As DateTime, ByVal CompanyIDs As Object) As MyResult
         Dim Auth As Authentication = New Authentication()
-        Dim tBoard As tBoard
+        Dim tBoard As BerthPlan.tBoard
         flSaveBulletinBoard = New MyResult
 
         Try
@@ -292,16 +295,18 @@ Public Class BoardFileHandler
                 Exit Function
             End If
 
-            tBoard = New tBoard()
+            tBoard = New BerthPlan.tBoard
             Select Case hdStatus
                 Case "EDIT"
                     tBoard = (From c In _db.tBoard.ToList()
-                       Where c.BoardID = id
-                       Select c).FirstOrDefault()
+                              Where c.BoardID = id
+                              Select c).FirstOrDefault()
 
-                    If flCheckUpdDate(hdUpdTime, (From x In _db.tBoard.AsNoTracking _
-                                                Where x.BoardID = id _
-                                               Select x.UpdTime).FirstOrDefault) = False Then
+                    If flCheckUpdDate(hdUpdTime, (From x In _db.tBoard.AsNoTracking
+                                                  Where x.BoardID = id
+                                                  Select x.UpdTime).FirstOrDefault) = False Then
+                        flSaveBulletinBoard.Status = "failed"
+                        flSaveBulletinBoard.Msg = fgMsgOut("EBP005", "")
                         Exit Function
                     End If
 
@@ -333,6 +338,48 @@ Public Class BoardFileHandler
             End Select
 
             If _db.SaveChanges() > 0 Then
+
+                Dim mCompany As IQueryable(Of BerthPlan.mCompany) = Nothing
+                Dim tBoardComp As IQueryable(Of BerthPlan.tBoardCompany) = Nothing
+
+                Dim tbCompany As BerthPlan.tBoardCompany = New BerthPlan.tBoardCompany
+                Dim CompID As String() = Nothing
+
+                CompID = CompanyIDs.Split(",")
+                mCompany = _db.mCompany.Where(Function(c) CompID.Contains(c.ID))
+
+                tBoardComp = From c In _db.tBoardCompany.AsNoTracking
+                             Where c.BoardID = id
+                             Select c
+
+                If Not IsNothing(tBoardComp) Then
+                    _db.tBoardCompany.Where(Function(c) c.BoardID = id).ToList().ForEach(Function(c) _db.tBoardCompany.Remove(c))
+                    _db.SaveChanges()
+                    'For Each com As BerthPlan.tBoardCompany In tBoardComp
+                    '    com.Flag = True
+                    '    _db.SaveChanges()
+                    'Next
+                End If
+
+                For Each comp As BerthPlan.mCompany In mCompany
+                    tbCompany = New BerthPlan.tBoardCompany
+                    tbCompany.BoardID = id
+                    tbCompany.CompanyID = comp.ID
+
+                    tbCompany.ApplicantCD = comp.ApplicantCD
+                    tbCompany.ApplicantName = comp.ApplicantName
+                    tbCompany.UpdTime = DateTime.Now
+                    tbCompany.UpdUserID = hdUserID
+                    tbCompany.UpdPGID = C_PGID.BoardRegistration
+
+                    tbCompany.Flag = False
+
+                    _db.tBoardCompany.Add(tbCompany)
+
+                Next
+
+                _db.SaveChanges()
+
                 flSaveBulletinBoard.Msg = fgMsgOut("IBP001", "")
                 flSaveBulletinBoard.Status = "success"
                 flSaveBulletinBoard.Data = tBoard.BoardID
@@ -342,6 +389,7 @@ Public Class BoardFileHandler
             End If
 
         Catch ex As Exception
+            Dim msg As String = ex.InnerException.Message
             flSaveBulletinBoard = sgErrProc(ex)
         End Try
 

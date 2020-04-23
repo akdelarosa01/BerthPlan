@@ -10,22 +10,26 @@
 Imports System
 Imports System.Collections.Generic
 
-Partial Public Class tBoardFile
-    Public Property BoardFileID As Integer
-    Public Property BoardID As Integer
-    Public Property FileName As String
-    Public Property FileSize As Decimal
-    Public Property FileType As String
-    Public Property Path As String
-    Public Property UploadDate As Date
-    Public Property CreateUserID As String
-    Public Property CreatedTime As Date
-    Public Property UpdTime As Date
-    Public Property UpdUserID As String
-    Public Property UpdPGID As String
-    Public Property TimeStamp As Byte()
-    Public Property Flag As Boolean
-    Public Property Data As Byte()
-    Public Property ContentType As String
+Namespace BerthPlan
 
-End Class
+    Partial Public Class tBoardFile
+        Public Property BoardFileID As Integer
+        Public Property BoardID As Integer
+        Public Property FileName As String
+        Public Property FileSize As Decimal
+        Public Property FileType As String
+        Public Property Path As String
+        Public Property UploadDate As Date
+        Public Property CreateUserID As String
+        Public Property CreatedTime As Date
+        Public Property UpdTime As Date
+        Public Property UpdUserID As String
+        Public Property UpdPGID As String
+        Public Property TimeStamp As Byte()
+        Public Property Flag As Boolean
+        Public Property Data As Byte()
+        Public Property ContentType As String
+    
+    End Class
+
+End Namespace

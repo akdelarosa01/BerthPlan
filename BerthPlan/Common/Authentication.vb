@@ -7,7 +7,7 @@ Imports BerthPlan.GlobalFunction
 
 Public Class Authentication
 
-    Private _db As BerthPlanEntities = New BerthPlanEntities()
+    Private _db As BerthPlan.BerthPlanEntities = New BerthPlan.BerthPlanEntities
 
 
     Public Function Hash(ByVal password As String) As String
@@ -50,7 +50,7 @@ Public Class Authentication
     Public Function Login(ByVal txtUserID As String, ByVal txtPassword As String) As sLoginResult
         Login.LoggedIn = False
         Login.ErrMsg = ""
-        Dim mUsertbl As mUser = Nothing
+        Dim mUsertbl As BerthPlan.mUser = Nothing
 
         Try
 
@@ -153,7 +153,7 @@ Public Class Authentication
     End Function
 
     Private Sub slUpdateLastLogin(ByVal UserID As String)
-        Dim mUser As mUser = New mUser()
+        Dim mUser As BerthPlan.mUser = New BerthPlan.mUser
         Try
             mUser = _db.mUser.Single(Function(u) u.UserID = UserID)
 

@@ -11,28 +11,32 @@ Imports System
 Imports System.Data.Entity
 Imports System.Data.Entity.Infrastructure
 
-Partial Public Class BerthPlanEntities
-    Inherits DbContext
+Namespace BerthPlan
 
-    Public Sub New()
-        MyBase.New("name=BerthPlanEntities")
-    End Sub
+    Partial Public Class BerthPlanEntities
+        Inherits DbContext
+    
+        Public Sub New()
+            MyBase.New("name=BerthPlanEntities")
+        End Sub
+    
+        Protected Overrides Sub OnModelCreating(modelBuilder As DbModelBuilder)
+            Throw New UnintentionalCodeFirstException()
+        End Sub
+    
+        Public Property mBerth() As DbSet(Of mBerth)
+        Public Property mCompany() As DbSet(Of mCompany)
+        Public Property mMessage() As DbSet(Of mMessage)
+        Public Property mPilot() As DbSet(Of mPilot)
+        Public Property mUser() As DbSet(Of mUser)
+        Public Property mVessel() As DbSet(Of mVessel)
+        Public Property mWharf() As DbSet(Of mWharf)
+        Public Property tBoard() As DbSet(Of tBoard)
+        Public Property tBoardFile() As DbSet(Of tBoardFile)
+        Public Property tBoardView() As DbSet(Of tBoardView)
+        Public Property tSchedule() As DbSet(Of tSchedule)
+        Public Property tBoardCompany() As DbSet(Of tBoardCompany)
+    
+    End Class
 
-    Protected Overrides Sub OnModelCreating(modelBuilder As DbModelBuilder)
-        Throw New UnintentionalCodeFirstException()
-    End Sub
-
-    Public Property mBerth() As DbSet(Of mBerth)
-    Public Property mCompany() As DbSet(Of mCompany)
-    Public Property mMessage() As DbSet(Of mMessage)
-    Public Property mPilot() As DbSet(Of mPilot)
-    Public Property mUser() As DbSet(Of mUser)
-    Public Property mVessel() As DbSet(Of mVessel)
-    Public Property mWharf() As DbSet(Of mWharf)
-    Public Property tBoard() As DbSet(Of tBoard)
-    Public Property tBoardCompany() As DbSet(Of tBoardCompany)
-    Public Property tBoardFile() As DbSet(Of tBoardFile)
-    Public Property tBoardView() As DbSet(Of tBoardView)
-    Public Property tSchedule() As DbSet(Of tSchedule)
-
-End Class
+End Namespace

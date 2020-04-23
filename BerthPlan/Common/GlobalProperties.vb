@@ -145,9 +145,9 @@ End Structure
 ''' <remarks></remarks>
 Public Class GlobalFunction
     ''' <summary>メッセージ保持DataView</summary>
-    Private Shared V_dtMessage As List(Of mMessage) = New List(Of mMessage)
+    Private Shared V_dtMessage As List(Of BerthPlan.mMessage) = New List(Of BerthPlan.mMessage)
     ''' <summary>Berth Plan Database</summary>
-    Public Shared _db As BerthPlanEntities = New BerthPlanEntities()
+    Public Shared _db As BerthPlan.BerthPlanEntities = New BerthPlan.BerthPlanEntities
 
     ''' <summary>
     ''' メッセージマスタ取得
@@ -187,7 +187,7 @@ Public Class GlobalFunction
         Dim strSubMsg As String = String.Empty 'サブメッセージ
         Dim sbMsg As New StringBuilder  'メッセージ
 
-        Dim dtMessage As mMessage = New mMessage
+        Dim dtMessage As BerthPlan.mMessage = New BerthPlan.mMessage
 
         Try
             fgMsgOut = String.Empty

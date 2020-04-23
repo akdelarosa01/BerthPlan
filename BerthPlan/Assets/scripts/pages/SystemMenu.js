@@ -192,12 +192,14 @@ function flFileDisplay(BoardID) {
 
             //window.location.href = '../../../Handlers/FileDownloader.ashx?FilePath=' + data.d.Data[0] + '&FileName=' + data.d.Data[1];
 
-            FileHTML += '<a class="btn btn-default btn-sq btn-block tip col-md-2 col-sm-12 col-xs-12" style="margin-right: 5px;"' +
-                            'href=".../../../Handlers/BoardFileHandler.ashx?FileId=' + v.BoardFileID + '">' +
-                            '<i class="' + file.icon + ' fa-3x"></i><br/>' +
-                            '<span class="btn-app-text">' + v.FileName + '</span><br/>' +
-                            '<small>' + numberFormat(v.FileSize) + 'KB</small>' +
-                        '</a>';
+            FileHTML += '<div class="col-md-2 col-sm-2 col-xs-4">' +
+                            '<a class="btn btn-default btn-block tip "' +
+                                'href=".../../../Handlers/BoardFileHandler.ashx?FileId=' + v.BoardFileID + '">' +
+                                '<i class="' + file.icon + ' fa-3x"></i><br/>' +
+                                '<span class="btn-app-text">' + v.FileName + '</span><br/>' +
+                                '<small>' + numberFormat(v.FileSize) + 'KB</small>' +
+                            '</a>' +
+                        '</div>';
         });
         $('#FileDisplay').html(FileHTML);
     }).fail(function (xhr, textStatus, errorThrown) {

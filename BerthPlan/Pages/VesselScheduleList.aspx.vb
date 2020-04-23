@@ -10,7 +10,7 @@ Public Class VesselScheduleList
     Inherits System.Web.UI.Page
 
 #Region "## クラス内変数 ## "
-    Public Shared db As BerthPlanEntities = New BerthPlanEntities()
+    Public Shared db As BerthPlan.BerthPlanEntities = New BerthPlan.BerthPlanEntities
     Public Shared Auth As Authentication = New Authentication()
 
     Partial Public Class TableSchedule
@@ -36,6 +36,11 @@ Public Class VesselScheduleList
         Public Property GrossTon As Decimal
     End Class
 
+
+    Partial Public Class ConflictDate
+        Public Property dbData As Object
+        Public Property tableData As Object
+    End Class
 #End Region
 
 #Region "## コントロールイベントの定義 ## "
@@ -129,7 +134,7 @@ Public Class VesselScheduleList
     ''' <returns></returns>
     ''' <remarks></remarks>
     <WebMethod()>
-    Public Shared Function UpdateSchedule(tSchedule As List(Of tSchedule)) As MyResult
+    Public Shared Function UpdateSchedule(tSchedule As List(Of BerthPlan.tSchedule)) As MyResult
         UpdateSchedule = New MyResult
         UpdateSchedule.Status = "failed"
         Dim iCount As Integer = 0
@@ -144,7 +149,7 @@ Public Class VesselScheduleList
 
             Dim ScheduleID = tSchedule.Select(Function(x) x.ScheduleID).ToArray
             Dim dbtSchedule = db.tSchedule.AsNoTracking.Where(Function(x) Not ScheduleID.Contains(x.ScheduleID)).ToList
-
+            Dim Conflict As New ConflictDate
             For Each s In tSchedule
                 iCount += 1
 
@@ -154,18 +159,18 @@ Public Class VesselScheduleList
                     Exit Function
                 End If
 
+                Dim dbData = tSchedule.Where(Function(x) (x.ETB >= s.ETB And x.ETB <= s.ETD Or x.ETD >= s.ETB And x.ETD <= s.ETD Or s.ETB >= x.ETB And s.ETB <= x.ETD) And x.BerthID = s.BerthID And x.ScheduleID <> s.ScheduleID And x.Flag = False).ToList
+                Dim tableData = dbtSchedule.Where(Function(x) (x.ETB >= s.ETB And x.ETB <= s.ETD Or x.ETD >= s.ETB And x.ETD <= s.ETD Or s.ETB >= x.ETB And s.ETB <= x.ETD) And x.BerthID = s.BerthID And x.ScheduleID <> s.ScheduleID And x.Flag = False).ToList
 
-                If tSchedule.Where(Function(x) (x.ETB >= s.ETB And x.ETB <= s.ETD Or x.ETD >= s.ETB And x.ETD <= s.ETD Or s.ETB >= x.ETB And s.ETB <= x.ETD) And x.BerthID = s.BerthID And x.ScheduleID <> s.ScheduleID And x.Flag = False).Count <> 0 Then
-                    UpdateSchedule.Msg = "登録時にテーブル表示にいくつかの矛盾する日付があります. 行 " + iCount.ToString
+                If dbData.Count <> 0 Or tableData.Count <> 0 Then
+                    UpdateSchedule.Msg = "登録時にテーブル表示にいくつかの矛盾する日付があります."
                     UpdateSchedule.Status = "failed"
+                    Conflict.dbData = dbData
+                    Conflict.tableData = tableData
+                    UpdateSchedule.Data = Conflict
                     Exit Function
                 End If
 
-                If dbtSchedule.Where(Function(x) (x.ETB >= s.ETB And x.ETB <= s.ETD Or x.ETD >= s.ETB And x.ETD <= s.ETD Or s.ETB >= x.ETB And s.ETB <= x.ETD) And x.BerthID = s.BerthID And x.ScheduleID <> s.ScheduleID And x.Flag = False).Count <> 0 Then
-                    UpdateSchedule.Msg = fgMsgOut("EBP003", "行 " + iCount.ToString)
-                    UpdateSchedule.Status = "failed"
-                    Exit Function
-                End If
             Next
 
             For Each s In tSchedule
@@ -205,7 +210,7 @@ Public Class VesselScheduleList
     ''' <param name="tSchedule"></param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    <WebMethod()>
+                       <WebMethod()>
     Public Shared Function PrintSchedule(tSchedule As List(Of TableSchedule)) As MyResult
         PrintSchedule = New MyResult
         PrintSchedule.Status = "failed"
@@ -232,13 +237,13 @@ Public Class VesselScheduleList
             For Each s In tSchedule
                 iCount += 1
 
-                If tSchedule.Where(Function(x) (x.ETB >= s.ETB And x.ETB <= s.ETD Or x.ETD >= s.ETB And x.ETD <= s.ETD Or s.ETB >= x.ETB And s.ETB <= x.ETD) And x.BerthID = s.BerthID And x.ScheduleID <> s.ScheduleID).Count <> 0 Then
+                If tSchedule.Where(Function(x) (x.ETB >= s.ETB And x.ETB <= s.ETD Or x.ETD >= s.ETB And x.ETD <= s.ETD Or s.ETB >= x.ETB And s.ETB <= x.ETD) And x.BerthID= s.BerthID And x.ScheduleID <> s.ScheduleID).Count <> 0 Then
                     PrintSchedule.Msg = "登録時にテーブル表示にいくつかの矛盾する日付があります. 行 " + iCount.ToString
                     PrintSchedule.Status = "failed"
                     Exit Function
                 End If
 
-                If dbtSchedule.Where(Function(x) (x.ETB >= s.ETB And x.ETB <= s.ETD Or x.ETD >= s.ETB And x.ETD <= s.ETD Or s.ETB >= x.ETB And s.ETB <= x.ETD) And x.BerthID = s.BerthID And x.ScheduleID <> s.ScheduleID And x.Flag = False).Count <> 0 Then
+                If dbtSchedule.Where(Function(x) (x.ETB >= s.ETB And x.ETB <= s.ETD Or x.ETD >= s.ETB And x.ETD <= s.ETD Or s.ETB >= x.ETB And s.ETB <= x.ETD) And x.BerthID= s.BerthID And x.ScheduleID <> s.ScheduleID And x.Flag = False).Count <> 0 Then
                     PrintSchedule.Msg = fgMsgOut("EBP003", "行 " + iCount.ToString)
                     PrintSchedule.Status = "failed"
                     Exit Function
@@ -316,8 +321,8 @@ Public Class VesselScheduleList
     ''' <param name="tSchedule"></param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    <WebMethod()>
-    Public Shared Function DeleteSchedule(tSchedule As List(Of tSchedule)) As MyResult
+                                                           <WebMethod()>
+    Public Shared Function DeleteSchedule(tSchedule As List(Of BerthPlan.tSchedule)) As MyResult
         DeleteSchedule = New MyResult
         Try
             'Check Session
@@ -336,8 +341,8 @@ Public Class VesselScheduleList
 
             For Each s In tSchedule
                 Dim DSchedule = (From c In db.tSchedule
-                        Where c.ScheduleID = s.ScheduleID And c.Flag = False
-                        Select c).FirstOrDefault()
+                                 Where c.ScheduleID = s.ScheduleID And c.Flag = False
+                                 Select c).FirstOrDefault()
                 DSchedule.UpdPGID = "VesselScheduleList"
                 DSchedule.UpdTime = Date.Now
                 DSchedule.UpdUserID = Auth.userID

@@ -10,15 +10,19 @@
 Imports System
 Imports System.Collections.Generic
 
-Partial Public Class tBoardView
-    Public Property BoardViewID As Integer
-    Public Property UserID As Integer
-    Public Property BoardID As Integer
-    Public Property IsChecked As Boolean
-    Public Property UpdTime As Date
-    Public Property UpdUserID As String
-    Public Property UpdPGID As String
-    Public Property TimeStamp As Byte()
-    Public Property Flag As Boolean
+Namespace BerthPlan
 
-End Class
+    Partial Public Class tBoardView
+        Public Property BoardViewID As Integer
+        Public Property UserID As Integer
+        Public Property BoardID As Integer
+        Public Property IsChecked As Boolean
+        Public Property UpdTime As Date
+        Public Property UpdUserID As String
+        Public Property UpdPGID As String
+        Public Property TimeStamp As Byte()
+        Public Property Flag As Boolean
+    
+    End Class
+
+End Namespace

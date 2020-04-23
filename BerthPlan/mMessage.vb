@@ -10,13 +10,17 @@
 Imports System
 Imports System.Collections.Generic
 
-Partial Public Class mMessage
-    Public Property ID As Integer
-    Public Property MessageID As String
-    Public Property UpdTime As Date
-    Public Property UpdUserID As String
-    Public Property UpdUPGID As String
-    Public Property TimeStamp As Byte()
-    Public Property MessageContent As String
+Namespace BerthPlan
 
-End Class
+    Partial Public Class mMessage
+        Public Property ID As Integer
+        Public Property MessageID As String
+        Public Property UpdTime As Date
+        Public Property UpdUserID As String
+        Public Property UpdUPGID As String
+        Public Property TimeStamp As Byte()
+        Public Property MessageContent As String
+    
+    End Class
+
+End Namespace

@@ -10,24 +10,28 @@
 Imports System
 Imports System.Collections.Generic
 
-Partial Public Class tSchedule
-    Public Property ScheduleID As Integer
-    Public Property VesselCD As String
-    Public Property VoyageNo As String
-    Public Property BerthID As Integer
-    Public Property ApplicantCD As String
-    Public Property PilotCD As String
-    Public Property PilotGuide As Boolean
-    Public Property Tag As Boolean
-    Public Property LineBoat As Boolean
-    Public Property ETA As Date
-    Public Property ETB As Date
-    Public Property ETD As Date
-    Public Property ShipFace As Boolean
-    Public Property UpdTime As Date
-    Public Property UpdUserID As String
-    Public Property UpdPGID As String
-    Public Property TimeStamp As Byte()
-    Public Property Flag As Boolean
+Namespace BerthPlan
 
-End Class
+    Partial Public Class tSchedule
+        Public Property ScheduleID As Integer
+        Public Property VesselCD As String
+        Public Property VoyageNo As String
+        Public Property BerthID As Integer
+        Public Property ApplicantCD As String
+        Public Property PilotCD As String
+        Public Property PilotGuide As Boolean
+        Public Property Tag As Boolean
+        Public Property LineBoat As Boolean
+        Public Property ETA As Date
+        Public Property ETB As Date
+        Public Property ETD As Date
+        Public Property ShipFace As Boolean
+        Public Property UpdTime As Date
+        Public Property UpdUserID As String
+        Public Property UpdPGID As String
+        Public Property TimeStamp As Byte()
+        Public Property Flag As Boolean
+    
+    End Class
+
+End Namespace

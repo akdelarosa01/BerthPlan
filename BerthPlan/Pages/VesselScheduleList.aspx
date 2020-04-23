@@ -78,6 +78,58 @@
         </div>
     </section>
 
+    <%--Modal--%>
+    <div class="modal fade" id="ListConflictModal" role="dialog" data-backdrop="static">
+	    <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+			    <div class="modal-header">
+				    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					    <span aria-hidden="true">&times;</span></button>
+				    <h4 class="modal-title" id="msgTitle">船舶スケジュールの矛盾日</h4>
+			    </div>
+                
+			    <div class="modal-body">
+                    <div class="row">
+                        <muc:BerthControl runat="server" ID="BerthID"/>
+                        <div class="col-md-12">
+                            <h5>船のスケジュールはまだ保存されていませんが、準備中です</h5>
+                            <table id="tblNewListConflictModal" class="table table-condensed table-striped table-bordered" width="100%">
+                                <thead>
+                                    <tr class="info">
+                                        <th>VesselNo</th>
+                                        <th>船名</th>
+                                        <th>ETA</th>
+                                        <th>ETB</th>
+                                        <th>ETD</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+
+                        <div class="col-md-12">
+                            <h5>船はすでにバースで予定されています</h5>
+                            <table id="tblSaveListConflictModal" class="table table-condensed table-striped table-bordered" width="100%">
+                                <thead>
+                                    <tr class="info">
+                                        <th>VoyageNo</th>
+                                        <th>船名</th>
+                                        <th>ETA</th>
+                                        <th>ETB</th>
+                                        <th>ETD</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+			    </div>
+
+			    <div class="modal-footer">
+				    <button type="button" class="btn btn-darkgrey pull-right btn-flat btn-sm" data-dismiss="modal">Close</button>
+			    </div>
+		    </div>
+	    </div>
+    </div>
+
 </asp:Content>
 
 

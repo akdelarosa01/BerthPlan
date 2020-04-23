@@ -4,7 +4,7 @@ Imports BerthPlan.GlobalFunction
 Public Class ChangePassword
     Inherits System.Web.UI.Page
 
-    Public Shared db As BerthPlanEntities = New BerthPlanEntities()
+    Public Shared db As BerthPlan.BerthPlanEntities = New BerthPlan.BerthPlanEntities
 
 #Region "Event"
 

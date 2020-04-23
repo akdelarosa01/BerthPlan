@@ -69,6 +69,16 @@ $(function () {
                 frmData.append($('#hdUserID').attr('id'), $('#hdUserID').val());
                 frmData.append($('#hdUpdTime').attr('id'), $('#hdUpdTime').val());
 
+                var companyIds = [];
+                var table = $('#tblCompany').DataTable();
+                for (var x = 0; x < table.context[0].aoData.length; x++) {
+                    if (table.context[0].aoData[x].anCells[0].firstChild.checked == true) {
+                        companyIds.push(table.context[0].aoData[x].anCells[0].firstChild.attributes['data-id'].value)
+                    }
+                }
+
+                frmData.append("CompanyIDs", companyIds);
+
                 for (var i = 0; i < fileDataHolder.length; i++) {
                     frmData.append(fileDataHolder[i].key, fileDataHolder[i].data);
                 }
@@ -86,7 +96,7 @@ $(function () {
                             FileData = {};
                             FileTableData = [];
                             fileDataHolder = [];
-                            flGetFileData(($('#txtBoardID').val() == "") ? 0 : $('#txtBoardID').val());
+                            
                             clear('.clear');
                             flBulletinDatatable();
 
@@ -102,6 +112,9 @@ $(function () {
                             msg(response.msg, 'failed')
                             frmData = new FormData();
                         }
+
+                        flGetFileData(($('#txtBoardID').val() == "") ? 0 : $('#txtBoardID').val());
+                        flGetCompanies(($('#txtBoardID').val() == "") ? 0 : $('#txtBoardID').val());
 
                     },
                     xhr: function () {
@@ -128,6 +141,7 @@ $(function () {
                         $("#MainContent_fileAttachment").val("");
                         $(':file').parents('.input-group').find(':text').val("ファイルを選択してください。");
                         flPageViewState();
+                        flGetCompanies(($('#txtBoardID').val() == "") ? 0 : $('#txtBoardID').val());
                         HideLoading();
                         msg(response.responseJSON.msg, response.responseJSON.status);
 
@@ -523,6 +537,8 @@ $(function () {
                 $('#hdStatus').val("EDIT");
 
                 flGetFileData(data.BoardID);
+                flGetCompanies(data.BoardID);
+
                 $(':file').parents('.input-group').find(':text').val("ファイルを選択してください。");
                 $('#MainContent_FileAttachment').val("");
 
@@ -583,6 +599,7 @@ function flPageInit() {
     flPageViewState();
     flBulletinDatatable();
     flGetFileData(0);
+    flGetCompanies(0);
 
     $('.hide').each(function (i, x) {
         $(this).css('display', 'none');
@@ -1009,30 +1026,35 @@ function flGetCompanies(BoardID) {
             "data": data.d,
             "columnDefs": [
                 { "width": "5%", "targets": [0] },
-                { "className": "text-center custom-middle-align td-checkbox", "targets": [0] },
+                { "className": "td-checkbox", "targets": [0] },
                 { "targets": 0, "sortable": false, "orderable": false },
             ],
             "language": dataTableLanguageVariable(),
             "sDom": "rtipl",
             "lengthChange": false,
             "searching": false,
-            "order": [[3, "desc"]],
+            "order": [[1, "desc"]],
             "processing": true,
             "responsive": true,
+            "pageLength": 5,
             "columns": [
-                { data: "UserID", width: "20%" },
-                { data: "UserName", width: "30%" },
-                { data: "IsChecked", width: "20%" },
                 {
                     data: function (data) {
-                        return ParseDate(data.UpdTime)
-                    }, width: "30%"
+                        var checked = "";
+
+                        if (typeof (data.BoardID) !== "undefined" && data.BoardID !== "") {
+                            checked = "checked";
+                        }
+
+                        return '<input type="checkbox" data-id="' + data.ID + '" class="checkCompanyItem" '+checked+' />';
+                    }, sortable: false, orderable: false, width: "5%"
                 },
+                { data: "ApplicantCD", width: "20%" },
+                { data: "ApplicantName", width: "75%" }
             ],
             "createdRow": function (row, data, dataIndex) {
-                if (data.IsChecked === '○') {
+                if (typeof (data.BoardID) !== "undefined" && data.BoardID !== "") {
                     $(row).css('background-color', '#8abaae');
-                    //$(row).css('color', '#fff');
                 }
             }
         });
